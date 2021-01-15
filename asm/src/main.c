@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
             ft_strdel(&lem->input);
             lem->input = tmp;
             */
-            write(fp, 0x24, 1);
+            fwrite(buf, 9, 1, fp);//first name
             printf(buf);
         }
         /*
