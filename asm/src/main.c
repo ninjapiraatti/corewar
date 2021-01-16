@@ -5,39 +5,21 @@
 
 int	main(int argc, char **argv)
 {
-    char    *file;
-    int     fd;
-    //int     fdr;
-    int     i;
-    char    buf[9];
+	char	*file;
+	int		fd;
+	int		fdr;
+	int		i;
+	char	buf[9];
 
-    if (argc > 1)
-    {
-        FILE *fp;
-        //file = argv[argc - 1];
-        fd = open(argv[1], O_RDONLY);
-        fp = fopen ("output.cor","w");
-        printf("fd is %d", fd);
-        while ((i = read(fd, buf, 8)) > 0)
-        {
-            /*
-            buf[i] = '\0';
-            if (lem->input == NULL)
-                lem->input = ft_strnew(0);
-            tmp = ft_strjoin(lem->input, buf);
-            ft_strdel(&lem->input);
-            lem->input = tmp;
-            */
-            fwrite(buf, 9, 1, fp);//first name
-            printf(buf);
-        }
-        /*
-        if (file[ft_strlen(file) - 1] == 's' && file[ft_strlen(file) - 2] == '.')
-        {
-            printf("Lollotiloo");
-        }
-        */
-    }
+	if (argc > 1)
+	{
+		fd = open(argv[1], O_RDONLY);
+		fdr = open("output.cor", O_RDWR);
+		while ((i = read(fd, buf, 8)) > 0)
+		{
+			write(fdr, &buf, 9);
+			write(1, &buf, 9);
+		}
+	}
 	return (0);
 }
-
