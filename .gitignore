@@ -1,5 +1,7 @@
 # Project specific
 vm_champs
+*.DS_Store
+*.stackdump
 # Prerequisites
 *.d
 
