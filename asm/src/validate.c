@@ -30,31 +30,52 @@ char	*ft_strcdup(const char *str, char c)
 	return (dup);
 }
 
-int		validate_name(char **file, int i)
+char	*ft_strcdup_2d(char **file, int i, int j, char c)
 {
-	int		j;
-	char	*name;
+	char	*dup;
+	char	*new;
 
-	j = ft_strlen(NAME_CMD_STRING);
-	while (file[i][j] != '\0' && ft_isspace(file[i][j]))
-		j++;
-	if (file[i][j] != '"')
-		error_management("error in champion name");
-	j++;
-	name = ft_strcdup(&file[i][j], '"');
-	j += ft_strlen(name);
+	dup = ft_strcdup(&file[i][j], c);
+	j += ft_strlen(dup);
 	while (file[i][j] == '\0')
 	{
 		i++;
-		name = free_strjoin(name, ft_strdup("\n"));
-		name = free_strjoin(name, ft_strcdup(file[i], '"'));
-		j = ft_strlen(name) - j - 1;
-		ft_printf("goes to two lines\n");
+		dup = free_strjoin(dup, ft_strdup("\n"));
+		new = ft_strcdup(file[i], '"');
+		dup = free_strjoin(dup, new);
+		j = ft_strlen(new);
 	}
-	if (ft_strlen(name) > PROG_NAME_LENGTH)
-		error_management("champion name length exceeded");
-	ft_printf("name: %s\n", name);
+	return (dup);
+}
+
+int		validate_st(char **file, int i, char *cmd_string, int length)
+{
+	int		j;
+	char	*str;
+
+	j = ft_strlen(cmd_string);
+	while (file[i][j] != '\0' && ft_isspace(file[i][j]))
+		j++;
+	if (file[i][j] != '"')
+		error_management("error in champion statement");
+	j++;
+	str = ft_strcdup_2d(file, i, j, '"');
+	if ((int)ft_strlen(str) > length)
+		error_management("champion statement length exceeded");
+	ft_printf("statement: '%s'\n", str);
 	return (i);
+}
+
+void	remove_comment(char *file)
+{
+	int	i;
+
+	i = 0;
+	while (file[i] != '\0')
+	{
+		file[i] = ' ';
+		i++;
+	}
 }
 
 void	validate_file(t_asm *assm)
@@ -66,13 +87,26 @@ void	validate_file(t_asm *assm)
 	i = 0;
 	while (file[i] != NULL)
 	{
-		if (ft_strncmp(file[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
-			i = validate_name(file, i);
-		// else if (ft_strncmp(file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
-		// 	validate_comment();
+		ft_printf("%s\n", file[i]);
 		i++;
-
 	}
-	// validate_header(assm);
-
+	i = 0;
+	ft_printf("\n\n");
+	while (file[i] != NULL)
+	{
+		if (ft_strchr(file[i], '#') != NULL)
+			remove_comment(ft_strchr(file[i], '#'));
+		if (ft_strncmp(file[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
+			i = validate_st(file, i, NAME_CMD_STRING, PROG_NAME_LENGTH);
+		else if (ft_strncmp(file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
+			i = validate_st(file, i, COMMENT_CMD_STRING, COMMENT_LENGTH);
+		i++;
+	}
+	i = 0;
+	ft_printf("\n\n");
+	while (file[i] != NULL)
+	{
+		ft_printf("%s\n", file[i]);
+		i++;
+	}
 }
