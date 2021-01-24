@@ -13,6 +13,17 @@
 
 # define INIT_FLAGS -10000
 # define SIZE_MAGIC_NUM 4
+
+/*
+** Simple struct for storing command line argc and **argv
+*/
+
+typedef struct  s_avac
+{
+    int     ac;
+    char    **av;
+}               t_avac;
+
 /*
 ** Struct for all information concerning players and
 ** command-line arguments.
@@ -22,8 +33,6 @@
 
 typedef struct  s_pl
 {
-    int         ac;
-    char        **av;
     char        *pl_order[MAX_PLAYERS + 1];
     int         pl_num;
     header_t    **h_info;
@@ -42,7 +51,19 @@ typedef struct  s_flag
     int dump;
 }               t_flag;
 
+/*
+** Struct for storing fighting arena related data.
+*/
+
+typedef struct  s_arena
+{
+    int arena[MEM_SIZE];
+
+};
+
+
 int             parse_champ_files(t_pl *players);
+void            introduce_players(t_pl *players);
 
 /*
 ** vm_error.c
@@ -54,7 +75,7 @@ int             vm_error(char *str);
 ** vm_tools.c
 */
 
-void            init_structs(t_pl *players, t_flag *flags, int ac, char **av);
+void            init_structs(t_pl *players, t_flag *flags);
 header_t        **prepare_header_info_array(int pl_num);
 void            ft_revbytes(char *bytes, size_t size);
 int             ft_str_is_empty(char *str, int size);
@@ -63,7 +84,7 @@ int             ft_str_is_empty(char *str, int size);
 ** parse_flags_player_order.c
 */
 
-void            parse_flags_player_order(t_pl *players, t_flag *flags);
+void            parse_flags_player_order(t_pl *players, t_flag *flags, t_avac *avac);
 
 /*
 ** read_from_champ_files.c

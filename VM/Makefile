@@ -16,7 +16,7 @@ SRC_NAME = main.c \
 parse_flags_player_order.c \
 read_from_champ_files.c \
 vm_error.c \
-tools.c \
+vm_tools.c \
 
 
 SRC_DIR = src/

@@ -138,8 +138,6 @@ char            *read_champ_executable(int fd, unsigned int prog_size)
             vm_error("Error! Problem reading champ executable code");
         }
     }
-    ft_printf("RET = %d\n", ret);   //check remove
-    ft_printf("COunt = %d\n", count); //check remove
     buf[count] = '\0';
     if (count != prog_size)
     {

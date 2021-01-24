@@ -58,24 +58,25 @@ static void double_check_player_order(char **order, int player_num)
 ** Returns the current index i.
 */
 
-static int     parse_flags(int i, t_flag *fl, t_pl *ps)
+static int     parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
 {
     int     pos;
     char    **av;
 
     pos = 0;
-    av = ps->av;
+    av = avac->av;
     if (!ft_strcmp(av[i], "-dump"))
     {
         if (fl->dump != INIT_FLAGS)
             vm_error("Error, too many -dump flags");
-        if (++i >= ps->ac || ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
+        if (++i >= avac->ac ||
+            ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
             vm_error("Error, -dump flag must be followed by a number");
     }
     else if (!ft_strcmp(av[i], "-n"))
     {
         fl->n[0] = 1;
-        if (++i + 1 >= ps->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))), 
+        if (++i + 1 >= avac->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))), 
             av[i]) || pos < 1 || fl->n[pos] != INIT_FLAGS || pos > MAX_PLAYERS)
             vm_error("Error, invalid usage of -n flag");
         i++;
@@ -92,22 +93,22 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps)
 ** 'parse_flags'.
 */
 
-void     parse_flags_player_order(t_pl *players, t_flag *flags)
+void     parse_flags_player_order(t_pl *players, t_flag *flags, t_avac *avac)
 {
     int i;
 
     i = 1;
-    while (i < players->ac)
+    while (i < avac->ac)
     {
-        if (ft_strstr(players->av[i], ".cor\0"))
+        if (ft_strstr(avac->av[i], ".cor\0"))
         {
             if (players->pl_num + 1 > MAX_PLAYERS)
                 vm_error("Error, too many players");
             players->pl_num++;
-            assign_player_order(players, players->av[i], 0);
+            assign_player_order(players, avac->av[i], 0);
         }
-        else if (players->av[i][0] == '-')
-            i = parse_flags(i, flags, players);
+        else if (avac->av[i][0] == '-')
+            i = parse_flags(i, flags, players, avac);
         else
             vm_error("Error, files must be .cor -files");
         i++;
