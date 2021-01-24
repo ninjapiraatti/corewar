@@ -12,7 +12,6 @@ static void     assign_player_order(t_pl *ps, char *champion, int pos)
 {
     int i;
 
-
     i = 1;
     while (ps->pl_order[i])
         i++;
@@ -25,13 +24,29 @@ static void     assign_player_order(t_pl *ps, char *champion, int pos)
         {
             while (i > pos)
             {
-                ft_strswap(ps->pl_order[i], ps->pl_order[i - 1]);
+                ft_strswap(&ps->pl_order[i], &ps->pl_order[i - 1]);
                 i--;
             }
         }
         if (!(ps->pl_order[pos]))
             ps->pl_order[pos] = champion;   
     }    
+}
+
+static void double_check_player_order(char **order, int player_num)
+{
+    int i;
+
+    i = 1;
+    while (i < MAX_PLAYERS)
+    {
+        if (order[i])
+        {
+            if (i > player_num)
+                vm_error("Error, invalid -n flag implementation!");
+        }
+        i++;
+    }
 }
 
 /*
@@ -48,20 +63,19 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps)
     int     pos;
     char    **av;
 
+    pos = 0;
     av = ps->av;
     if (!ft_strcmp(av[i], "-dump"))
     {
         if (fl->dump != INIT_FLAGS)
             vm_error("Error, too many -dump flags");
-        i++;
-        if (i >= ps->ac || ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
+        if (++i >= ps->ac || ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
             vm_error("Error, -dump flag must be followed by a number");
     }
     else if (!ft_strcmp(av[i], "-n"))
     {
         fl->n[0] = 1;
-        i++;
-        if (i + 1 >= ps->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))), 
+        if (++i + 1 >= ps->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))), 
             av[i]) || pos < 1 || fl->n[pos] != INIT_FLAGS || pos > MAX_PLAYERS)
             vm_error("Error, invalid usage of -n flag");
         i++;
@@ -78,14 +92,14 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps)
 ** 'parse_flags'.
 */
 
-void     parse_flags_players(t_pl *players, t_flag *flags)
+void     parse_flags_player_order(t_pl *players, t_flag *flags)
 {
     int i;
 
-    i = 0;
+    i = 1;
     while (i < players->ac)
     {
-        if (ft_strchr(players->av[i], ".cor\0"))
+        if (ft_strstr(players->av[i], ".cor\0"))
         {
             if (players->pl_num + 1 > MAX_PLAYERS)
                 vm_error("Error, too many players");
@@ -98,4 +112,5 @@ void     parse_flags_players(t_pl *players, t_flag *flags)
             vm_error("Error, files must be .cor -files");
         i++;
     }
+    double_check_player_order(players->pl_order, players->pl_num);
 }
