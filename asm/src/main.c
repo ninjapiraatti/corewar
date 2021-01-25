@@ -57,5 +57,6 @@ int	main(int argc, char **argv)
 	//validate_file(assm); // validate header, parse comments, validate instructions.
 	get_name_and_comment(assm);
 	lexical_analysis(assm);
+	outputbin(assm);
 	return (0);
 }
