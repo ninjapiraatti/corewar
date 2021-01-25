@@ -6,13 +6,13 @@
 
 # define OP_CODE_COUNT 16
 
-typedef struct	s_op_table
+typedef struct		s_op_table
 {
-	char		*op_name;
-	int			op_code;
-	int			t_dir_size;
-	int			arg_type_code;
-}				t_op_table;
+	char			*op_name;
+	unsigned int	op_code;
+	int				t_dir_size;
+	int				arg_type_code;
+}					t_op_table;
 
 static const	t_op_table op_table[OP_CODE_COUNT] =
 {
