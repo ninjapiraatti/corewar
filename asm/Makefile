@@ -1,7 +1,7 @@
 FILE = asm
 
 SRC = src/main.c src/help_functions.c src/header.c src/lexical_analysis.c \
-src/get_labels.c ../get_next_line/get_next_line.c ../ft_printf/libftprintf.a
+src/get_labels.c ../ft_printf/libftprintf.a
 
 INC = /includes/asm.h
 

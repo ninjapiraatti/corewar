@@ -3,7 +3,6 @@
 #include <fcntl.h>
 #include "op.h"
 #include "../../ft_printf/includes/ft_printf.h"
-#include "../../get_next_line/get_next_line.h"
 
 typedef struct			s_statement
 {
