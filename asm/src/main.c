@@ -1,5 +1,16 @@
 #include "../includes/asm.h"
 
+void	print_2d_array(char **arr)
+{
+	int		i;
+
+	i = -1;
+	if (!arr)
+		return ;
+	while (arr[++i])
+		ft_printf("%s\n", arr[i]);
+}
+
 t_asm	*init_asm()
 {
 	t_asm	*assm;
@@ -46,6 +57,5 @@ int	main(int argc, char **argv)
 	//validate_file(assm); // validate header, parse comments, validate instructions.
 	get_name_and_comment(assm);
 	lexical_analysis(assm);
-	outputbin(assm);
 	return (0);
 }

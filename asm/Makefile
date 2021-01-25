@@ -2,10 +2,16 @@ FILE = asm
 
 SRC = src/main.c \
 src/help_functions.c \
-src/header.c src/lexical_analysis.c \
+src/header.c \
+src/lexical_analysis.c \
 src/get_labels.c \
 src/outputbin.c \
-../ft_printf/libftprintf.a
+../ft_printf/libftprintf.a \
+src/get_statement.c \
+src/get_statement_size.c \
+src/get_args.c \
+src/validate.c \
+src/validate_utils.c
 
 INC = /includes/asm.h
 
@@ -37,7 +43,7 @@ re: fclean all
 # 		src/header.c \
 # 		src/lexical_analysis.c \
 # 		src/get_labels.c \
-# 		src/validate.c
+#
 
 # CFLAGS = -Wall -Wextra -Werror
 
