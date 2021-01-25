@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:37:41 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/06 14:18:43 by tlouekar         ###   ########.fr       */
+/*   Updated: 2020/07/08 17:50:59 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_PRINTF_H
 
 # include "../libft/includes/libft.h"
-# include <fcntl.h>
 # include <stdarg.h>
 # include <stdint.h>
 
@@ -29,7 +28,8 @@ typedef	struct	s_printf
 	int			hash;
 	int			dot;
 	int			prc;
-	int			star;
+	int			starlen;
+	int			starprc;
 	int			fieldwidth;
 	int			len;
 	int			l;
@@ -70,7 +70,11 @@ char			*structurize(t_printf *data, char *ptr);
 t_printf		*initialize(char *ptr);
 char			*ftoa(long double value, t_printf *data);
 char			*helper_itoa_base(intmax_t value, int base, t_printf *data);
+char			*helper_itoa_base_u(uintmax_t value, int base, t_printf *data);
 void			helper_length_flags(char *str, t_printf *data);
+void			handle_length(t_printf *data, va_list args);
+void			handle_length_unsigned(t_printf *data, va_list args);
+void			handle_stars(t_printf *data, va_list args);
 void			helper_print_padding(t_printf *data);
 void			helper_plusminus(t_printf *data);
 void			helper_spaces(t_printf *data);

@@ -1,0 +1,3 @@
+[submodule "ft_printf/libft"]
+	path = ft_printf/libft
+	url = https://github.com/ninjapiraatti/libft
