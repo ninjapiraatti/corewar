@@ -1,5 +1,16 @@
 #include "../includes/asm.h"
 
+void	print_2d_array(char **arr)
+{
+	int		i;
+
+	i = -1;
+	if (!arr)
+		return ;
+	while (arr[++i])
+		ft_printf("%s\n", arr[i]);
+}
+
 t_asm	*init_asm()
 {
 	t_asm	*assm;

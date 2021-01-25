@@ -34,13 +34,17 @@ t_statement	*new_statement(t_asm *assm)
 	if (!(statement = (t_statement*)malloc(sizeof(t_statement))))
 		error_management("Malloc error");
 	statement->label = get_label(assm);
-	if (statement->label)
-		for (int i = 0;statement->label[i];i++)
-			ft_printf("LABEL: %s\n", statement->label[i]);
-	//statement->code = get_statement_code(assm);
-	if (statement->code == 0)
+	statement->instruction = get_instruction(assm);
+	statement->code = get_instruction_code(statement->instruction);
+	if (!statement->instruction)
 		return (statement);
-	//get_statement_arguments(assm, statement);
+	get_statement_arguments(statement, assm->file[assm->index], 0);
+	statement->size = get_statement_size(statement);
+	ft_printf("\n	STATEMENT\nLABELS:\n");
+	print_2d_array(statement->label);
+	ft_printf("INSTRUCTION:\n%s\nINSTRUCTION CODE:\n%i\nARGUMENTS:\n", statement->instruction, statement->code);
+	print_2d_array(statement->args);
+	ft_printf("STATEMENT SIZE:\n%i\n", statement->size);
 	return (statement);
 }
 
@@ -58,7 +62,6 @@ void		lexical_analysis(t_asm *assm)
 	{
 		if (contains_statement(assm->file[assm->index]))
 		{
-			ft_printf("statement: %s\n", assm->file[assm->index]);
 			if (!assm->statements)
 			{
 				statements = new_statement(assm);

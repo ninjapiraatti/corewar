@@ -74,3 +74,30 @@ char	*free_strjoin(char *s1, char *s2)
 	free(s2);
 	return (str);
 }
+
+char	*free_strtrim(char *s)
+{
+	size_t	i;
+	size_t	start;
+	size_t	len;
+	char	*str;
+
+	i = 0;
+	len = 0;
+	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+		i++;
+	start = i;
+	i = ft_strlen(s) - 1;
+	while ((s[i] == ' ' || s[i] == '\t' || s[i] == '\n') && i != 0)
+		i--;
+	if (i != 0)
+		len = i - start + 1;
+	str = ft_strnew(len);
+	if (!str)
+		return (NULL);
+	i = -1;
+	while (++i < len)
+		str[i] = *(s + (start + i));
+	free(s);
+	return (str);
+}
