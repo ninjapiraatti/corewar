@@ -34,4 +34,7 @@ char					**resize_2d_array(char **arr, char *str);
 char					**get_label(t_asm *assm);
 char					*free_strjoin(char *s1, char *s2);
 
+void					remove_comment(char *file);
+void					print_file(char **file);
+
 #endif
