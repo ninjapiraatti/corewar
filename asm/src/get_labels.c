@@ -28,4 +28,5 @@ char	**get_label(t_asm *assm)
 		j = 0;
 		assm->index++;
 	}
+	return (NULL);
 }

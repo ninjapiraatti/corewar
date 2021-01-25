@@ -30,5 +30,6 @@ void					error_management(char *str);
 char					**resize_2d_array(char **arr, char *str);
 char					**get_label(t_asm *assm);
 char					*free_strjoin(char *s1, char *s2);
+void					outputbin(t_asm *assm);
 
 #endif
