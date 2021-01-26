@@ -86,7 +86,7 @@ int		validate_header(t_asm *assm)
 }
 
 /*
-** Removes comments from after header.
+** Removes comments from file
 */
 
 void	validate_file(t_asm *assm)
@@ -96,8 +96,6 @@ void	validate_file(t_asm *assm)
 
 	file = assm->file;
 	i = validate_header(assm);
-	ft_printf("\ni: %d\n\n", i);
-	print_file(file);
 	while (file[i] != NULL)
 	{
 		if (ft_strchr(file[i], '#') != NULL)

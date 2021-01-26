@@ -54,8 +54,9 @@ int	main(int argc, char **argv)
 		error_management("Error, wrong file type.");
 	assm = init_asm();
 	assm->file = read_file(argv[argc - 1]);
-	//validate_file(assm); // validate header, parse comments, validate instructions.
+	validate_file(assm);
 	get_name_and_comment(assm);
 	lexical_analysis(assm);
+	outputbin(assm);
 	return (0);
 }
