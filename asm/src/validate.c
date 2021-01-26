@@ -34,8 +34,8 @@ int		validate_st(char **file, int i, char *cmd_string, int max_length)
 	j++;
 	while (file[i][j] != '\0' && ft_isspace(file[i][j]))
 		j++;
-	if (file[i][j] == '#')
-		remove_comment(ft_strchr(file[i], '#'));
+	if (ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
+		remove_comment(ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
 	else if (file[i][j] != '\0')
 		error_management("syntax error in statement");
 	return (i + 1);
@@ -75,14 +75,27 @@ int		validate_header(t_asm *assm)
 			i = validate_st(assm->file, i, COMMENT_CMD_STRING, COMMENT_LENGTH);
 			comment++;
 		}
-		else if (assm->file[i][j] == '#')
-			i++;
+		else if (ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
+			remove_comment(ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
 		else
 			error_management("error in header");
 	}
 	if (name != 1 || comment != 1)
 		error_management("duplicate statement");
 	return (i);
+}
+
+void	validate_instructions(t_asm *assm, int i)
+{
+	int	j;
+
+	j = 0;
+	while (assm->file[i] != NULL)
+	{
+		if (ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
+			remove_comment(ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
+		i++;
+	}
 }
 
 /*
@@ -96,10 +109,5 @@ void	validate_file(t_asm *assm)
 
 	file = assm->file;
 	i = validate_header(assm);
-	while (file[i] != NULL)
-	{
-		if (ft_strchr(file[i], '#') != NULL)
-			remove_comment(ft_strchr(file[i], '#'));
-		i++;
-	}
+	validate_instructions(assm, i);
 }

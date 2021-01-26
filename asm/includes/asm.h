@@ -39,6 +39,7 @@ char					*free_strjoin(char *s1, char *s2);
 void					outputbin(t_asm *assm);
 
 void					remove_comment(char *file);
+char					*ft_str2chr(const char *s, int c, int h);
 void					print_file(char **file);
 char					*get_instruction(t_asm *assm);
 char					*free_strtrim(char *s);
