@@ -81,19 +81,75 @@ int		validate_header(t_asm *assm)
 			error_management("error in header");
 	}
 	if (name != 1 || comment != 1)
-		error_management("duplicate statement");
+		error_management("statement duplicate or missing");
 	return (i);
+}
+
+void	validate_arguments(char *file, int op)
+{
+	int	i;
+
+	i = 0;
+	while (file[i] != '\0' && ft_isspace(file[i]))
+		i++;
+}
+
+int		validate_instruction(char *file)
+{
+	int	i;
+	int	code;
+
+	code = -1;
+	i = 0;
+	while (file[i] != '\0' && ft_isspace(file[i]))
+		i++;
+	if (file[i] != '\0')
+	{
+		file = &file[i];
+		i = -1;
+		ft_printf("inst at %s\n", file);
+		while (++i < OP_CODE_COUNT)
+		{
+			ft_printf("matching %s and %s\n", op_table[i].op_name, file);
+			if (ft_strncmp(op_table[i].op_name, file, ft_strlen(op_table[i].op_name)) == 0)
+			{
+				ft_printf("matched with %s\n", op_table[i].op_name);
+				code = i;
+				validate_arguments(file + ft_strlen(op_table[i].op_name), code);
+				break ;
+				// check arguments & separators
+			}
+		}
+	}
+	return (code);
 }
 
 void	validate_instructions(t_asm *assm, int i)
 {
 	int	j;
 
-	j = 0;
 	while (assm->file[i] != NULL)
 	{
+		j = 0;
 		if (ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
 			remove_comment(ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
+		ft_printf("at %s\n", assm->file[i]);
+		while (assm->file[i][j] != '\0' && ft_isspace(assm->file[i][j]))
+			j++;
+		if (assm->file[i][j] != '\0' && validate_instruction(&assm->file[i][j]) == -1)
+		{
+			if (ft_strchr(LABEL_CHARS, assm->file[i][j]))
+			{
+				while (assm->file[i][j] != '\0' && ft_strchr(LABEL_CHARS, assm->file[i][j]))
+					j++;
+				if (assm->file[i][j] != LABEL_CHAR)
+					error_management("syntax error in instructions");
+				ft_printf("found label correctly\n");
+				validate_instruction(&assm->file[i][j + 1]);
+			}
+			else
+				error_management("syntax error in instructions");
+		}
 		i++;
 	}
 }
@@ -110,4 +166,5 @@ void	validate_file(t_asm *assm)
 	file = assm->file;
 	i = validate_header(assm);
 	validate_instructions(assm, i);
+	ft_printf("\n		~ validation successful ~\n");
 }

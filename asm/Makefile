@@ -22,7 +22,7 @@ all: $(FILE)
 $(FILE):
 	@echo "Compiling..."
 	@cd ../ft_printf && make re && cd ../asm
-	gcc -I $(INC) -o $(FILE) $(SRC)
+	@gcc -I $(INC) -o $(FILE) $(SRC)
 	@echo "Done."
 
 clean:

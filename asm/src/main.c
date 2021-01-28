@@ -55,8 +55,8 @@ int	main(int argc, char **argv)
 	assm = init_asm();
 	assm->file = read_file(argv[argc - 1]);
 	validate_file(assm);
-	get_name_and_comment(assm);
-	lexical_analysis(assm);
-	outputbin(assm);
+	// get_name_and_comment(assm);
+	// lexical_analysis(assm);
+	// outputbin(assm);
 	return (0);
 }
