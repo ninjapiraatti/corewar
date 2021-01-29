@@ -49,4 +49,10 @@ int						get_2d_array_size(char **arr);
 int						loop_label(char *line);
 int						get_instruction_code(char *instruction);
 int						get_statement_size(t_statement *statement);
+
+int						is_t_ind(char *file);
+int						is_t_dir(char *file);
+int						is_t_reg(char *file);
+int						is_label(char *str, int mode);
+
 #endif
