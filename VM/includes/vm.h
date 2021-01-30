@@ -24,6 +24,15 @@ typedef struct  s_avac
     char    **av;
 }               t_avac;
 
+
+enum    e_color 
+{ 
+    yellow, 
+    cyan, 
+    magenta, 
+    green 
+}; 
+
 /*
 ** Struct for all information concerning players and
 ** command-line arguments.
@@ -36,7 +45,7 @@ typedef struct  s_pl
     char        *pl_order[MAX_PLAYERS + 1];
     int         pl_num;
     header_t    **h_info;
-    char        **exec;
+    unsigned char   **exec;
 }               t_pl;
 
 /*
@@ -52,19 +61,33 @@ typedef struct  s_flag
 }               t_flag;
 
 /*
+** Mini struct for storing arena memory byte
+** and the possible corresponding color.
+*/
+
+typedef struct      s_arena
+{
+    unsigned char ar;
+    char          color[11];
+}                   t_arena;
+
+/*
 ** Struct for storing fighting arena related data.
 */
 
-typedef struct  s_arena
+typedef struct  s_game
 {
-    int arena[MEM_SIZE];
+    t_arena     arena[MEM_SIZE];
+    t_pl        *players;
 
-};
+}               t_game;
 
 
 int             parse_champ_files(t_pl *players);
 void            introduce_players(t_pl *players);
 
+
+void    place_players_in_mem(t_game *game, t_pl *pl);
 /*
 ** vm_error.c
 */
@@ -94,6 +117,19 @@ unsigned int    check_magic_number(int fd);
 void            read_champ_name(int fd, char *prog_name);
 unsigned int    check_champ_size(int fd);
 void            read_champ_comment(int fd, char *comment);
-char            *read_champ_executable(int fd, unsigned int prog_size);
+unsigned char   *read_champ_executable(int fd, int prog_size);
+
+/*
+** place_in_memory.c
+*/
+
+void    place_players_in_mem(t_game *game, t_pl *pl);
+void    add_color(char *color, int player_number);
+
+/*
+**  print_hex.c
+*/
+
+void    print_hex(t_arena *arena);
 
 # endif

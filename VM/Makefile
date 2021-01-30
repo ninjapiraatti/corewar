@@ -17,6 +17,8 @@ parse_flags_player_order.c \
 read_from_champ_files.c \
 vm_error.c \
 vm_tools.c \
+print_hex.c \
+place_in_memory.c \
 
 
 SRC_DIR = src/
