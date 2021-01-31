@@ -11,7 +11,9 @@ src/get_statement.c \
 src/get_statement_size.c \
 src/get_args.c \
 src/validate.c \
-src/validate_utils.c
+src/validate_utils.c \
+src/validate_instructions.c \
+src/validate_arguments.c
 
 INC = /includes/asm.h
 

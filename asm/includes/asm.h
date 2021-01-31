@@ -50,6 +50,7 @@ int						loop_label(char *line);
 int						get_instruction_code(char *instruction);
 int						get_statement_size(t_statement *statement);
 
+void					validate_instructions(t_asm *assm, int i);
 int						is_t_ind(char *file);
 int						is_t_dir(char *file);
 int						is_t_reg(char *file);
