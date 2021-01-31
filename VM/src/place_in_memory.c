@@ -21,36 +21,53 @@ void    add_color(char *color, int player_number)
 }
 
 /*
+** Puts the player's executable code into the arena (into the 'ar'-byte of the
+** struct) and sends the corresponding 'color'-string and the player's index
+** number to add_color(). Returns the amount of bytes written.
+*/
+
+int     player_to_arena(t_arena *start, unsigned char *code, int len, int index)
+{
+    int k;
+
+    k = 0;
+    while (k < len)
+    {
+        start[k].ar = code[k];
+        add_color(start[k].color, index);
+        k++;
+    }
+    return (k);
+}
+
+/*
 ** Divides the memory of the arena by the number of players
-** and places the executable code of each player in the
-** appropriate arena.ar bytes.
+** and sends sends each player's executable code and the appropriate
+** 'arena' -area to 'player_to_arena()'. Sets the empty memory
+** in between players to 0 (the 'ar'-byte) and sets each corresponding
+** 'color' -string to zero also.
 */
 
 void    place_players_in_mem(t_game *game, t_pl *pl)
 {
-    int per_pl;
-    int i;
-    int j;
-    unsigned int k;
+    int     per_pl;
+    int     i;
+    int     k;
+    t_arena *arena;
 
+    arena = game->arena;
     per_pl = MEM_SIZE / pl->pl_num;
     i = 0;
     while (i < pl->pl_num)
     {
-        j = i * per_pl;
-        k = -1;
-        while (++k < pl->h_info[i + 1]->prog_size)
-        {
-            game->arena[j].ar = pl->exec[i + 1][k];
-            add_color(game->arena[j].color, i);
-            j++;
-        }
+        k = i * per_pl;
+        k += player_to_arena(&arena[k], pl->exec[i + 1], pl->h_info[i + 1]->prog_size, i);
         i++;
-        while (j < i * per_pl)
+        while (k < i * per_pl)
         {
-            game->arena[j].ar = 0;
-            ft_bzero(game->arena[j].color, 11);
-            j++;
+            game->arena[k].ar = 0;
+            ft_bzero(game->arena[k].color, 11);
+            k++;
         }
     }
 }

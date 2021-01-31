@@ -63,7 +63,7 @@ int     main(int argc, char **argv)
     introduce_players(&players);
     place_players_in_mem(&game, &players);
     print_hex(game.arena);
-
+    create_first_carriages(&game, &players);
     return (0);
 }
 

@@ -24,15 +24,6 @@ typedef struct  s_avac
     char    **av;
 }               t_avac;
 
-
-enum    e_color 
-{ 
-    yellow, 
-    cyan, 
-    magenta, 
-    green 
-}; 
-
 /*
 ** Struct for all information concerning players and
 ** command-line arguments.
@@ -72,15 +63,55 @@ typedef struct      s_arena
 }                   t_arena;
 
 /*
+** Enum with a color for each player according to
+** the player's index number.
+*/
+
+enum    e_color 
+{ 
+    yellow, 
+    cyan, 
+    magenta, 
+    green 
+};
+
+enum e_carry {
+    false,
+    true
+}; // carry-flag
+
+
+typedef struct          s_carriage
+{
+    int                 id; // unique carriage number
+    enum e_carry        carry;
+    // code to _EXECUTE_OK
+    unsigned int        cycles_to_wait;// time to wait
+    //the number of bytes that will need to be "crossed" to get to the next statement
+    unsigned int        last_live;// when live was (index of cycle)
+    int                 regs[REG_NUMBER];
+    int                 color_id;   //maybe color of carriage
+    struct s_carriage   *next;
+}                       t_carriage;
+
+
+/*
 ** Struct for storing fighting arena related data.
 */
 
-typedef struct  s_game
+typedef struct      s_game
 {
-    t_arena     arena[MEM_SIZE];
-    t_pl        *players;
-
-}               t_game;
+    t_arena         arena[MEM_SIZE];
+    t_pl            *players;
+    enum e_color    colors;
+    t_carriage      *head; //linked list with list front add
+    int             id_last_live;//player last told he was alive
+    unsigned int    cycles;//cycles passed
+    //number of completed live statements for the last period
+    //cycles_to_die[CYCLES_TO_DIE]
+    //number of checks performed
+    int             car_num; //num of carriages
+}                   t_game;
 
 
 int             parse_champ_files(t_pl *players);
@@ -124,6 +155,7 @@ unsigned char   *read_champ_executable(int fd, int prog_size);
 */
 
 void    place_players_in_mem(t_game *game, t_pl *pl);
+int     player_to_arena(t_arena *start, unsigned char *code, int len, int index);
 void    add_color(char *color, int player_number);
 
 /*
@@ -132,4 +164,12 @@ void    add_color(char *color, int player_number);
 
 void    print_hex(t_arena *arena);
 
+/*
+** carriages.c
+*/
+
+void        initialize_registries(int *new_regs, int id, int *copy_regs);
+void	ft_add_carriage(t_carriage **alst, t_carriage *new);
+t_carriage  *create_carriage(int car_id, int player_id);
+void    create_first_carriages(t_game *game, t_pl *players);
 # endif
