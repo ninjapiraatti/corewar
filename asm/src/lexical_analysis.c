@@ -75,4 +75,5 @@ void		lexical_analysis(t_asm *assm)
 		}
 		assm->index++;
 	}
+	convert_labels(assm->statements, 0, 0);
 }

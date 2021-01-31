@@ -42,6 +42,7 @@ void					remove_comment(char *file);
 void					print_file(char **file);
 char					*get_instruction(t_asm *assm);
 char					*free_strtrim(char *s);
+void    				convert_labels(t_statement *tmp, int i, int count);
 
 int						get_arg_type(char *arg);
 int						get_2d_array_size(char **arr);

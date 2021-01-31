@@ -77,27 +77,27 @@ char	*free_strjoin(char *s1, char *s2)
 
 char	*free_strtrim(char *s)
 {
-	size_t	i;
-	size_t	start;
-	size_t	len;
-	char	*str;
+	size_t			len;
+	unsigned int	i;
+	unsigned int	start;
+	char			*trimmed;
 
 	i = 0;
-	len = 0;
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+	len = ft_strlen(s);
+	if (!s)
+		return (NULL);
+	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == '\r' || s[i] == '\v')
 		i++;
 	start = i;
-	i = ft_strlen(s) - 1;
-	while ((s[i] == ' ' || s[i] == '\t' || s[i] == '\n') && i != 0)
-		i--;
-	if (i != 0)
-		len = i - start + 1;
-	str = ft_strnew(len);
-	if (!str)
-		return (NULL);
-	i = -1;
-	while (++i < len)
-		str[i] = *(s + (start + i));
+	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n' || s[len - 1] == '\r' || s[len - 1] == '\v')
+		len--;
+	if (len < start)
+	{
+		trimmed = (char *)malloc(sizeof(char) * 1);
+		trimmed[0] = '\0';
+	}
+	else
+		trimmed = ft_strsub(s, start, len - start);
 	free(s);
-	return (str);
+	return (trimmed);
 }
