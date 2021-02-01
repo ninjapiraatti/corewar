@@ -48,14 +48,30 @@ char	*ft_strcdup_2d(char **file, int i, int j, char c)
 	return (dup);
 }
 
-void	remove_comment(char *file)
+char	*ft_str2chr(const char *s, int c, int h)
+{
+	char	*p;
+
+	if (!s)
+		return (NULL);
+	p = (char *)s;
+	while (*p != c && *p != h)
+	{
+		if (*p == '\0')
+			return (NULL);
+		p++;
+	}
+	return (p);
+}
+
+void	remove_comment(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (file[i] != '\0')
+	while (str[i] != '\0')
 	{
-		file[i] = ' ';
+		str[i] = ' ';
 		i++;
 	}
 }

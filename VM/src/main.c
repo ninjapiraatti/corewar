@@ -51,6 +51,7 @@ int     main(int argc, char **argv)
     t_pl    players;
     t_flag  flags;
     t_avac  avac;
+    t_game  game;
 
     if (argc == 1)
         vm_error("usage");
@@ -60,6 +61,9 @@ int     main(int argc, char **argv)
     parse_flags_player_order(&players, &flags, &avac);
     parse_champ_files(&players);
     introduce_players(&players);
+    place_players_in_mem(&game, &players);
+    print_hex(game.arena);
+    create_first_carriages(&game, &players);
     return (0);
 }
 
