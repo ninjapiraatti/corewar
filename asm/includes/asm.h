@@ -12,7 +12,8 @@ typedef struct			s_statement
 	char				*instruction;
 	int					arg_count;
 	char				**args;
-	int				size;
+	int					size;
+	unsigned char		arg_type_code;
 	struct s_statement	*next;
 }						t_statement;
 
@@ -49,4 +50,5 @@ int						get_2d_array_size(char **arr);
 int						loop_label(char *line);
 int						get_instruction_code(char *instruction);
 int						get_statement_size(t_statement *statement);
+unsigned char			get_arg_type_code(t_statement *statement);
 #endif

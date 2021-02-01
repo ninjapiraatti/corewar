@@ -40,11 +40,13 @@ t_statement	*new_statement(t_asm *assm)
 		return (statement);
 	get_statement_arguments(statement, assm->file[assm->index], 0);
 	statement->size = get_statement_size(statement);
+	statement->arg_type_code = get_arg_type_code(statement);
 	ft_printf("\n	STATEMENT\nLABELS:\n");
 	print_2d_array(statement->label);
 	ft_printf("INSTRUCTION:\n%s\nINSTRUCTION CODE:\n%i\nARGUMENTS:\n", statement->instruction, statement->code);
 	print_2d_array(statement->args);
 	ft_printf("STATEMENT SIZE:\n%i\n", statement->size);
+	ft_printf("ARG_TYPE_CODE:\n%x\n", statement->arg_type_code);
 	return (statement);
 }
 
