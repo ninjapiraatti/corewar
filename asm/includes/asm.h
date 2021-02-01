@@ -39,6 +39,8 @@ char					**get_label(t_asm *assm);
 char					*free_strjoin(char *s1, char *s2);
 void					outputbin(t_asm *assm);
 
+void    				write_arguments(t_statement *statement, int fd);
+void    				write_hexa(t_asm *assm, char *file_name);
 void					remove_comment(char *file);
 void					print_file(char **file);
 char					*get_instruction(t_asm *assm);

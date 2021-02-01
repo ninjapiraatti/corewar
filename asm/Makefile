@@ -12,7 +12,9 @@ src/get_statement_size.c \
 src/get_args.c \
 src/validate.c \
 src/validate_utils.c \
-src/convert_labels.c
+src/convert_labels.c \
+src/write_hexa.c \
+src/write_arguments.c
 
 INC = /includes/asm.h
 
