@@ -66,13 +66,14 @@ void    convert_labels(t_statement *tmp, int i, int count)
     while (state)
     {
         i = -1;
-        while (state->args[++i])
-                if (ft_strchr(state->args[i], ':'))
-                {
-                    ft_printf("converting arg: %s, ", state->args[i]);
-                    state->args[i] = count_label_index(state->args[i], tmp, 0, count);
-                    ft_printf("converted to: %s\n", state->args[i]);
-                }
+        if (state->args)
+            while (state->args[++i])
+                    if (ft_strchr(state->args[i], ':'))
+                    {
+                        ft_printf("converting arg: %s, ", state->args[i]);
+                        state->args[i] = count_label_index(state->args[i], tmp, 0, count);
+                        ft_printf("converted to: %s\n", state->args[i]);
+                    }
         count++;
         state = state->next;
     }

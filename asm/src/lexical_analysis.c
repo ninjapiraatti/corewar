@@ -35,18 +35,13 @@ t_statement	*new_statement(t_asm *assm)
 		error_management("Malloc error");
 	statement->label = get_label(assm);
 	statement->instruction = get_instruction(assm);
-	statement->code = get_instruction_code(statement->instruction);
 	if (!statement->instruction)
 		return (statement);
+	statement->code = get_instruction_code(statement->instruction);
 	get_statement_arguments(statement, assm->file[assm->index], 0);
 	statement->size = get_statement_size(statement);
 	statement->arg_type_code = get_arg_type_code(statement);
-	ft_printf("\n	STATEMENT\nLABELS:\n");
-	print_2d_array(statement->label);
-	ft_printf("INSTRUCTION:\n%s\nINSTRUCTION CODE:\n%i\nARGUMENTS:\n", statement->instruction, statement->code);
-	print_2d_array(statement->args);
-	ft_printf("STATEMENT SIZE:\n%i\n", statement->size);
-	ft_printf("ARG_TYPE_CODE:\n%x\n", statement->arg_type_code);
+	assm->champion_size += statement->size;
 	return (statement);
 }
 
@@ -60,6 +55,7 @@ void		lexical_analysis(t_asm *assm)
 
 	ft_printf("name: %s\n", assm->name);
 	ft_printf("comment: %s\n", assm->comment);
+	assm->file_size = get_2d_array_size(assm->file);
 	while (assm->file[assm->index])
 	{
 		if (contains_statement(assm->file[assm->index]))
@@ -76,6 +72,8 @@ void		lexical_analysis(t_asm *assm)
 			}
 		}
 		assm->index++;
+		if (assm->file_size <= assm->index)
+			break ;
 	}
 	convert_labels(assm->statements, 0, 0);
 }

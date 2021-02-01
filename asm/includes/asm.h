@@ -23,6 +23,8 @@ typedef struct			s_asm
 	char				*comment;
 	char				**file;
 	char				*file1d;
+	int					champion_size;
+	int					file_size;
 	t_statement			*statements;
 	int					index;
 }						t_asm;

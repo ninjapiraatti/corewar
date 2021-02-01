@@ -23,7 +23,7 @@ char	**get_label(t_asm *assm)
 		while (assm->file[assm->index][++j])
 			if (!ft_isspace(assm->file[assm->index][j]))
 				break ;
-		if (assm->file[assm->index][j])
+		if (assm->file[assm->index][j] || assm->index + 1 == assm->file_size)
 			return (label);
 		j = 0;
 		assm->index++;
