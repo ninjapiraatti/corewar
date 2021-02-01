@@ -14,7 +14,9 @@ src/validate.c \
 src/validate_utils.c \
 src/convert_labels.c \
 src/write_hexa.c \
-src/write_arguments.c
+src/write_arguments.c \
+src/validate_instructions.c \
+src/validate_arguments.c
 
 INC = /includes/asm.h
 
@@ -25,7 +27,7 @@ all: $(FILE)
 $(FILE):
 	@echo "Compiling..."
 	@cd ../ft_printf && make re && cd ../asm
-	gcc -I $(INC) -o $(FILE) $(SRC)
+	@gcc -I $(INC) -o $(FILE) $(SRC)
 	@echo "Done."
 
 clean:

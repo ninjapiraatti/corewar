@@ -42,6 +42,7 @@ void					outputbin(t_asm *assm);
 void    				write_arguments(t_statement *statement, int fd);
 void    				write_hexa(t_asm *assm, char *file_name);
 void					remove_comment(char *file);
+char					*ft_str2chr(const char *s, int c, int h);
 void					print_file(char **file);
 char					*get_instruction(t_asm *assm);
 char					*free_strtrim(char *s);
@@ -53,4 +54,11 @@ int						loop_label(char *line);
 int						get_instruction_code(char *instruction);
 int						get_statement_size(t_statement *statement);
 unsigned char			get_arg_type_code(t_statement *statement);
+
+void					validate_instructions(t_asm *assm, int i);
+int						is_t_ind(char *file);
+int						is_t_dir(char *file);
+int						is_t_reg(char *file);
+int						is_label(char *str, int mode);
+
 #endif
