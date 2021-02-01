@@ -61,10 +61,8 @@ int		is_t_dir(char *file)
 	int	i;
 
 	i = 0;
-	ft_printf("checking for t_dir at %s\n", file);
 	if (file[i] == DIRECT_CHAR)
 	{
-		ft_printf("found direct_char next %s\n", &file[i + 1]);
 		if ((i = is_number(&file[i + 1])) != 0)
 			return (i + 1);
 		if ((i = is_label(&file[i + 1], 1)) != 0)

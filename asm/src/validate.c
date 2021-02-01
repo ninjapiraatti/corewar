@@ -5,12 +5,10 @@
 ** and removes comments from the ends of the lines.
 */
 
-int		validate_st(char **file, int i, char *cmd_string, int max_length)
+int		validate_st(char **file, int i, int j, int max_length)
 {
-	int		j;
 	int		len;
 
-	j = ft_strlen(cmd_string);
 	while (file[i][j] != '\0' && ft_isspace(file[i][j]))
 		j++;
 	if (file[i][j] != '"')
@@ -56,27 +54,33 @@ int		validate_header(t_asm *assm)
 	int comment;
 
 	i = 0;
-	j = 0;
 	name = 0;
 	comment = 0;
 	while (assm->file[i] != NULL && (name == 0 || comment == 0))
 	{
+		j = 0;
 		while (assm->file[i][j] != '\0' && ft_isspace(assm->file[i][j]))
 			j++;
-		if (ft_strncmp(assm->file[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
+		if (ft_strncmp(&assm->file[i][j], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
 		{
-			i = validate_st(assm->file, i, NAME_CMD_STRING, PROG_NAME_LENGTH);
+			i = validate_st(assm->file, i, j + ft_strlen(NAME_CMD_STRING), PROG_NAME_LENGTH);
 			name++;
 		}
-		else if (ft_strncmp(assm->file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
+		else if (ft_strncmp(&assm->file[i][j], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		{
-			i = validate_st(assm->file, i, COMMENT_CMD_STRING, COMMENT_LENGTH);
+			i = validate_st(assm->file, i, j + ft_strlen(COMMENT_CMD_STRING), COMMENT_LENGTH);
 			comment++;
 		}
-		else if (ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
-			remove_comment(ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
+		else if (assm->file[i][j] == COMMENT_CHAR || assm->file[i][j] == ALT_COMMENT_CHAR)
+		{
+			remove_comment(ft_str2chr(&assm->file[i][j], COMMENT_CHAR, ALT_COMMENT_CHAR));
+			i++;
+		}
 		else
+		{
+			// ft_printf("at %s ", &assm->file[i][j]);
 			error_management("error in header");
+		}
 	}
 	if (name != 1 || comment != 1)
 		error_management("statement duplicate or missing");

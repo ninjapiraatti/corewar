@@ -19,7 +19,10 @@ int		validate_arg(char *file, int op, int args)
 	if (i == 0 && op_table[op].arguments[args][2] == T_IND)
 		i = is_t_ind(&file[i]);
 	if (i == 0)
+	{
+		// ft_printf("at %s ", file);
 		error_management("didnt find correct argument");
+	}
 	while (file[i] != '\0' && ft_isspace(file[i]))
 		i++;
 	if (op_table[op].arg_amount > 1 && args < op_table[op].arg_amount - 1 && file[i] != SEPARATOR_CHAR)
@@ -73,8 +76,8 @@ int		validate_instruction(char *file)
 	if (file[i] != '\0')
 	{
 		file = &file[i];
-		i = -1;
-		while (++i < OP_CODE_COUNT)
+		i = OP_CODE_COUNT - 1;
+		while (i >= 0)
 		{
 			if (ft_strncmp(op_table[i].op_name, file, ft_strlen(op_table[i].op_name)) == 0)
 			{
@@ -82,6 +85,7 @@ int		validate_instruction(char *file)
 				validate_arguments(file + ft_strlen(op_table[i].op_name), code);
 				break ;
 			}
+			i--;
 		}
 	}
 	return (code);
@@ -95,7 +99,7 @@ void	validate_label(char *file)
 	while (file[i] != '\0' && ft_strchr(LABEL_CHARS, file[i]))
 		i++;
 	if (file[i] != LABEL_CHAR)
-		error_management("syntax error in instructions");
+		error_management("syntax error in label");
 	i++;
 	if (validate_instruction(&file[i]) == -1)
 	{
@@ -128,7 +132,10 @@ void	validate_instructions(t_asm *assm, int i)
 			if (ft_strchr(LABEL_CHARS, assm->file[i][j]))
 				validate_label(&assm->file[i][j]);
 			else
+			{
+				// ft_printf("at %s ", &assm->file[i][j]);
 				error_management("syntax error in instructions");
+			}
 		}
 		i++;
 	}
