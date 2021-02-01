@@ -121,31 +121,26 @@ void            read_champ_comment(int fd, char *comment)
 ** from buf to *executable and returns it.
 */
 
-char            *read_champ_executable(int fd, unsigned int prog_size)
+unsigned char     *read_champ_executable(int fd, int prog_size)
 {
-    char            *executable;
-    char            buf[CHAMP_MAX_SIZE + 1];
-    int             ret;
-    unsigned int     count;
+    unsigned char     *executable;
+    unsigned char      buf[CHAMP_MAX_SIZE + 1];
+    int               ret;
 
-    count = 0;
-    while ((ret = read(fd, buf, 1)))
+    ret = read(fd, buf, CHAMP_MAX_SIZE + 1);
+    if (ret == -1 || ret > CHAMP_MAX_SIZE)
     {
-        count++;
-        if (ret == -1 || count > CHAMP_MAX_SIZE)
-        {
-            close(fd);
-            vm_error("Error! Problem reading champ executable code");
-        }
+        close(fd);
+        vm_error("Error! Problem reading champ executable code");
     }
-    buf[count] = '\0';
-    if (count != prog_size)
+    buf[ret] = '\0';
+    if (ret != prog_size)
     {
         close(fd);
         vm_error("Error! Stated program size does not match executable code");
     }
-    if (!(executable = (char*)malloc(sizeof(char) * (prog_size + 1))))
+    if (!(executable = (unsigned char*)malloc(sizeof(unsigned char) * (prog_size + 1))))
         vm_error(strerror(errno));
-    ft_strcpy(executable, buf);
+    ft_memcpy(executable, buf, prog_size);
     return (executable);
 }

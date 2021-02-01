@@ -17,6 +17,9 @@ parse_flags_player_order.c \
 read_from_champ_files.c \
 vm_error.c \
 vm_tools.c \
+print_hex.c \
+place_in_memory.c \
+carriages.c \
 
 
 SRC_DIR = src/
@@ -51,11 +54,13 @@ $(NAME):
 	@echo "\033[32mCompiled\033[0m $(NAME)\033[32m!\033[0m"
 
 clean:
+	@make clean -C $(LIB_DIR)
 	@echo "\033[31mRemoving object files\033[0m"
 	@/bin/rm -f $(OBJECTS)
 	@/bin/rm -rf $(OBJ_DIR)
 
 fclean: clean
+	@make fclean -C $(LIB_DIR)
 	@echo "\033[31mRemoving\033[0m $(NAME)"
 	@/bin/rm -f $(NAME)
 
