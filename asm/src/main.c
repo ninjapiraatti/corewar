@@ -20,27 +20,53 @@ t_asm	*init_asm()
 	return (assm);
 }
 
+void	check_last_row(char *str)
+{
+	int	nl;
+	int	i;
+
+	i = 0;
+	nl = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\n')
+			nl = i;
+		i++;
+	}
+	i = nl + 1;
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	if (str[i] != '\0' && str[i] != COMMENT_CHAR && str[i] != ALT_COMMENT_CHAR)
+		error_management("error in end of file");
+}
+
 /*
 ** reads champion file into 2d array
 */
 
 char	**read_file(char *file)
 {
-	int	 fd;
-	char	*line;
-	char	*str[3];
+	int	 	fd;
+	char	buf[BUF_SIZE + 1];
+	char	*input;
+	char	*tmp;
+	int		i;
 
 	fd = open(file, O_RDONLY);
-	str[0] = ft_strnew(0);
-	while (get_next_line(fd, &line) > 0)
+	input = ft_strnew(0);
+	while ((i = read(fd, buf, BUF_SIZE)) > 0)
 	{
-		str[1] = ft_strjoin(line, "\n");
-		str[2] = free_strjoin(str[0], str[1]);;
-		str[0] = ft_strdup(str[2]);
-		free(str[2]);
-		free(line);
+		buf[i] = '\0';
+		tmp = ft_strjoin(input, buf);
+		ft_strdel(&input);
+		input = tmp;
 	}
-	return (ft_strsplit(str[0], '\n'));
+	if (i == -1)
+		error_management("add strerror(errno) here");
+	if (input == NULL)
+		error_management("empty input file");
+	check_last_row(input);
+	return (ft_strsplit(input, '\n'));
 }
 
 int	main(int argc, char **argv)

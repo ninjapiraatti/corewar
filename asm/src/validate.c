@@ -77,10 +77,7 @@ int		validate_header(char **file)
 			i++;
 		}
 		else
-		{
-			// ft_printf("at %s ", &file[i][j]);
 			error_management("error in header");
-		}
 	}
 	if (name != 1 || comment != 1)
 		error_management("statement duplicate or missing");
@@ -91,8 +88,6 @@ void	validate_file(t_asm *assm)
 {
 	int		i;
 
-	// print_file(assm->file);
-	// ft_printf("\n\n");
 	i = validate_header(assm->file);
 	validate_instructions(assm->file, i);
 	ft_printf("		~ validation successful ~\n");

@@ -83,7 +83,7 @@ void	print_file(char **file)
 	i = 0;
 	while (file[i] != NULL)
 	{
-		ft_printf("%s\n", file[i]);
+		ft_printf("'%s'\n", file[i]);
 		i++;
 	}
 }

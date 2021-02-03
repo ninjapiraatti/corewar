@@ -5,6 +5,8 @@
 #include "op_table.h"
 #include "../../ft_printf/includes/ft_printf.h"
 
+# define BUF_SIZE	4194305
+
 typedef struct			s_statement
 {
 	char				**label;
