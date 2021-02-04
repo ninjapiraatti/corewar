@@ -5,7 +5,7 @@ src/help_functions.c \
 src/header.c \
 src/lexical_analysis.c \
 src/get_labels.c \
-src/outputbin.c \
+src/write_header_name.c \
 ../ft_printf/libftprintf.a \
 src/get_statement.c \
 src/get_statement_size.c \
