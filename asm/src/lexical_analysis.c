@@ -53,8 +53,6 @@ void		lexical_analysis(t_asm *assm)
 {
 	t_statement *statements;
 
-	ft_printf("name: %s\n", assm->name);
-	ft_printf("comment: %s\n", assm->comment);
 	assm->file_size = get_2d_array_size(assm->file);
 	while (assm->file[assm->index])
 	{
