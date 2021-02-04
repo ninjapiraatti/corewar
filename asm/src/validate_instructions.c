@@ -91,17 +91,12 @@ int		validate_instruction(char *file)
 	return (code);
 }
 
-void	validate_label(char *file)
+int		validate_label(char *file)
 {
 	int	i;
 
-	i = 0;
-	while (file[i] != '\0' && ft_strchr(LABEL_CHARS, file[i]))
-		i++;
-	if (file[i] != LABEL_CHAR)
-		error_management("syntax error in label");
-	i++;
-	if (validate_instruction(&file[i]) == -1)
+	i = is_label(file, 0);
+	if (i != 0 && validate_instruction(&file[i]) == -1)
 	{
 		while (file[i] != '\0')
 		{
@@ -110,32 +105,28 @@ void	validate_label(char *file)
 			i++;
 		}
 	}
+	return (i);
 }
 
 /*
 ** Removes comments and validates labels.
 */
 
-void	validate_instructions(t_asm *assm, int i)
+void	validate_instructions(char **file, int i)
 {
 	int	j;
-
-	while (assm->file[i] != NULL)
+  
+	while (file[i] != NULL)
 	{
 		j = 0;
-		if (ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
-			remove_comment(ft_str2chr(assm->file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
-		while (assm->file[i][j] != '\0' && ft_isspace(assm->file[i][j]))
+		if (ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
+			remove_comment(ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
+		while (file[i][j] != '\0' && ft_isspace(file[i][j]))
 			j++;
-		if (assm->file[i][j] != '\0' && validate_instruction(&assm->file[i][j]) == -1)
+		if (file[i][j] != '\0' && validate_label(&file[i][j]) == 0)
 		{
-			if (ft_strchr(LABEL_CHARS, assm->file[i][j]))
-				validate_label(&assm->file[i][j]);
-			else
-			{
-				// ft_printf("at %s ", &assm->file[i][j]);
+			if (validate_instruction(&file[i][j]) == -1)
 				error_management("syntax error in instructions");
-			}
 		}
 		i++;
 	}

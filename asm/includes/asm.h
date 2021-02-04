@@ -5,6 +5,8 @@
 #include "op_table.h"
 #include "../../ft_printf/includes/ft_printf.h"
 
+# define BUF_SIZE	4194305
+
 typedef struct			s_statement
 {
 	char				**label;
@@ -57,7 +59,7 @@ int						get_instruction_code(char *instruction);
 int						get_statement_size(t_statement *statement);
 unsigned char			get_arg_type_code(t_statement *statement);
 
-void					validate_instructions(t_asm *assm, int i);
+void					validate_instructions(char **file, int i);
 int						is_t_ind(char *file);
 int						is_t_dir(char *file);
 int						is_t_reg(char *file);

@@ -46,7 +46,7 @@ int		validate_st(char **file, int i, int j, int max_length)
 ** lines are allowed, everything else leads to an error.
 */
 
-int		validate_header(t_asm *assm)
+int		validate_header(char **file)
 {
 	int	i;
 	int	j;
@@ -56,31 +56,28 @@ int		validate_header(t_asm *assm)
 	i = 0;
 	name = 0;
 	comment = 0;
-	while (assm->file[i] != NULL && (name == 0 || comment == 0))
+	while (file[i] != NULL && (name == 0 || comment == 0))
 	{
 		j = 0;
-		while (assm->file[i][j] != '\0' && ft_isspace(assm->file[i][j]))
+		while (file[i][j] != '\0' && ft_isspace(file[i][j]))
 			j++;
-		if (ft_strncmp(&assm->file[i][j], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
+		if (ft_strncmp(&file[i][j], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)) == 0)
 		{
-			i = validate_st(assm->file, i, j + ft_strlen(NAME_CMD_STRING), PROG_NAME_LENGTH);
+			i = validate_st(file, i, j + ft_strlen(NAME_CMD_STRING), PROG_NAME_LENGTH);
 			name++;
 		}
-		else if (ft_strncmp(&assm->file[i][j], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
+		else if (ft_strncmp(&file[i][j], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)) == 0)
 		{
-			i = validate_st(assm->file, i, j + ft_strlen(COMMENT_CMD_STRING), COMMENT_LENGTH);
+			i = validate_st(file, i, j + ft_strlen(COMMENT_CMD_STRING), COMMENT_LENGTH);
 			comment++;
 		}
-		else if (assm->file[i][j] == COMMENT_CHAR || assm->file[i][j] == ALT_COMMENT_CHAR)
+		else if (file[i][j] == COMMENT_CHAR || file[i][j] == ALT_COMMENT_CHAR)
 		{
-			remove_comment(ft_str2chr(&assm->file[i][j], COMMENT_CHAR, ALT_COMMENT_CHAR));
+			remove_comment(ft_str2chr(&file[i][j], COMMENT_CHAR, ALT_COMMENT_CHAR));
 			i++;
 		}
 		else
-		{
-			// ft_printf("at %s ", &assm->file[i][j]);
 			error_management("error in header");
-		}
 	}
 	if (name != 1 || comment != 1)
 		error_management("statement duplicate or missing");
@@ -91,9 +88,7 @@ void	validate_file(t_asm *assm)
 {
 	int		i;
 
-	// print_file(assm->file);
-	// ft_printf("\n\n");
-	i = validate_header(assm);
-	validate_instructions(assm, i);
+	i = validate_header(assm->file);
+	validate_instructions(assm->file, i);
 	ft_printf("		~ validation successful ~\n");
 }
