@@ -41,7 +41,7 @@ void					print_2d_array(char **arr);
 char					**resize_2d_array(char **arr, char *str);
 char					**get_label(t_asm *assm);
 char					*free_strjoin(char *s1, char *s2);
-void					write_header(t_asm *assm);
+void					write_header(t_asm *assm, int fd);
 
 void    				write_arguments(t_statement *statement, int fd);
 void    				write_hexa(t_asm *assm, char *file_name);

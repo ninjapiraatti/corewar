@@ -7,7 +7,7 @@ void		write_name(int fd, char a, t_asm *assm)
 	int				magic;
 	char			*name;
 
-	name = "kylpynalle";
+	name = assm->name;
 	namei = ft_strlen(name);
 	i = 0;
 	while (i < namei)
@@ -23,18 +23,16 @@ void		write_name(int fd, char a, t_asm *assm)
 	}
 }
 
-void		write_header(t_asm *assm)
+void		write_header(t_asm *assm, int fd)
 {
 	unsigned char	a;
 	unsigned char	argh[3];
-	int				fd;
 	int				i;
 	int				magic;
 
 	a = 0x00; // Why can't this be directly written like write(fd, 0x0, 1)? It must be possible.
 	i = 3;
 	magic = COREWAR_EXEC_MAGIC;
-	fd = open("testi.cor", O_WRONLY);
 	while (i >= 0)
 	{
 		argh[i] = *(((unsigned char *)&magic) + i);

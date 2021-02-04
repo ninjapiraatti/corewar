@@ -63,6 +63,7 @@ void    write_hexa(t_asm *assm, char *file_name)
     fd = open(output_file, O_WRONLY | O_CREAT, 0666);
     //write_header(fd);
     //write_champion_name(assm, fd);
+	write_header(assm, fd);
     write_champ_exec_code_size(assm, fd);
     write_champion_comment(assm, fd);
     write_instructions(assm->statements, fd);
