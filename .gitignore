@@ -3,6 +3,7 @@ asm/asm
 vm_champs
 *.DS_Store
 *.stackdump
+*.cor
 # Prerequisites
 *.d
 
