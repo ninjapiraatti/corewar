@@ -87,10 +87,10 @@ typedef struct          s_carriage
     enum e_carry        carry;
     int                 pc;
     unsigned int        cycles_to_wait;// time to wait
-    //the number of bytes that will need to be "crossed" to get to the next statement
     unsigned int        last_live;// when live was (index of cycle)
     int                 regs[REG_NUMBER]; //should we specify REG_SIZE, or is int enough??
     int                 color_id;   //maybe color of carriage
+    int                 next_state;
     struct s_carriage   *next;
 }                       t_carriage;
 
@@ -111,6 +111,7 @@ typedef struct      s_game
     //cycles_to_die[CYCLES_TO_DIE]
     //number of checks performed
     int             car_num; //num of carriages
+    int             game_state;
 }                   t_game;
 
 
