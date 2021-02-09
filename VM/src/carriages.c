@@ -41,7 +41,7 @@ void	ft_add_carriage(t_carriage **alst, t_carriage *new)
 	}
 }
 
-t_carriage  *create_carriage(int car_id, int player_id)
+t_carriage  *create_carriage(int car_id, int player_id, int position)
 {
     t_carriage  *new;
 
@@ -52,6 +52,7 @@ t_carriage  *create_carriage(int car_id, int player_id)
     new->color_id = player_id - 1;
     new->id = car_id;
     new->next = NULL;
+    new->pc = position;
     return (new);
 }
 
@@ -59,22 +60,22 @@ t_carriage  *create_carriage(int car_id, int player_id)
 ** Create initial carriages for each player.
 */
 
-void    create_first_carriages(t_game *game, t_pl *players)
-{
-    int         i;
-    int         car_num;
-    t_carriage  *head;
-    t_carriage  *new;
+// void    create_first_carriages(t_game *game, t_pl *players)
+// {
+//     int         i;
+//     int         car_num;
+//     t_carriage  *head;
+//     t_carriage  *new;
 
-    i = 1;
-    car_num = 0;
-    head = NULL;
-    while (i <= players->pl_num)
-    {
-        new = create_carriage(car_num, i);
-        ft_add_carriage(&head, new);
-        car_num++;
-        i++;
-    }
-    game->car_num = car_num;
-}
+//     i = 1;
+//     car_num = 0;
+//     head = NULL;
+//     while (i <= players->pl_num)
+//     {
+//         new = create_carriage(car_num, i);
+//         ft_add_carriage(&head, new);
+//         car_num++;
+//         i++;
+//     }
+//     game->car_num = car_num;
+// }

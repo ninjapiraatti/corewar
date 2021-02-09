@@ -63,7 +63,8 @@ int     main(int argc, char **argv)
     introduce_players(&players);
     place_players_in_mem(&game, &players);
     print_hex(game.arena);
-    create_first_carriages(&game, &players);
+    vm_loop(&game, &players);
+
     return (0);
 }
 
@@ -72,8 +73,8 @@ int     main(int argc, char **argv)
 ** DONE-parse flags and players (assign player numbers etc)
 ** DONE-check file sizes (x has too large a code (993 bytes > 682 bytes)) CHAMP_MAX_SIZE
 ** DONE-introduce players and their comments on stdout
-** -create memory area
-** -create regstries??
-** -place players in memory area
+** DONE-create memory area
+** DONE-create regstries??
+** DONE-place players in memory area
 ** etc.
 */

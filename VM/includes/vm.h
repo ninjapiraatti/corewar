@@ -85,11 +85,11 @@ typedef struct          s_carriage
 {
     int                 id; // unique carriage number
     enum e_carry        carry;
-    // code to _EXECUTE_OK
+    int                 pc;
     unsigned int        cycles_to_wait;// time to wait
     //the number of bytes that will need to be "crossed" to get to the next statement
     unsigned int        last_live;// when live was (index of cycle)
-    int                 regs[REG_NUMBER];
+    int                 regs[REG_NUMBER]; //should we specify REG_SIZE, or is int enough??
     int                 color_id;   //maybe color of carriage
     struct s_carriage   *next;
 }                       t_carriage;
@@ -170,6 +170,8 @@ void    print_hex(t_arena *arena);
 
 void        initialize_registries(int *new_regs, int id, int *copy_regs);
 void	ft_add_carriage(t_carriage **alst, t_carriage *new);
-t_carriage  *create_carriage(int car_id, int player_id);
-void    create_first_carriages(t_game *game, t_pl *players);
+t_carriage  *create_carriage(int car_id, int player_id, int position);
+
+// void    create_first_carriages(t_game *game, t_pl *players);
+
 # endif

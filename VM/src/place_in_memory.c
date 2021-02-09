@@ -54,13 +54,18 @@ void    place_players_in_mem(t_game *game, t_pl *pl)
     int     i;
     int     k;
     t_arena *arena;
+    t_carriage  *head;
+    t_carriage  *new;
 
+    head = NULL;
     arena = game->arena;
     per_pl = MEM_SIZE / pl->pl_num;
     i = 0;
     while (i < pl->pl_num)
     {
         k = i * per_pl;
+        new = create_carriage(i, (i + 1), k);
+        ft_add_carriage(&head, new);
         k += player_to_arena(&arena[k], pl->exec[i + 1], pl->h_info[i + 1]->prog_size, i);
         i++;
         while (k < i * per_pl)
@@ -70,4 +75,6 @@ void    place_players_in_mem(t_game *game, t_pl *pl)
             k++;
         }
     }
+    game->head = head;
+    game->car_num = i;
 }

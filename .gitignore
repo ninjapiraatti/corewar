@@ -1,4 +1,5 @@
 # Project specific
+*.cor
 asm/asm
 vm_champs
 *.DS_Store
