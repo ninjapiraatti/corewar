@@ -20,6 +20,7 @@ vm_tools.c \
 print_hex.c \
 place_in_memory.c \
 carriages.c \
+vm_loop.c
 
 
 SRC_DIR = src/

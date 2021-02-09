@@ -1,14 +1,5 @@
 .name "tester"
 .comment "i'm tester champion"
 
-label:
-double_label: sti r1, %:komento, %1
+add r8, r13, r3
 
-
-
-		and r1, %:random, r1
-
-komento:
-		live %1
-		zjmp %:komento
-random:

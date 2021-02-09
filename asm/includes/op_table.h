@@ -14,6 +14,7 @@ typedef struct		s_op_table
 	int				arg_type_code;
 	int				arguments[3][3];
 	int				arg_amount;
+	int				cycles_to_wait;
 
 }					t_op_table;
 
@@ -29,7 +30,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0},
 			{0, 0, 0}
 		},
-		1
+		1,
+		10
 	},
 	{
 		"ld",
@@ -41,7 +43,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, 0, 0},
 			{0, 0, 0}
 		},
-		2
+		2,
+		5
 	},
 	{
 		"st",
@@ -53,7 +56,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, 0, T_IND},
 			{0, 0, 0}
 		},
-		2
+		2,
+		5
 	},
 	{
 		"add",
@@ -65,7 +69,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, 0, 0},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		10
 	},
 	{
 		"sub",
@@ -77,7 +82,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, 0, 0},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		10
 	},
 	{
 		"and",
@@ -89,7 +95,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, T_IND},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		6
 	},
 	{
 		"or",
@@ -101,7 +108,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, T_IND},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		6
 	},
 	{
 		"xor",
@@ -113,7 +121,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, T_IND},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		6
 	},
 	{
 		"zjmp",
@@ -125,7 +134,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0},
 			{0, 0, 0}
 		},
-		1
+		1,
+		20
 	},
 	{
 		"ldi",
@@ -137,7 +147,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, 0},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		25
 	},
 	{
 		"sti",
@@ -149,7 +160,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, T_IND},
 			{T_REG, T_DIR, 0}
 		},
-		3
+		3,
+		25
 	},
 	{
 		"fork",
@@ -161,7 +173,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0},
 			{0, 0, 0}
 		},
-		1
+		1,
+		800
 	},
 	{
 		"lld",
@@ -173,7 +186,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, 0, 0},
 			{0, 0, 0}
 		},
-		2
+		2,
+		10
 	},
 	{
 		"lldi",
@@ -185,7 +199,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{T_REG, T_DIR, 0},
 			{T_REG, 0, 0}
 		},
-		3
+		3,
+		50
 	},
 	{
 		"lfork",
@@ -197,7 +212,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0},
 			{0, 0, 0}
 		},
-		1
+		1,
+		1000
 	},
 	{
 		"aff",
@@ -209,7 +225,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0},
 			{0, 0, 0}
 		},
-		1
+		1,
+		2
 	}
 };
 

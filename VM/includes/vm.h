@@ -86,7 +86,7 @@ typedef struct          s_carriage
     int                 id; // unique carriage number
     enum e_carry        carry;
     int                 pc;
-    unsigned int        cycles_to_wait;// time to wait
+    int                 cycles_to_wait;// time to wait
     unsigned int        last_live;// when live was (index of cycle)
     int                 regs[REG_NUMBER]; //should we specify REG_SIZE, or is int enough??
     int                 color_id;   //maybe color of carriage
@@ -174,5 +174,5 @@ void	ft_add_carriage(t_carriage **alst, t_carriage *new);
 t_carriage  *create_carriage(int car_id, int player_id, int position);
 
 // void    create_first_carriages(t_game *game, t_pl *players);
-
+void    vm_loop(t_game *game, t_pl *players);
 # endif
