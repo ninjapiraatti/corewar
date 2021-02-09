@@ -1,6 +1,7 @@
 #ifndef VM_H
 # define VM_H
 # include "op.h"
+# include "op_table.h"
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_printf.h"

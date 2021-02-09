@@ -20,7 +20,39 @@ void    manage_add(t_carriage *carr, t_arena *arena)
 
 int     check_arg_type_code(char inst, char arg_code)
 {
-    //char digist[] = "0123456789abcdef";
+    char arg_type1;
+    char arg_type2;
+    char arg_type3;
+
+    arg_type1 = arg_code >> 6;
+    arg_type2 = (arg_code >> 4) & 3;
+    arg_type3 = (arg_code >> 2) & 3;
+    // miten verrataan ton op_tablen arvoihin??
+    // op_table[inst - 1] 
+
+    // if (arg1 == REG_CODE)
+    //     printf("arg1 is reg\n");
+    // if (arg2 == DIR_CODE)
+    //     printf("arg2 is dir\n");
+    // if (arg3 == DIR_CODE)
+    //     printf("arg3 is dir\n");
+
+    return (0);
+}
+
+
+
+typedef struct		s_op_table
+{
+	char			*op_name;
+	unsigned int	op_code;
+	int				t_dir_size;
+	int				arg_type_code;
+	int				arguments[3][3];
+	int				arg_amount;
+	int				cycles_to_wait;
+
+}					t_op_table;
 
     //converts arg_type_code
     //checks if arguments match to statement
