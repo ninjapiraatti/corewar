@@ -1,10 +1,10 @@
 #ifndef VM_H
 # define VM_H
-# include "op.h"
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_printf.h"
 # include "colors.h"
+# include "op_table.h"
 
 # include <fcntl.h>
 # include <sys/types.h>
@@ -175,4 +175,5 @@ t_carriage  *create_carriage(int car_id, int player_id, int position);
 
 // void    create_first_carriages(t_game *game, t_pl *players);
 void    vm_loop(t_game *game, t_pl *players);
+char				*itoa_base(uintmax_t i, int base);
 # endif
