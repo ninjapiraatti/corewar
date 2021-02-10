@@ -18,7 +18,7 @@ void    manage_add(t_carriage *carr, t_arena *arena)
     carr->regs[arena[carr->pc + 4].ar - 1] = arg3;
 }
 
-int     check_arg_type_code(char inst, char arg_code)
+int     check_arg_type_code(char inst, char arg_code, t_carriage *carr)
 {
     char arg_type1;
     char arg_type2;
@@ -27,6 +27,10 @@ int     check_arg_type_code(char inst, char arg_code)
     arg_type1 = arg_code >> 6;
     arg_type2 = (arg_code >> 4) & 3;
     arg_type3 = (arg_code >> 2) & 3;
+
+    carr->args[0] = arg_type1;
+    carr->args[1] = arg_type2;
+    carr->args[2] = arg_type3;
     // miten verrataan ton op_tablen arvoihin??
     // op_table[inst - 1] 
 
@@ -40,26 +44,6 @@ int     check_arg_type_code(char inst, char arg_code)
     return (0);
 }
 
-
-
-typedef struct		s_op_table
-{
-	char			*op_name;
-	unsigned int	op_code;
-	int				t_dir_size;
-	int				arg_type_code;
-	int				arguments[3][3];
-	int				arg_amount;
-	int				cycles_to_wait;
-
-}					t_op_table;
-
-    //converts arg_type_code
-    //checks if arguments match to statement
-    ft_printf("%d , %d\n", arg_code, inst);
-    return (0);
-}
-
 void    run_carriage(t_arena *arena, t_carriage *carr)
 {
     char    inst;
@@ -67,6 +51,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
+    check_arg_type_code(inst, arg_code, carr);
     ft_printf("pc: %d\n", carr->pc + 1);
     carr->regs[7] = 5;
     carr->regs[12] = 30;

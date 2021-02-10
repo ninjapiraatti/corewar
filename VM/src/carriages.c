@@ -54,6 +54,9 @@ t_carriage  *create_carriage(int car_id, int player_id, int position)
     new->next = NULL;
     new->pc = position;
     new->cycles_to_wait = -1;
+    new->args[0] = 0;
+    new->args[1] = 0;
+    new->args[2] = 0;
     return (new);
 }
 

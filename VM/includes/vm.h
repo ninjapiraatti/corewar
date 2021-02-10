@@ -93,6 +93,7 @@ typedef struct          s_carriage
     int                 color_id;   //maybe color of carriage
     int                 next_state;
     struct s_carriage   *next;
+    int                 args[3];
 }                       t_carriage;
 
 
