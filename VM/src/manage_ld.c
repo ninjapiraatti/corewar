@@ -99,7 +99,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
     {
         if (inst > 0 && inst < 17)
         {
-            if (check_args(inst, arg_code, arena, carr)) // 3. perform statement if everything is ok
+            if (check_args(inst, arg_code, arena, carr)) // 3. perform statement
                 perform_statement(inst, arena, carr);
         }
         else
