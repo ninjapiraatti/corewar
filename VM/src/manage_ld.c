@@ -19,7 +19,7 @@ int		read_address(t_arena *arena, int pc)
 		i++;
 		pc++;
 		if (pc == MEM_SIZE)
-			pc = pc % MEM_SIZE;
+		pc = pc % MEM_SIZE;
 	}
 }
 
