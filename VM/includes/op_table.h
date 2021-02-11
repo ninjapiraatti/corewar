@@ -26,7 +26,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		0,
 		{
-			{0, T_DIR, 0},
+			{0, DIR_CODE, 0},
 			{0, 0, 0},
 			{0, 0, 0}
 		},
@@ -39,8 +39,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{0, T_DIR, T_IND},
-			{T_REG, 0, 0},
+			{0, DIR_CODE, IND_CODE},
+			{REG_CODE, 0, 0},
 			{0, 0, 0}
 		},
 		2,
@@ -52,8 +52,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, 0, 0},
-			{T_REG, 0, T_IND},
+			{REG_CODE, 0, 0},
+			{REG_CODE, 0, IND_CODE},
 			{0, 0, 0}
 		},
 		2,
@@ -65,9 +65,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, 0, 0},
-			{T_REG, 0, 0},
-			{T_REG, 0, 0}
+			{REG_CODE, 0, 0},
+			{REG_CODE, 0, 0},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		10
@@ -78,9 +78,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, 0, 0},
-			{T_REG, 0, 0},
-			{T_REG, 0, 0}
+			{REG_CODE, 0, 0},
+			{REG_CODE, 0, 0},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		10
@@ -91,9 +91,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, T_IND},
-			{T_REG, 0, 0}
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		6
@@ -104,9 +104,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, T_IND},
-			{T_REG, 0, 0}
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		6
@@ -117,9 +117,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, T_IND},
-			{T_REG, 0, 0}
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		6
@@ -130,7 +130,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		0,
 		{
-			{0, T_DIR, 0},
+			{0, DIR_CODE, 0},
 			{0, 0, 0},
 			{0, 0, 0}
 		},
@@ -143,9 +143,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		1,
 		{
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, 0},
-			{T_REG, 0, 0}
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, 0},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		25
@@ -156,9 +156,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		1,
 		{
-			{T_REG, 0, 0},
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, 0}
+			{REG_CODE, 0, 0},
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, 0}
 		},
 		3,
 		25
@@ -169,7 +169,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		0,
 		{
-			{0, T_DIR, 0},
+			{0, DIR_CODE, 0},
 			{0, 0, 0},
 			{0, 0, 0}
 		},
@@ -182,8 +182,8 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{0, T_DIR, T_IND},
-			{T_REG, 0, 0},
+			{0, DIR_CODE, IND_CODE},
+			{REG_CODE, 0, 0},
 			{0, 0, 0}
 		},
 		2,
@@ -195,9 +195,9 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		1,
 		{
-			{T_REG, T_DIR, T_IND},
-			{T_REG, T_DIR, 0},
-			{T_REG, 0, 0}
+			{REG_CODE, DIR_CODE, IND_CODE},
+			{REG_CODE, DIR_CODE, 0},
+			{REG_CODE, 0, 0}
 		},
 		3,
 		50
@@ -208,7 +208,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		2,
 		0,
 		{
-			{0, T_DIR, 0},
+			{0, DIR_CODE, 0},
 			{0, 0, 0},
 			{0, 0, 0}
 		},
@@ -221,7 +221,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 		4,
 		1,
 		{
-			{T_REG, 0, 0},
+			{REG_CODE, 0, 0},
 			{0, 0, 0},
 			{0, 0, 0}
 		},

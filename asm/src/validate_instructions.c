@@ -12,11 +12,11 @@ int		validate_arg(char *file, int op, int args)
 	i = 0;
 	if (file[i] == '\0')
 		error_management("file ended");
-	if (op_table[op].arguments[args][0] == T_REG)
+	if (op_table[op].arguments[args][0] == REG_CODE)
 		i = is_t_reg(&file[i]);
-	if (i == 0 && op_table[op].arguments[args][1] == T_DIR)
+	if (i == 0 && op_table[op].arguments[args][1] == DIR_CODE)
 		i = is_t_dir(&file[i]);
-	if (i == 0 && op_table[op].arguments[args][2] == T_IND)
+	if (i == 0 && op_table[op].arguments[args][2] == IND_CODE)
 		i = is_t_ind(&file[i]);
 	if (i == 0)
 	{
