@@ -18,12 +18,37 @@ void    manage_add(t_carriage *carr, t_arena *arena)
     carr->regs[arena[carr->pc + 4].ar - 1] = arg3;
 }
 
-int     check_arg_type_code(char inst, char arg_code, t_carriage *carr)
+int     check_args(char arg, int i, int inst)
+{
+    int     j;
+    int     count;
+
+    j = -1;
+    count = 0;
+    while (++j < 3)
+        if (op_table[inst].arguments[i][j] == 0)
+            count++;
+    if (count < 3 && arg == 0)
+        return (0);
+    j = 0;
+    while (j < 3)
+    {
+        if (op_table[inst].arguments[i][j] == arg)
+            return (1);
+        j++;
+    }
+    ft_printf("returned 0\n");
+    return (0);
+}
+
+int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
 {
     char arg_type1;
     char arg_type2;
     char arg_type3;
+    int     i;
 
+    i = 0;
     arg_type1 = arg_code >> 6;
     arg_type2 = (arg_code >> 4) & 3;
     arg_type3 = (arg_code >> 2) & 3;
@@ -31,17 +56,14 @@ int     check_arg_type_code(char inst, char arg_code, t_carriage *carr)
     carr->args[0] = arg_type1;
     carr->args[1] = arg_type2;
     carr->args[2] = arg_type3;
-    // miten verrataan ton op_tablen arvoihin??
-    // op_table[inst - 1] 
-
-    // if (arg1 == REG_CODE)
-    //     printf("arg1 is reg\n");
-    // if (arg2 == DIR_CODE)
-    //     printf("arg2 is dir\n");
-    // if (arg3 == DIR_CODE)
-    //     printf("arg3 is dir\n");
-
-    return (0);
+    while(i < 3)
+    {
+        if (!check_args(carr->args[i], i, inst - 1))
+            return (0);
+        i++;
+    }
+    ft_printf("arg type code valid!\n");
+    return (1);
 }
 
 void    run_carriage(t_arena *arena, t_carriage *carr)
