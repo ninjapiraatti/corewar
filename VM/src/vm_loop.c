@@ -74,11 +74,19 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
     check_arg_type_code(inst, arg_code, carr);
-    ft_printf("pc: %d\n", carr->pc + 1);
+    //ft_printf("pc: %d\n", carr->pc + 1);
     carr->regs[7] = 5;
     carr->regs[12] = 30;
     manage_add(carr, arena);
-	manage_and(carr, arena);
+	if (inst == 6)
+	{
+		ft_printf("There is an and.");
+		manage_and(carr, arena);
+	}
+	else {
+		ft_printf("Memory at carriage: %x\n", inst);
+	}
+	carr->pc++;
     /*if (carr->cycles_to_wait == -1 || carr->cycles_to_wait == 0)
     {
         if (inst > 0 && inst < 17 && check_arg_type_code(inst, arg_code))
@@ -107,20 +115,25 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 void    vm_loop(t_game *game, t_pl *players)
 {
     t_carriage *cur;
+	int			dumbasstempiterator;
 
+	dumbasstempiterator = 0;
     game->game_state = 1;
-    //while (game->game_state == 1)// will be a variable in game
-    //{
-        cur = game->head;
-        //while (cur)
-        //{
+    while (game->game_state == 1)// will be a variable in game
+    {
+		cur = game->head;
+		//while (cur)
+		while (dumbasstempiterator < 30)
+        {
             (void)players;
             run_carriage(game->arena, cur);
-            cur = cur->next;
+            //cur = cur->next;
             //go throug each carriage
              /* carriages read info, save next_state; */
              // wait ajat
-        //}
+			 dumbasstempiterator++;
+        }
+		game->game_state = 0;
         
        
         
@@ -128,6 +141,5 @@ void    vm_loop(t_game *game, t_pl *players)
     //if cycles_to_die
         //    check
             //update carriage number
-    //}
-    
+    }
 }

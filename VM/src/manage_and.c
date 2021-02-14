@@ -13,6 +13,7 @@ int		read_address(t_arena *arena, int pc)
 
 	pc = pc % MEM_SIZE;
 	i = 0;
+	nb = NULL;
 	while (i < REG_SIZE)
 	{
 		nb[i] = arena[pc].ar;
@@ -21,6 +22,7 @@ int		read_address(t_arena *arena, int pc)
 		if (pc == MEM_SIZE)
 		pc = pc % MEM_SIZE;
 	}
+	return (0);
 }
 
 void	manage_and(t_carriage *carr, t_arena *arena)
@@ -28,7 +30,6 @@ void	manage_and(t_carriage *carr, t_arena *arena)
 	int	arg1;
 	int	arg2;
 	int	arg3;
-	int	nb;
 
 	arg1 = arena[carr->pc + 2].ar; // either number or address to number
 	arg2 = arena[carr->pc + 3].ar; // we can't really read arguments like this because they are of different sizes, not 
@@ -49,7 +50,7 @@ void	manage_and(t_carriage *carr, t_arena *arena)
 		arg3 = carr->regs[arg3 - 1];
 	else
 		ft_printf("argument error.");
-	if (arg1 & arg2 == 1)
+	if ((arg1 & arg2) == 1)
 		arg3 = 1;
 	else
 		arg3 = 0;
