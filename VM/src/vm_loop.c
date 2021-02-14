@@ -78,6 +78,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
     carr->regs[7] = 5;
     carr->regs[12] = 30;
     manage_add(carr, arena);
+	manage_and(carr, arena);
     /*if (carr->cycles_to_wait == -1 || carr->cycles_to_wait == 0)
     {
         if (inst > 0 && inst < 17 && check_arg_type_code(inst, arg_code))

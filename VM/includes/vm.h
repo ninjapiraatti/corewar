@@ -176,4 +176,10 @@ t_carriage  *create_carriage(int car_id, int player_id, int position);
 
 // void    create_first_carriages(t_game *game, t_pl *players);
 void    vm_loop(t_game *game, t_pl *players);
+
+/*
+** Manage statements
+*/
+
+void	manage_and(t_carriage *carr, t_arena *arena);
 # endif

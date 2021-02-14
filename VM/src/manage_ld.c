@@ -55,7 +55,7 @@ void	manage_ldi(t_carriage *carr, t_arena *arena)
 	if (carr->args[0] == REG_CODE)
 		arg1 = carr->regs[arg1 - 1];
 	else if (carr->args[0] == IND_CODE)
-		arg1 = read_address(arena, carr->pc + arg1 % IDX_MOD)
+		arg1 = read_address(arena, carr->pc + arg1 % IDX_MOD);
 	if (carr->args[1] == REG_CODE)
 		arg2 = carr->regs[arg1 - 1];
 	nb = read_address(arena, carr->pc + (arg1 + arg2) % IDX_MOD);
