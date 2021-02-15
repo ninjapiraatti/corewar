@@ -27,17 +27,18 @@ int		check_regs(int inst, t_carriage *carr, t_arena *arena)
 	arg = 0;
 	while (arg < 3)
 	{
+        ft_printf("i: %d arg: %d arg size: %d\n", i, arg, carr->arg_size[arg]);
 		if (carr->args[arg] == REG_CODE)
 		{
 			reg = arena[i].ar;
 			if (reg < 1 || reg > 16)
 			{
-				ft_printf("registry not valid\n");
+				ft_printf("arg %d registry %d at %d not valid\n", arg, reg, i - carr->pc);
 				return (0);
 			}
 		}
-		arg++;
 		i += carr->arg_size[arg];
+		arg++;
 	}
 	ft_printf("arguments valid!\n");
 	return (1);

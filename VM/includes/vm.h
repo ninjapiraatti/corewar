@@ -93,6 +93,7 @@ typedef struct          s_carriage
     int                 next_state;
     struct s_carriage   *next;
     int                 args[3];
+    int                 arg_size[3];
 }                       t_carriage;
 
 
@@ -176,4 +177,8 @@ t_carriage  *create_carriage(int car_id, int player_id, int position);
 
 // void    create_first_carriages(t_game *game, t_pl *players);
 void    vm_loop(t_game *game, t_pl *players);
+int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr);
+void    run_carriage(t_arena *arena, t_carriage *carr);
+int		check_regs(int inst, t_carriage *carr, t_arena *arena);
+
 # endif
