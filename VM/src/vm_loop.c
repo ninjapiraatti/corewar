@@ -74,6 +74,8 @@ void    update_pc(t_carriage *carr, int error)
         carr->pc = carr->pc + carr->next_state;
     if (carr->pc >= MEM_SIZE)
         carr->pc = carr->pc % MEM_SIZE;
+}
+
 int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr)
 {
     if (op_table[inst - 1].arg_type_code == 1)
