@@ -149,17 +149,17 @@ get_next_line.o \
 all: $(NAME)
 
 $(NAME):
-	gcc $(CFLAGS) -I $(INCS) -c $(SRCS)
-	ar rc $(NAME) $(OUTPUT)
-	ranlib $(NAME)
+	@gcc $(CFLAGS) -I $(INCS) -c $(SRCS)
+	@ar rc $(NAME) $(OUTPUT)
+	@ranlib $(NAME)
 
 norm:
 	norminette $(SRCS)
 
 clean:
-	/bin/rm -f $(OUTPUT)
+	@/bin/rm -f $(OUTPUT)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 	
 re: fclean all
