@@ -118,20 +118,25 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 void    vm_loop(t_game *game, t_pl *players)
 {
     t_carriage *cur;
+	int			dumbasstempiterator;
 
+	dumbasstempiterator = 0;
     game->game_state = 1;
-    //while (game->game_state == 1)// will be a variable in game
-    //{
-        cur = game->head;
-        //while (cur)
-        //{
+    while (game->game_state == 1)// will be a variable in game
+    {
+		cur = game->head;
+		//while (cur)
+		while (dumbasstempiterator < 30)
+        {
             (void)players;
             run_carriage(game->arena, cur);
-            cur = cur->next;
+            //cur = cur->next;
             //go throug each carriage
              /* carriages read info, save next_state; */
              // wait ajat
-        //}
+			 dumbasstempiterator++;
+        }
+		game->game_state = 0;
         
        
         
@@ -139,6 +144,5 @@ void    vm_loop(t_game *game, t_pl *players)
     //if cycles_to_die
         //    check
             //update carriage number
-    //}
-    
+    }
 }

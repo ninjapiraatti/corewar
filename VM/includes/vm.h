@@ -186,5 +186,9 @@ void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size);
 int      read_bytes_convert(t_arena *arena, int pos, int size);
 char    *copy_mem_area(t_arena *arena, int start, int size);
 int     check_ind_pc(int pc, int arg);
+/*
+** Manage statements
+*/
 
+void	manage_and(t_carriage *carr, t_arena *arena);
 # endif
