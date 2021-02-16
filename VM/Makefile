@@ -21,11 +21,10 @@ print_hex.c \
 place_in_memory.c \
 carriages.c \
 vm_loop.c \
-<<<<<<< HEAD
 manage_st.c \
-=======
-manage_and.c
->>>>>>> 77d08f012ec03080614a2c5311fb2a8c6edd07e7
+manage_and.c \
+manage_ld.c \
+check_args.c
 
 
 SRC_DIR = src/
