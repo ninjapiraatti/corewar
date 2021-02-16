@@ -59,26 +59,26 @@ HEADER	= includes/
 all: $(NAME)
 
 $(NAME):
-	make -C libft
-	gcc -c -I $(HEADER) $(SRCS) $(INCS)
-	ar rc $(NAME) *.o ./libft/*.o
-	ranlib $(NAME)
+	@make -C libft
+	@gcc -c -I $(HEADER) $(SRCS) $(INCS)
+	@ar rc $(NAME) *.o ./libft/*.o
+	@ranlib $(NAME)
 
 exe:
-	make -C libft
-	gcc $(CFLAGS) -c $(EXE) $(SRCS) $(INCS)
-	gcc $(CFLAGS) $(INCS) $(EXEOB) $(OBJS) $(LIB) -o $(NAME)
+	@make -C libft
+	@gcc $(CFLAGS) -c $(EXE) $(SRCS) $(INCS)
+	@gcc $(CFLAGS) $(INCS) $(EXEOB) $(OBJS) $(LIB) -o $(NAME)
 
 debug:
 
 .PHONY: clean fclean re all
 
 clean:
-	rm -f $(OBJS) $(EXEOB)
-	make -C libft clean
+	@rm -f $(OBJS) $(EXEOB)
+	@make -C libft clean
 
 fclean: clean
-	rm -f $(NAME)
-	make -C libft fclean
+	@rm -f $(NAME)
+	@make -C libft fclean
 
 re: fclean all

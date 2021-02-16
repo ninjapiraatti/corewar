@@ -66,6 +66,13 @@ int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
     return (1);
 }
 
+int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr)
+{
+    if (op_table[inst - 1].arg_type_code == 1)
+        return (check_arg_type_code(inst, arg_code, carr));
+    return (1);
+}
+
 void    run_carriage(t_arena *arena, t_carriage *carr)
 {
     char    inst;
@@ -73,7 +80,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
-    check_arg_type_code(inst, arg_code, carr);
+    check_instruction(inst, arg_code, carr);
     ft_printf("pc: %d\n", carr->pc + 1);
     carr->regs[7] = 5;
     carr->regs[12] = 30;
