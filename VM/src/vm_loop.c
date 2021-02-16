@@ -66,18 +66,30 @@ int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
     return (1);
 }
 
+void    update_pc(t_carriage *carr, int error)
+{
+    if (error)
+        carr->pc++;
+    else
+        carr->pc = carr->pc + carr->next_state;
+    if (carr->pc >= MEM_SIZE)
+        carr->pc = carr->pc % MEM_SIZE;
+}
+
 void    run_carriage(t_arena *arena, t_carriage *carr)
 {
     char    inst;
     char    arg_code;
+    int     error;
 
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
     check_arg_type_code(inst, arg_code, carr);
-    ft_printf("pc: %d\n", carr->pc + 1);
-    carr->regs[7] = 5;
-    carr->regs[12] = 30;
-    manage_add(carr, arena);
+    carr->regs[2] = 154;
+    error = manage_sti(carr, arena); //this will be something like perform statement
+    update_pc(carr, error);
+    print_hex(arena);
+    exit(0);
     /*if (carr->cycles_to_wait == -1 || carr->cycles_to_wait == 0)
     {
         if (inst > 0 && inst < 17 && check_arg_type_code(inst, arg_code))

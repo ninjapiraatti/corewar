@@ -62,7 +62,7 @@ int     main(int argc, char **argv)
     parse_champ_files(&players);
     introduce_players(&players);
     place_players_in_mem(&game, &players);
-    print_hex(game.arena);
+    // print_hex(game.arena);
     vm_loop(&game, &players);
 
     return (0);

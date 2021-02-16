@@ -1,3 +1,4 @@
+#include "vm.h"
 #include <stdio.h>
 # define REG_CODE				1 //-> 01
 # define DIR_CODE				2 //-> 10
@@ -9,7 +10,7 @@ T_REG           T_DIR	        T_DIR	        -	    -
 
 int main()
 {
-	char a = 0x68;
+	unsigned char a = 0xa4;
     char arg1;
     char arg2;
     char arg3;
@@ -21,7 +22,15 @@ int main()
         printf("arg1 is reg\n");
     if (arg2 == DIR_CODE)
         printf("arg2 is dir\n");
-    if (arg3 == DIR_CODE)
-        printf("arg3 is dir\n");
+    if (arg3 == REG_CODE)
+        printf("arg3 is reg\n");
+
+
+    int mystery = 0xfffb;
+    unsigned pos = (unsigned int)mystery;
+    signed neg = (short)mystery;
+
+    printf("pos: %d\n", pos);
+    printf("neg: %d\n", neg);
     return (0);
 }                            

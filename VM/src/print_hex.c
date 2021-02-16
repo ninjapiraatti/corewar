@@ -14,6 +14,8 @@ void    print_hex(t_arena *arena)
         {
             if (arena[i].color[0])
                 ft_printf("%s%02x%s ", arena[i].color, arena[i].ar, EOC);
+            else if (arena[i].ar != 0)
+                ft_printf("%s%02x%s ", BLUE, arena[i].ar, EOC);
             else
                 ft_printf("%02x ", arena[i].ar);
             j++;
@@ -22,6 +24,3 @@ void    print_hex(t_arena *arena)
         ft_putchar('\n');
     }
 }
-
-
-
