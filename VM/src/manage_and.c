@@ -31,9 +31,9 @@ void	manage_and(t_carriage *carr, t_arena *arena)
 	int	arg2;
 	int	arg3;
 
-	arg1 = arena[carr->pc + 2].ar; // either number or address to number
-	arg2 = arena[carr->pc + 3].ar; // we can't really read arguments like this because they are of different sizes, not 
-	arg3 = arena[carr->pc + 4].ar; // registry where we will write the number to
+	arg1 = arena[carr->pc + 2].ar;
+	arg2 = arena[carr->pc + 3].ar;
+	arg3 = arena[carr->pc + 4].ar;
 	if (carr->args[0] == REG_CODE)
 		arg1 = carr->regs[arg1 - 1];
 	else if (carr->args[0] == IND_CODE)
