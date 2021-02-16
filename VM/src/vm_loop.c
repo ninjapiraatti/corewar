@@ -1,119 +1,45 @@
 # include "vm.h"
 
-// init wait time to -1
-
-void    manage_add(t_carriage *carr, t_arena *arena)
-{
-    int     arg1;
-    int     arg2;
-    int     arg3;
-
-    arg1 = carr->regs[arena[carr->pc + 2].ar - 1];
-    arg2 = carr->regs[arena[carr->pc + 3].ar - 1];
-    arg3 = arg1 + arg2;
-    if (arg3 == 0)
-        carr->carry = true;
-    else
-        carr->carry = false;
-    carr->regs[arena[carr->pc + 4].ar - 1] = arg3;
-}
-
-int     check_args(char arg, int i, int inst)
-{
-    int     j;
-    int     count;
-
-    j = -1;
-    count = 0;
-    while (++j < 3)
-        if (op_table[inst].arguments[i][j] == 0)
-            count++;
-    if (count < 3 && arg == 0)
-        return (0);
-    j = 0;
-    while (j < 3)
-    {
-        if (op_table[inst].arguments[i][j] == arg)
-            return (1);
-        j++;
-    }
-    ft_printf("returned 0\n");
-    return (0);
-}
-
-int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
-{
-    char arg_type1;
-    char arg_type2;
-    char arg_type3;
-    int     i;
-
-    i = 0;
-    arg_type1 = arg_code >> 6;
-    arg_type2 = (arg_code >> 4) & 3;
-    arg_type3 = (arg_code >> 2) & 3;
-
-    carr->args[0] = arg_type1;
-    carr->args[1] = arg_type2;
-    carr->args[2] = arg_type3;
-    while(i < 3)
-    {
-        if (!check_args(carr->args[i], i, inst - 1))
-            return (0);
-        i++;
-    }
-    ft_printf("arg type code valid!\n");
-    return (1);
-}
-
-void    update_pc(t_carriage *carr, int error)
-{
-    if (error)
-        carr->pc++;
-    else
-        carr->pc = carr->pc + carr->next_state;
-    if (carr->pc >= MEM_SIZE)
-        carr->pc = carr->pc % MEM_SIZE;
-}
+/*
+** Orded of actions inside the cycle
+** 1. set statement code
+** 2. reduce the number of cycles before execution
+** 3. perform statement if cycles_to_wait is 0 and everything is valid
+** 4. move carriage to the next position if cycles_to_wait is 0.
+*/
 
 void    run_carriage(t_arena *arena, t_carriage *carr)
 {
     char    inst;
     char    arg_code;
-    int     error;
 
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
-    check_arg_type_code(inst, arg_code, carr);
-    carr->regs[2] = 154;
-    error = manage_sti(carr, arena); //this will be something like perform statement
-    update_pc(carr, error);
-    print_hex(arena);
-    exit(0);
-    /*if (carr->cycles_to_wait == -1 || carr->cycles_to_wait == 0)
+	carr->cycles_to_wait = 0; // move this to initialising carr
+    if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17) // 1. set statement code
+        carr->cycles_to_wait = 1; // op_table[inst - 1].cycles_to_wait;
+    if (carr->cycles_to_wait > 0) // 2. reduce number of cycles before execution
+        carr->cycles_to_wait--;
+    if (carr->cycles_to_wait == 0)
     {
-        if (inst > 0 && inst < 17 && check_arg_type_code(inst, arg_code))
+        if (inst > 0 && inst < 17)
         {
-            // do statement;
+            if (check_instruction(inst, arg_code, carr)) // 3. perform statement
+			{
+				if (check_regs(inst, carr, arena)) // possibly move to check_arg_type_code but then need to add arena as parameter
+				{
+					ft_printf("ready to perform statement!\n");
+                	// perform_statement(inst, arena, carr);
+				}
+			}
         }
         else
-        {
-            carr->cycles_to_wait = 0;
-            carr->pc++;
-            if (carr->pc == MEM_SIZE)
-                carr->pc = 0;
-        }
+            carr->next_state = 1;
+        carr->pc += carr->next_state; // 4. move carriage
+        if (carr->pc >= MEM_SIZE)
+            carr->pc = carr->pc % MEM_SIZE;
     }
-    else
-    {
-        carr->cycles_to_wait--;
-    }*/
-    
-
-
 }
-
-
 
 void    vm_loop(t_game *game, t_pl *players)
 {
