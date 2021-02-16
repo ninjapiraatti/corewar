@@ -1,5 +1,19 @@
 # include "vm.h"
 
+void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
+{
+    int i;
+    i = size - 1;
+    while (i >= 0)
+    {
+        if (pos >= MEM_SIZE)
+            pos = pos % MEM_SIZE;
+        arena[pos].ar = arg >> (8 * i) & 0xff;
+        i--;
+        pos++;
+    }
+}
+
 /*
 ** Reads size bytes from arena address
 ** Converts bytes to int and returns int.
@@ -8,7 +22,7 @@
 
 int		read_bytes(t_arena *arena, int index, int size)
 {
-	unsigned char	buf[size];
+	unsigned char	buf[size]; // is it ok to define string size like this?
 	int				i;
 
 	i = 0;
@@ -38,16 +52,11 @@ void	manage_ld(t_carriage *carr, t_arena *arena)
 
 	arg2 = arena[carr->pc + 2 + carr->arg_size[0]].ar; // registry where we will write the number to
 	if (carr->args[0] == DIR_CODE)
-	{
 		arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
-		ft_printf("read direct %d\n", arg1);
-	}
 	else
-	{
 		arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
 		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, 4);
 		ft_printf("read indirect %d\n", arg1);
-	}
 	carr->regs[arg2 - 1] = arg1;
 	ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
 	if (arg1 == 0)
@@ -61,6 +70,7 @@ void	manage_ld(t_carriage *carr, t_arena *arena)
 ** arg2 reg / dir
 ** arg3 reg
 ** 4 bytes from pc + (arg1 value + arg2 value) % IDX_MOD is written to arg3
+** check if original corewar sets carry also in ldi
 */
 
 void	manage_ldi(t_carriage *carr, t_arena *arena)
@@ -84,6 +94,48 @@ void	manage_ldi(t_carriage *carr, t_arena *arena)
 	ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2) % IDX_MOD);
 }
 
+void	manage_lld(t_carriage *carr, t_arena *arena)
+{
+	int	arg1;
+	int	arg2;
+
+	arg2 = arena[carr->pc + 2 + carr->arg_size[0]].ar;
+	if (carr->args[0] == DIR_CODE)
+		arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
+	else
+	{
+		arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
+		arg1 = read_bytes(arena, carr->pc + arg1, 4);
+	}
+	carr->regs[arg2 - 1] = arg1;
+	ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
+	if (arg1 == 0)
+		carr->carry = 1;
+	else
+		carr->carry = 0;
+}
+
+void	manage_lldi(t_carriage *carr, t_arena *arena)
+{
+	int	arg1;
+	int	arg2;
+	int	arg3;
+
+	arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
+	arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0], carr->arg_size[1]);
+	arg3 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0] + carr->arg_size[1], carr->arg_size[2]);
+	if (carr->args[0] == REG_CODE)
+		arg1 = carr->regs[arg1 - 1];
+	else if (carr->args[0] == IND_CODE)
+		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, carr->arg_size[0]);
+	if (carr->args[1] == REG_CODE)
+		arg2 = carr->regs[arg2 - 1];
+	ft_printf("arg1 %d arg2: %d\n", arg1, arg2);
+	ft_printf("reg[%d]: %d\n", arg3, carr->regs[arg3 - 1]);
+	carr->regs[arg3 - 1] = read_bytes(arena, carr->pc + (arg1 + arg2), 4);
+	ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2));
+}
+
 /*
 ** Orded of actions inside the cycle
 ** 1. set statement code
@@ -99,7 +151,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
-	// ft_printf("read bytes: %d\n", read_bytes(arena, carr->pc + 3, 2));
+	arg_code = 10;
 	carr->cycles_to_wait = 0; // move this to initialising carr
     if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17) // 1. set statement code
         carr->cycles_to_wait = 1; // op_table[inst - 1].cycles_to_wait;
@@ -115,7 +167,7 @@ void    run_carriage(t_arena *arena, t_carriage *carr)
 				{
 					ft_printf("ready to perform statement!\n");
 					// ft_printf("reg6: %s\n", carr->regs[5]);
-					manage_ldi(carr, arena);
+					// manage_ldi(carr, arena);
 					// ft_printf("reg6: %s\n", carr->regs[5]);
                 	// perform_statement(inst, arena, carr);
 				}
