@@ -1,24 +1,29 @@
 FILE = asm
 
-SRC = src/main.c \
-src/help_functions.c \
-src/header.c \
-src/lexical_analysis.c \
-src/get_labels.c \
-src/write_header_name.c \
-../ft_printf/libftprintf.a \
-src/get_statement.c \
-src/get_statement_size.c \
-src/get_args.c \
-src/validate.c \
-src/validate_utils.c \
-src/convert_labels.c \
-src/write_hexa.c \
-src/write_arguments.c \
-src/validate_instructions.c \
-src/validate_arguments.c
+SRC = main.c \
+help_functions.c \
+header.c \
+lexical_analysis.c \
+get_labels.c \
+write_header_name.c \
+get_statement.c \
+get_statement_size.c \
+get_args.c \
+validate.c \
+validate_utils.c \
+convert_labels.c \
+write_hexa.c \
+write_arguments.c \
+validate_instructions.c \
+validate_arguments.c
 
-INC = /includes/asm.h
+INC = -I /includes/
+
+LIB = ../ft_printf/libftprintf.a
+
+SRC_DIR = src/
+
+SRCS = $(addprefix $(SRC_DIR),$(SRC))
 
 .PHONY: all clean fclean re
 
@@ -27,7 +32,7 @@ all: $(FILE)
 $(FILE):
 	@echo "Compiling..."
 	@cd ../ft_printf && make re && cd ../asm
-	@gcc -I $(INC) -o $(FILE) $(SRC)
+	@gcc $(INC) -o $(FILE) $(SRCS) $(LIB)
 	@echo "Done."
 
 clean:

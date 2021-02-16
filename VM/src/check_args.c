@@ -91,3 +91,10 @@ int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
     ft_printf("arg type code valid!\n");
     return (1);
 }
+
+int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr)
+{
+    if (op_table[inst - 1].arg_type_code == 1)
+        return (check_arg_type_code(inst, arg_code, carr));
+    return (1);
+}
