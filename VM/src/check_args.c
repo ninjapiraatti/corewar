@@ -20,27 +20,27 @@ int		check_regs(int inst, t_carriage *carr, t_arena *arena)
 	carr->arg_size[0] = get_arg_size(carr->args[0], inst);
 	carr->arg_size[1] = get_arg_size(carr->args[1], inst);
 	carr->arg_size[2] = get_arg_size(carr->args[2], inst);
-	ft_printf("arg1 type: %d size: %d\n", carr->args[0], carr->arg_size[0]);
-	ft_printf("arg2 type: %d size: %d\n", carr->args[1], carr->arg_size[1]);
-	ft_printf("arg3 type: %d size: %d\n", carr->args[2], carr->arg_size[2]);
+	// ft_printf("arg1 type: %d size: %d\n", carr->args[0], carr->arg_size[0]);
+	// ft_printf("arg2 type: %d size: %d\n", carr->args[1], carr->arg_size[1]);
+	// ft_printf("arg3 type: %d size: %d\n", carr->args[2], carr->arg_size[2]);
 	i = carr->pc + 1 + op_table[inst - 1].arg_type_code;
 	arg = 0;
 	while (arg < 3)
 	{
-        ft_printf("i: %d arg: %d arg size: %d\n", i, arg, carr->arg_size[arg]);
+        // ft_printf("i: %d arg: %d arg size: %d\n", i, arg, carr->arg_size[arg]);
 		if (carr->args[arg] == REG_CODE)
 		{
 			reg = arena[i].ar;
 			if (reg < 1 || reg > 16)
 			{
-				ft_printf("arg %d registry %d at %d not valid\n", arg, reg, i - carr->pc);
+				// ft_printf("arg %d registry %d at %d not valid\n", arg, reg, i - carr->pc);
 				return (0);
 			}
 		}
 		i += carr->arg_size[arg];
 		arg++;
 	}
-	ft_printf("arguments valid!\n");
+	// ft_printf("arguments valid!\n");
 	return (1);
 }
 
@@ -88,6 +88,13 @@ int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
             return (0);
         i++;
     }
-    ft_printf("arg type code valid!\n");
+    // ft_printf("arg type code valid!\n");
+    return (1);
+}
+
+int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr)
+{
+    if (op_table[inst - 1].arg_type_code == 1)
+        return (check_arg_type_code(inst, arg_code, carr));
     return (1);
 }

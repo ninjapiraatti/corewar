@@ -87,7 +87,7 @@ typedef struct          s_carriage
     enum e_carry        carry;
     int                 pc;
     int                 cycles_to_wait;// time to wait
-    unsigned int        last_live;// when live was (index of cycle)
+    int                 last_live;// when live was (index of cycle)
     int                 regs[REG_NUMBER]; //should we specify REG_SIZE, or is int enough??
     int                 color_id;   //maybe color of carriage
     int                 next_state;
@@ -108,10 +108,10 @@ typedef struct      s_game
     enum e_color    colors;
     t_carriage      *head; //linked list with list front add
     int             id_last_live;//player last told he was alive
-    unsigned int    cycles;//cycles passed
-    //number of completed live statements for the last period
-    //cycles_to_die[CYCLES_TO_DIE]
-    //number of checks performed
+    int             cycles;//cycles passed
+    unsigned int    lives_num;
+    int             cycles_to_die;
+    unsigned int    checks;
     int             car_num; //num of carriages
     int             game_state;
 }                   t_game;
@@ -175,25 +175,64 @@ void        initialize_registries(int *new_regs, int id, int *copy_regs);
 void	ft_add_carriage(t_carriage **alst, t_carriage *new);
 t_carriage  *create_carriage(int car_id, int player_id, int position);
 
-// void    create_first_carriages(t_game *game, t_pl *players);
-void    vm_loop(t_game *game, t_pl *players);
+/*
+** vm_loop.h
+*/
+
+void    vm_loop(t_game *game);
+void    run_carriage(t_game *game, t_carriage *carr);
+
 
 /*
 ** manage_st.c
 */
-int    manage_st(t_carriage *carr, t_arena *arena);
-int    manage_sti(t_carriage *carr, t_arena *arena);
-void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size);
-int      read_bytes_convert(t_arena *arena, int pos, int size);
-char    *copy_mem_area(t_arena *arena, int start, int size);
-int     check_ind_pc(int pc, int arg);
+
+void    manage_st(t_carriage *carr, t_arena *arena);
+void    manage_sti(t_carriage *carr, t_arena *arena);
+
 /*
 ** Manage statements
 */
 
 void	manage_and(t_carriage *carr, t_arena *arena);
+
+/*
+** manage_ld.c
+*/
+
+void	manage_ld(t_carriage *carr, t_arena *arena);
+void	manage_ldi(t_carriage *carr, t_arena *arena);
+void	manage_lld(t_carriage *carr, t_arena *arena);
+void	manage_lldi(t_carriage *carr, t_arena *arena);
+
+
+/*
+** op_tools.c
+*/
+
+char     *copy_mem_area(t_arena *arena, int start, int size);
+int      read_bytes_convert(t_arena *arena, int pos, int size);
+void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size);
+int		read_bytes(t_arena *arena, int index, int size);
+
+/*
+** check_args.c
+*/
+
+int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr);
 int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr);
-void    run_carriage(t_arena *arena, t_carriage *carr);
+int     check_args(char arg, int i, int inst);
 int		check_regs(int inst, t_carriage *carr, t_arena *arena);
 
+/*
+** perform_statement.c
+*/
+
+void	perform_statement(t_carriage *carr, t_game *game, int inst);
+
+/*
+** manage_live.c
+*/
+
+void    manage_live(t_carriage *carr, t_game *game);
 # endif

@@ -21,10 +21,13 @@ print_hex.c \
 place_in_memory.c \
 carriages.c \
 vm_loop.c \
+manage_live.c \
 manage_st.c \
 manage_and.c \
 manage_ld.c \
-check_args.c
+check_args.c \
+op_tools.c \
+perform_statement.c \
 
 
 SRC_DIR = src/

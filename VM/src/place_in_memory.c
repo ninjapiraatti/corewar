@@ -77,4 +77,5 @@ void    place_players_in_mem(t_game *game, t_pl *pl)
     }
     game->head = head;
     game->car_num = i;
+    game->players = pl;
 }

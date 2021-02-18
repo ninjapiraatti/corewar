@@ -1,155 +1,144 @@
 # include "vm.h"
 
-// init wait time to -1
+/*
+** This function kills all carriages in the event that cycles_to_die
+** is <= 0.
+*/
 
-void    manage_add(t_carriage *carr, t_arena *arena)
+t_carriage  *kill_all_carriages(t_carriage *head)
 {
-    int     arg1;
-    int     arg2;
-    int     arg3;
+    t_carriage  *cur;
 
-    arg1 = carr->regs[arena[carr->pc + 2].ar - 1];
-    arg2 = carr->regs[arena[carr->pc + 3].ar - 1];
-    arg3 = arg1 + arg2;
-    if (arg3 == 0)
-        carr->carry = true;
-    else
-        carr->carry = false;
-    carr->regs[arena[carr->pc + 4].ar - 1] = arg3;
-}
-
-int     check_args(char arg, int i, int inst)
-{
-    int     j;
-    int     count;
-
-    j = -1;
-    count = 0;
-    while (++j < 3)
-        if (op_table[inst].arguments[i][j] == 0)
-            count++;
-    if (count < 3 && arg == 0)
-        return (0);
-    j = 0;
-    while (j < 3)
+    while (head)
     {
-        if (op_table[inst].arguments[i][j] == arg)
-            return (1);
-        j++;
+        cur = head->next;
+        free(head);
+        head = cur;
     }
-    ft_printf("returned 0\n");
-    return (0);
+    return (head);
 }
 
-int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr)
+/*
+** Function removes carriages from the list that have not performed a live
+** statement in the required period. Returns the updated head of the list.
+*/
+
+t_carriage    *kill_carriages(t_carriage *head, int cycles, int to_die)
 {
-    char arg_type1;
-    char arg_type2;
-    char arg_type3;
-    int     i;
+    t_carriage  *cur;
+    t_carriage  *tmp;
 
-    i = 0;
-    arg_type1 = arg_code >> 6;
-    arg_type2 = (arg_code >> 4) & 3;
-    arg_type3 = (arg_code >> 2) & 3;
-
-    carr->args[0] = arg_type1;
-    carr->args[1] = arg_type2;
-    carr->args[2] = arg_type3;
-    while(i < 3)
+    if (to_die <= 0)
+        return(kill_all_carriages(head));
+    while (head && head->last_live <= (cycles - to_die))
     {
-        if (!check_args(carr->args[i], i, inst - 1))
-            return (0);
-        i++;
+        tmp = head->next;
+        free(head);
+        head = tmp;
     }
-    ft_printf("arg type code valid!\n");
-    return (1);
+    cur = head;
+    while (cur && cur->next)
+    {
+        tmp = cur->next;
+        if (tmp->last_live <= (cycles - to_die))
+        {
+            if (tmp->next)
+                cur->next = tmp->next;
+            free(tmp);
+        }
+        else
+            cur = cur->next;
+    }
+    return (head);
 }
 
-void    update_pc(t_carriage *carr, int error)
+/*
+** Kills certain carriages from list and updates cycles_to_die when needed.
+*/
+
+void     run_check(t_game *game)
 {
-    if (error)
-        carr->pc++;
+    game->head = kill_carriages(game->head, game->cycles, game->cycles_to_die);
+    if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
+    {
+        game->cycles_to_die -= CYCLE_DELTA;
+        game->checks = 0;
+    }
     else
-        carr->pc = carr->pc + carr->next_state;
-    if (carr->pc >= MEM_SIZE)
-        carr->pc = carr->pc % MEM_SIZE;
+        game->checks++;
+    game->lives_num = 0;
 }
 
-int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr)
-{
-    if (op_table[inst - 1].arg_type_code == 1)
-        return (check_arg_type_code(inst, arg_code, carr));
-    return (1);
-}
 
-void    run_carriage(t_arena *arena, t_carriage *carr)
+/*
+** Orded of actions inside the cycle
+** 1. set statement code
+** 2. reduce the number of cycles before execution
+** 3. perform statement if cycles_to_wait is 0 and everything is valid
+** 4. move carriage to the next position if cycles_to_wait is 0.
+*/
+
+void    run_carriage(t_game *game, t_carriage *carr)
 {
     char    inst;
     char    arg_code;
-    int     error;
+    t_arena *arena;
 
+    arena = game->arena;
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
-    check_arg_type_code(inst, arg_code, carr);
-    carr->regs[2] = 154;
-    error = manage_sti(carr, arena); //this will be something like perform statement
-    update_pc(carr, error);
-    print_hex(arena);
-    exit(0);
-    /*if (carr->cycles_to_wait == -1 || carr->cycles_to_wait == 0)
+	carr->cycles_to_wait = 0; // move this to initialising carr
+    if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17) // 1. set statement code
+        carr->cycles_to_wait = op_table[inst - 1].cycles_to_wait;
+    if (carr->cycles_to_wait > 0) // 2. reduce number of cycles before execution
+        carr->cycles_to_wait--;
+    if (carr->cycles_to_wait == 0)
     {
-        if (inst > 0 && inst < 17 && check_arg_type_code(inst, arg_code))
+        if (inst > 0 && inst < 17)
         {
-            // do statement;
+            if (check_instruction(inst, arg_code, carr)) // 3. perform statement
+			{
+				if (check_regs(inst, carr, arena)) // possibly move to check_arg_type_code but then need to add arena as parameter
+				{
+					// ft_printf("ready to perform statement!\n");
+                	perform_statement(carr, game, inst);
+                    // print_hex(arena);
+				}
+                perform_statement(carr, game, inst); //only for testing live
+			}
         }
         else
-        {
-            carr->cycles_to_wait = 0;
-            carr->pc++;
-            if (carr->pc == MEM_SIZE)
-                carr->pc = 0;
-        }
+            carr->next_state = 1;
+        carr->pc += carr->next_state; // 4. move carriage
+        if (carr->pc >= MEM_SIZE)
+            carr->pc = carr->pc % MEM_SIZE;
     }
-    else
-    {
-        carr->cycles_to_wait--;
-    }*/
-    
-
-
 }
 
-
-
-void    vm_loop(t_game *game, t_pl *players)
+void    vm_loop(t_game *game)
 {
     t_carriage *cur;
-	int			dumbasstempiterator;
 
-	dumbasstempiterator = 0;
+    game->checks = 0;
     game->game_state = 1;
+    game->lives_num = 0;
+    game->cycles_to_die = CYCLE_TO_DIE;
+    game->cycles = 0;
     while (game->game_state == 1)// will be a variable in game
     {
 		cur = game->head;
-		//while (cur)
-		while (dumbasstempiterator < 30)
+		while (cur)
         {
-            (void)players;
-            run_carriage(game->arena, cur);
-            //cur = cur->next;
-            //go throug each carriage
-             /* carriages read info, save next_state; */
-             // wait ajat
-			 dumbasstempiterator++;
+            game->cycles++;
+            run_carriage(game, cur);
+            cur = cur->next;
         }
-		game->game_state = 0;
-        
-       
-        
-        // kattoo, et onko cycles_to_die aika
-    //if cycles_to_die
-        //    check
-            //update carriage number
+        if (game->cycles % game->cycles_to_die == 0 || game->cycles_to_die <= 0)
+        {
+            run_check(game);
+            ft_printf("performed check!\n");
+        }
+        if (game->head == NULL)
+		    game->game_state = 0;
     }
 }

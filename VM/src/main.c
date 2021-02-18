@@ -46,6 +46,16 @@ void    introduce_players(t_pl *players)
     }
 }
 
+void    declare_winner(t_game *game)
+{
+    int     winner_number;
+    char    *winner_name;
+
+    winner_number = game->id_last_live;
+    winner_name = game->players->h_info[winner_number]->prog_name;
+    ft_printf("Player %d (%s) won\n", winner_number, winner_name);
+}
+
 int     main(int argc, char **argv)
 {
     t_pl    players;
@@ -63,8 +73,8 @@ int     main(int argc, char **argv)
     introduce_players(&players);
     place_players_in_mem(&game, &players);
     // print_hex(game.arena);
-    vm_loop(&game, &players);
-
+    vm_loop(&game);
+    declare_winner(&game);
     return (0);
 }
 
