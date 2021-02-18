@@ -96,15 +96,11 @@ void    run_carriage(t_game *game, t_carriage *carr)
     {
         if (inst > 0 && inst < 17)
         {
-            if (check_instruction(inst, arg_code, carr)) // 3. perform statement
+            if (check_instruction(inst, arg_code, carr, arena)) // 3. perform statement
 			{
-				if (check_regs(inst, carr, arena)) // possibly move to check_arg_type_code but then need to add arena as parameter
-				{
-					// ft_printf("ready to perform statement!\n");
-                	perform_statement(carr, game, inst);
-                    // print_hex(arena);
-				}
-                perform_statement(carr, game, inst); //only for testing live
+				// ft_printf("ready to perform statement!\n");
+                perform_statement(carr, game, inst);
+                // print_hex(arena);
 			}
         }
         else

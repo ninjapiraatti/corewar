@@ -219,10 +219,10 @@ int		read_bytes(t_arena *arena, int index, int size);
 ** check_args.c
 */
 
-int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr);
-int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr);
+int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
+int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
 int     check_args(char arg, int i, int inst);
-int		check_regs(int inst, t_carriage *carr, t_arena *arena);
+int		check_regs(t_carriage *carr, t_arena *arena);
 
 /*
 ** perform_statement.c
