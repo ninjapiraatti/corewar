@@ -12,6 +12,7 @@ void    init_structs(t_pl *players, t_flag *flags)
     while (++i < MAX_PLAYERS + 1)
         flags->n[i] = INIT_FLAGS;
     flags->dump = INIT_FLAGS;
+    AFF_DISPLAY = 0;
 }
 
 /*

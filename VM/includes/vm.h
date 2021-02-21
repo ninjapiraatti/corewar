@@ -13,6 +13,7 @@
 
 # define INIT_FLAGS -10000
 # define SIZE_MAGIC_NUM 4
+int AFF_DISPLAY;
 
 /*
 ** Simple struct for storing command line argc and **argv
@@ -195,6 +196,8 @@ void    manage_sti(t_carriage *carr, t_arena *arena);
 */
 
 void	manage_and(t_carriage *carr, t_arena *arena);
+void    manage_aff(t_carriage *carr, t_arena *arena);
+void    manage_sub(t_carriage *carr, t_arena *arena);
 
 /*
 ** manage_ld.c
