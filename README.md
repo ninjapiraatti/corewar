@@ -1,5 +1,4 @@
 # Hive Helsinki: Corewar
-C – Lexical analysis, Virtual Machine
 
 ## Challenge
 Create a replica of the game Corewar. Not only the champion but the assembler and VM too.
