@@ -58,26 +58,57 @@ t_carriage  *create_carriage(int player_id, int position)
     return (new);
 }
 
+
 /*
-** Create initial carriages for each player.
+** This function kills all carriages in the event that cycles_to_die
+** is <= 0.
 */
 
-// void    create_first_carriages(t_game *game, t_pl *players)
-// {
-//     int         i;
-//     int         car_num;
-//     t_carriage  *head;
-//     t_carriage  *new;
+t_carriage  *kill_all_carriages(t_carriage *head)
+{
+    t_carriage  *cur;
 
-//     i = 1;
-//     car_num = 0;
-//     head = NULL;
-//     while (i <= players->pl_num)
-//     {
-//         new = create_carriage(car_num, i);
-//         ft_add_carriage(&head, new);
-//         car_num++;
-//         i++;
-//     }
-//     game->car_num = car_num;
-// }
+    while (head)
+    {
+        cur = head->next;
+        free(head);
+        head = cur;
+    }
+    return (head);
+}
+
+/*
+** Function removes carriages from the list that have not performed a live
+** statement in the required period. Returns the updated head of the list.
+*/
+
+t_carriage    *kill_carriages(t_carriage *head, t_game *game)
+{
+    t_carriage  *cur;
+    t_carriage  *tmp;
+
+    if (game->cycles_to_die <= 0)
+        return(kill_all_carriages(head));
+    while (head && head->last_live <= (game->cycles - game->cycles_to_die))
+    {
+        tmp = head->next;
+        game->arena[head->pc].color_carr = 0;
+        free(head);
+        head = tmp;
+    }
+    cur = head;
+    while (cur && cur->next)
+    {
+        tmp = cur->next;
+        if (tmp->last_live <= (game->cycles - game->cycles_to_die))
+        {
+            if (tmp->next)
+                cur->next = tmp->next;
+            game->arena[tmp->pc].color_carr = 0;
+            free(tmp);
+        }
+        else
+            cur = cur->next;
+    }
+    return (head);
+}

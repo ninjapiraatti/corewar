@@ -1,60 +1,6 @@
 # include "vm.h"
 
 /*
-** This function kills all carriages in the event that cycles_to_die
-** is <= 0.
-*/
-
-t_carriage  *kill_all_carriages(t_carriage *head)
-{
-    t_carriage  *cur;
-
-    while (head)
-    {
-        cur = head->next;
-        free(head);
-        head = cur;
-    }
-    return (head);
-}
-
-/*
-** Function removes carriages from the list that have not performed a live
-** statement in the required period. Returns the updated head of the list.
-*/
-
-t_carriage    *kill_carriages(t_carriage *head, t_game *game)
-{
-    t_carriage  *cur;
-    t_carriage  *tmp;
-
-    if (game->cycles_to_die <= 0)
-        return(kill_all_carriages(head));
-    while (head && head->last_live <= (game->cycles - game->cycles_to_die))
-    {
-        tmp = head->next;
-        game->arena[head->pc].color_carr = 0;
-        free(head);
-        head = tmp;
-    }
-    cur = head;
-    while (cur && cur->next)
-    {
-        tmp = cur->next;
-        if (tmp->last_live <= (game->cycles - game->cycles_to_die))
-        {
-            if (tmp->next)
-                cur->next = tmp->next;
-            game->arena[tmp->pc].color_carr = 0;
-            free(tmp);
-        }
-        else
-            cur = cur->next;
-    }
-    return (head);
-}
-
-/*
 ** Kills certain carriages from list and updates cycles_to_die when needed.
 */
 
