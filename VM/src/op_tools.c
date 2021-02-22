@@ -85,3 +85,18 @@ int		read_bytes(t_arena *arena, int index, int size)
 		return ((short)(buf[0] << 8 | buf[1])); //the casting ensures that neg numbers will overflow
 	return (0);
 }
+
+void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size)
+{
+    int i;
+    int address;
+
+    i = 0;
+    while (i < size)
+    {
+        address = (pos + i) % MEM_SIZE;
+        arena[address].color = carr->color_id + 10;
+        arena[address].color_bold = 100;
+        i++;
+    }
+}

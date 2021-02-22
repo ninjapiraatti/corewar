@@ -77,6 +77,22 @@ t_carriage  *kill_all_carriages(t_carriage *head)
     return (head);
 }
 
+
+t_carriage  *kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game)
+{
+    t_carriage  *tmp;
+    int         limit;
+
+    limit = game->cycles - game->cycles_to_die;
+    while (head && head->last_live <= limit)
+    {
+        tmp = head->next;
+        game->arena[head->pc].color_carr = 0;
+        free(head);
+        head = tmp;
+    }
+    return (head);
+}
 /*
 ** Function removes carriages from the list that have not performed a live
 ** statement in the required period. Returns the updated head of the list.
@@ -87,13 +103,7 @@ t_carriage    *kill_carriages(t_carriage *head, t_game *game)
     t_carriage  *cur;
     t_carriage  *tmp;
 
-    while (head && head->last_live <= (game->cycles - game->cycles_to_die))
-    {
-        tmp = head->next;
-        game->arena[head->pc].color_carr = 0;
-        free(head);
-        head = tmp;
-    }
+    head = kill_carrs_from_beginning_of_list(head, game);
     cur = head;
     if (cur)
     {

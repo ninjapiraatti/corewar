@@ -35,6 +35,7 @@ void    init_mem_area_to_zero(t_arena *arena)
         arena[i].ar = 0;
         arena[i].color = 20;
         arena[i].color_carr = 0;
+        arena[i].color_bold = 0;
         i++;
     }
 }

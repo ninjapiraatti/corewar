@@ -1,17 +1,5 @@
 #include "vm.h"
 
-void        update_color(t_carriage *carr, t_arena *arena, int pos, int size)
-{
-    int i;
-
-    i = 0;
-    while (i < size)
-    {
-        arena[pos + i].color = carr->color_id + 10;
-        i++;
-    }
-}
-
 /*
 ** manage_st() writes a value from the registry that was passed as the first argument
 ** to the second, which is either a registry or an address, which has to be defined
@@ -36,6 +24,7 @@ void   manage_st(t_carriage *carr, t_arena *arena)
     {
         arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
             carr->arg_size[1]);
+        ft_printf("arg2 %d\n", arg2);
         arg2 = carr->pc + arg2 % IDX_MOD;
         write_to_memory(arena, arg2, arg1, REG_SIZE);
         update_color(carr, arena, arg2, REG_SIZE);

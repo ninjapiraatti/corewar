@@ -64,9 +64,10 @@ typedef struct  s_flag
 
 typedef struct      s_arena
 {
-    unsigned char ar;
-    int           color;
+    unsigned char   ar;
+    int             color;
     int             color_carr;
+    int             color_bold;
 }                   t_arena;
 
 // enum e_carry {           for some reason, enums wont work w ncurses lib included
@@ -216,6 +217,7 @@ char     *copy_mem_area(t_arena *arena, int start, int size);
 int      read_bytes_convert(t_arena *arena, int pos, int size);
 void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size);
 int		read_bytes(t_arena *arena, int index, int size);
+void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size);
 
 /*
 ** check_args.c
@@ -263,7 +265,7 @@ void    manage_add(t_carriage *carr, t_arena *arena);
 */
 int    start_visualizer(void);
 int    ncurses_print_arena(t_arena *arena);
-void    print_hex_color(t_arena arena);
+t_arena    print_hex_color(t_arena arena);
 void    print_carriage_color(t_arena *arena, t_carriage *carr);
 void    init_ncurses_colors(void);
 void    perform_visualization(t_game *game);

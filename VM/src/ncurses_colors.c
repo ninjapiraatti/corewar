@@ -7,17 +7,24 @@
 ** otherwise the hex itself will have color.
 */
 
-void    print_hex_color(t_arena arena)
+t_arena    print_hex_color(t_arena arena)
 {
     int color;
 
     color = (arena.color_carr != 0) ? arena.color_carr : arena.color;
     attrset(COLOR_PAIR(color));
-    // attron(A_BOLD);
-    printw("%02x", arena.ar);
-    // attroff(A_BOLD);
+    if (arena.color_bold)
+    {
+        attron(A_BOLD);
+        printw("%02x", arena.ar);
+        attroff(A_BOLD);
+        arena.color_bold--;
+    }
+    else
+        printw("%02x", arena.ar);
     attroff(COLOR_PAIR(color));
     addch(' ');
+    return (arena);
 }
 
 /*
@@ -39,7 +46,7 @@ int    ncurses_print_arena(t_arena *arena)
     while (i < MEM_SIZE)
     {
         move(y, x);
-        print_hex_color(arena[i]);
+        arena[i] = print_hex_color(arena[i]);
         i++;
         x += 3;
         if (x >= max_x)
@@ -123,7 +130,7 @@ void    perform_visualization(t_game *game)
 {
     int y;
 
-    napms(0);
+    napms(10);
     erase();
     y = ncurses_print_arena(game->arena);
     ncurses_print_game_info(game, y);
