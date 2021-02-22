@@ -10,8 +10,12 @@ void    init_structs(t_pl *players, t_flag *flags)
     players->pl_num = 0;
     i = -1;
     while (++i < MAX_PLAYERS + 1)
-        flags->n[i] = INIT_FLAGS;
-    flags->dump = INIT_FLAGS;
+    {
+        flags->n[i] = INIT_FLAG;
+        players->last_life[i] = 0;
+    }
+    flags->dump = INIT_FLAG;
+    flags->viz = INIT_FLAG;
 }
 
 /*

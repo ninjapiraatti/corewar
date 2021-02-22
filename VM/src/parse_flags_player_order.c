@@ -67,7 +67,7 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
     av = avac->av;
     if (!ft_strcmp(av[i], "-dump"))
     {
-        if (fl->dump != INIT_FLAGS)
+        if (fl->dump != INIT_FLAG)
             vm_error("Error, too many -dump flags");
         if (++i >= avac->ac ||
             ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
@@ -77,7 +77,7 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
     {
         fl->n[0] = 1;
         if (++i + 1 >= avac->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))), 
-            av[i]) || pos < 1 || fl->n[pos] != INIT_FLAGS || pos > MAX_PLAYERS)
+            av[i]) || pos < 1 || fl->n[pos] != INIT_FLAG || pos > MAX_PLAYERS)
             vm_error("Error, invalid usage of -n flag");
         i++;
         assign_player_order(ps, av[i], pos);
@@ -107,6 +107,8 @@ void     parse_flags_player_order(t_pl *players, t_flag *flags, t_avac *avac)
             players->pl_num++;
             assign_player_order(players, avac->av[i], 0);
         }
+        else if (!ft_strcmp(avac->av[i], "-v"))
+            flags->viz = 1;
         else if (avac->av[i][0] == '-')
             i = parse_flags(i, flags, players, avac);
         else

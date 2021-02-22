@@ -41,19 +41,17 @@ void	ft_add_carriage(t_carriage **alst, t_carriage *new)
 	}
 }
 
-t_carriage  *create_carriage(int car_id, int player_id, int position)
+t_carriage  *create_carriage(int player_id, int position)
 {
     t_carriage  *new;
 
     if (!(new = (t_carriage*)malloc(sizeof(t_carriage))))
             vm_error(strerror(errno));
-    initialize_registries(new->regs, player_id, NULL);
-    new->carry = false;
-    new->color_id = player_id - 1;
-    new->id = car_id;
+    new->carry = 0;
+    new->color_id = player_id;
     new->next = NULL;
     new->pc = position;
-    new->cycles_to_wait = -1;
+    new->cycles_to_wait = 0; //might have to put back to -1
     new->args[0] = 0;
     new->args[1] = 0;
     new->args[2] = 0;
