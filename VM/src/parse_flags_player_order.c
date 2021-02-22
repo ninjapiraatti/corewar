@@ -73,6 +73,8 @@ static int     parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
             ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
             vm_error("Error, -dump flag must be followed by a number");
     }
+    else if (!ft_strcmp(av[1], "-a"))
+        AFF_DISPLAY = 1;
     else if (!ft_strcmp(av[i], "-n"))
     {
         fl->n[0] = 1;

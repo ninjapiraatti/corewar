@@ -25,6 +25,8 @@ manage_live.c \
 manage_st.c \
 manage_and.c \
 manage_ld.c \
+manage_aff.c \
+manage_sub.c \
 check_args.c \
 op_tools.c \
 perform_statement.c \
