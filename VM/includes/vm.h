@@ -54,6 +54,7 @@ typedef struct  s_flag
     int n[MAX_PLAYERS + 1];
     int dump;
     int viz;
+    int aff;
 }               t_flag;
 
 /*
@@ -193,6 +194,8 @@ void    manage_sti(t_carriage *carr, t_arena *arena);
 */
 
 void	manage_and(t_carriage *carr, t_arena *arena);
+void    manage_aff(t_carriage *carr, t_arena *arena);
+void    manage_sub(t_carriage *carr, t_arena *arena);
 
 /*
 ** manage_ld.c

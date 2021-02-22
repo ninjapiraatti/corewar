@@ -109,6 +109,8 @@ void     parse_flags_player_order(t_pl *players, t_flag *flags, t_avac *avac)
         }
         else if (!ft_strcmp(avac->av[i], "-v"))
             flags->viz = 1;
+        else if (!ft_strcmp(avac->av[1], "-a"))
+            flags->aff = 1;
         else if (avac->av[i][0] == '-')
             i = parse_flags(i, flags, players, avac);
         else

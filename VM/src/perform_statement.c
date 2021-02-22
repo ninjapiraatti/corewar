@@ -57,6 +57,8 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst)
 		manage_ldi(carr, game->arena);
 	else if (inst == 11)
 		manage_sti(carr, game->arena);
+	else if (inst == 16)
+	 	manage_aff(carr, game->arena);
 
 	else if (inst == 12)
 		manage_fork(game, carr);
