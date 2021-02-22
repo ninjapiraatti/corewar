@@ -6,6 +6,7 @@ void    manage_live(t_carriage *carr, t_game *game)
     int arg;
 
     arg = read_bytes(game->arena, carr->pc + 1, DIR_SIZE);
+    // ft_printf("live arg=|%d| carr=%d\n", arg, carr->color_id);
     carr->last_live = game->cycles;
     game->lives_num++;
     arg *= -1;
@@ -16,5 +17,4 @@ void    manage_live(t_carriage *carr, t_game *game)
         //     arg, game->players->pl_order[arg]);
         game->players->last_life[arg] = game->cycles;
     }
-    carr->next_state = 1 + DIR_SIZE;
 }

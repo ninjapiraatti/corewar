@@ -36,7 +36,7 @@ void   manage_st(t_carriage *carr, t_arena *arena)
     {
         arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
             carr->arg_size[1]);
-        arg2 = (carr->pc + (arg2 % IDX_MOD)) % MEM_SIZE;
+        arg2 = carr->pc + arg2 % IDX_MOD;
         write_to_memory(arena, arg2, arg1, REG_SIZE);
         update_color(carr, arena, arg2, REG_SIZE);
     }
@@ -64,11 +64,11 @@ void    manage_sti(t_carriage *carr, t_arena *arena)
         arg2 = carr->regs[arena[carr->pc + k].ar - 1];
     else
     {
-        arg2 = read_bytes_convert(arena, carr->pc + k, 2);
+        arg2 = read_bytes(arena, carr->pc + k, carr->arg_size[1]);
         if (carr->args[1] == IND_CODE)
         {
-            arg2 = (carr->pc + (arg2 % IDX_MOD)) % MEM_SIZE;
-            arg2 = read_bytes_convert(arena, arg2, carr->arg_size[1]);
+            arg2 = carr->pc + arg2 % IDX_MOD;
+            arg2 = read_bytes(arena, arg2, carr->arg_size[1]);
         }
     }
     k += carr->arg_size[1];
@@ -79,6 +79,4 @@ void    manage_sti(t_carriage *carr, t_arena *arena)
     pos = carr->pc + (arg2 + arg3) % IDX_MOD;
     write_to_memory(arena, pos, arg1, REG_SIZE);
     update_color(carr, arena, pos, REG_SIZE);
-    k += carr->arg_size[2]; //these two lines only for testing,
-    carr->next_state = k;   //set next_state somewhere else for all statements
 }

@@ -52,7 +52,6 @@ int     check_args(char arg, int i, int inst)
             return (1);
         j++;
     }
-    ft_printf("returned 0\n");
     return (0);
 }
 
@@ -68,14 +67,13 @@ int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr, 
     carr->arg_size[0] = get_arg_size(carr->args[0], inst);
 	carr->arg_size[1] = get_arg_size(carr->args[1], inst);
 	carr->arg_size[2] = get_arg_size(carr->args[2], inst);
-    carr->next_state = carr->pc + 2 + carr->arg_size[0] + carr->arg_size[1] + carr->arg_size[2];
+    carr->next_state = 2 + carr->arg_size[0] + carr->arg_size[1] + carr->arg_size[2];
     while(i < 3)
     {
         if (!check_args(carr->args[i], i, inst - 1))
             return (0);
         i++;
     }
-    // ft_printf("arg type code valid!\n");
     return (check_regs(carr, arena));
 }
 
@@ -84,6 +82,6 @@ int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr, t_
     if (op_table[inst - 1].arg_type_code == 1)
         return (check_arg_type_code(inst, arg_code, carr, arena));
     else
-        carr->next_state = carr->pc + 1 + op_table[inst - 1].t_dir_size;
+        carr->next_state = 1 + op_table[inst - 1].t_dir_size;
     return (1);
 }

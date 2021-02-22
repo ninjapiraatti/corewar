@@ -21,8 +21,6 @@ void    manage_fork(t_game *game, t_carriage *carr)
     initialize_registries(new->regs, carr->color_id, carr->regs);
     ft_add_carriage(&(game->head), new);
     game->arena[new->pc].color_carr = new->color_id;
-
-    carr->next_state = 3;
 }
 
 /*

@@ -12,8 +12,8 @@ void    manage_add(t_carriage *carr, t_arena *arena)
     arg2 = carr->regs[arena[carr->pc + 3].ar - 1];
     arg3 = arg1 + arg2;
     if (arg3 == 0)
-        carr->carry = true;
+        carr->carry = 1;
     else
-        carr->carry = false;
+        carr->carry = 0;
     carr->regs[arena[carr->pc + 4].ar - 1] = arg3;
 }

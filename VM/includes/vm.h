@@ -251,6 +251,13 @@ void    manage_lfork(t_game *game, t_carriage *carr);
 void    manage_zjmp(t_arena *arena, t_carriage *carr);
 
 /*
+** manage_add.c
+*/
+
+void    manage_add(t_carriage *carr, t_arena *arena);
+
+
+/*
 ** ncurses_colors.c
 */
 int    start_visualizer(void);

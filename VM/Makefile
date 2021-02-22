@@ -28,6 +28,7 @@ manage_ld.c \
 manage_fork.c \
 manage_zjmp.c \
 manage_aff.c \
+manage_add.c \
 manage_sub.c \
 check_args.c \
 op_tools.c \

@@ -174,7 +174,7 @@ static const	t_op_table op_table[OP_CODE_COUNT] =
 			{0, 0, 0}
 		},
 		1,
-		80
+		800
 	},
 	{
 		"lld",

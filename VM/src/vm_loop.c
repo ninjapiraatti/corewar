@@ -143,10 +143,10 @@ void    vm_loop(t_game *game)
 		while (cur)
         {
             run_carriage(game, cur);
-            if (game->flags->viz == 1)
-                perform_visualization(game);
             cur = cur->next;
         }
+        if (game->flags->viz == 1)
+                perform_visualization(game);
         if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
             dump_memory(game->arena);
         if (game->cycles % game->cycles_to_die == 0 || game->cycles_to_die <= 0)

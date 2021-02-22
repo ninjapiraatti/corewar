@@ -10,10 +10,10 @@ void	manage_ld(t_carriage *carr, t_arena *arena)
 	if (carr->args[0] == IND_CODE)
 	{
 		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, REG_SIZE);
-		ft_printf("read indirect %d\n", arg1);
+		// ft_printf("read indirect %d\n", arg1);
 	}
 	carr->regs[arg2 - 1] = arg1;
-	ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
+	// ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
 	if (arg1 == 0)
 		carr->carry = 1;
 	else
@@ -43,10 +43,10 @@ void	manage_ldi(t_carriage *carr, t_arena *arena)
 		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, carr->arg_size[0]);
 	if (carr->args[1] == REG_CODE)
 		arg2 = carr->regs[arg2 - 1];
-	ft_printf("arg1 %d arg2: %d\n", arg1, arg2);
-	ft_printf("reg[%d]: %d\n", arg3, carr->regs[arg3 - 1]);
+	// ft_printf("arg1 %d arg2: %d\n", arg1, arg2);
+	// ft_printf("reg[%d]: %d\n", arg3, carr->regs[arg3 - 1]);
 	carr->regs[arg3 - 1] = read_bytes(arena, carr->pc + (arg1 + arg2) % IDX_MOD, 4);
-	ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2) % IDX_MOD);
+	// ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2) % IDX_MOD);
 }
 
 void	manage_lld(t_carriage *carr, t_arena *arena)
@@ -59,7 +59,7 @@ void	manage_lld(t_carriage *carr, t_arena *arena)
 	if (carr->args[0] == IND_CODE)
 		arg1 = read_bytes(arena, carr->pc + arg1, 4);
 	carr->regs[arg2 - 1] = arg1;
-	ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
+	// ft_printf("reg[%d]: %d arg1: %d\n", arg2, carr->regs[arg2 - 1], arg1);
 	if (arg1 == 0)
 		carr->carry = 1;
 	else
@@ -81,8 +81,8 @@ void	manage_lldi(t_carriage *carr, t_arena *arena)
 		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, carr->arg_size[0]);
 	if (carr->args[1] == REG_CODE)
 		arg2 = carr->regs[arg2 - 1];
-	ft_printf("arg1 %d arg2: %d\n", arg1, arg2);
-	ft_printf("reg[%d]: %d\n", arg3, carr->regs[arg3 - 1]);
+	// ft_printf("arg1 %d arg2: %d\n", arg1, arg2);
+	// ft_printf("reg[%d]: %d\n", arg3, carr->regs[arg3 - 1]);
 	carr->regs[arg3 - 1] = read_bytes(arena, carr->pc + (arg1 + arg2), 4);
-	ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2));
+	// ft_printf("reg[%d]: %d from %d\n", arg3, carr->regs[arg3 - 1], carr->pc + (arg1 + arg2));
 }
