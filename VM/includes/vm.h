@@ -194,7 +194,7 @@ void    manage_sti(t_carriage *carr, t_arena *arena);
 */
 
 void	manage_and(t_carriage *carr, t_arena *arena);
-void    manage_aff(t_carriage *carr, t_arena *arena);
+void    manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
 void    manage_sub(t_carriage *carr, t_arena *arena);
 
 /*
