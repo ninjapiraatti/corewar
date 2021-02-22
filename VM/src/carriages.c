@@ -87,8 +87,6 @@ t_carriage    *kill_carriages(t_carriage *head, t_game *game)
     t_carriage  *cur;
     t_carriage  *tmp;
 
-    if (game->cycles_to_die <= 0)
-        return(kill_all_carriages(head));
     while (head && head->last_live <= (game->cycles - game->cycles_to_die))
     {
         tmp = head->next;
@@ -97,18 +95,23 @@ t_carriage    *kill_carriages(t_carriage *head, t_game *game)
         head = tmp;
     }
     cur = head;
-    while (cur && cur->next)
+    if (cur)
     {
-        tmp = cur->next;
-        if (tmp->last_live <= (game->cycles - game->cycles_to_die))
+        while (cur->next)
         {
-            if (tmp->next)
-                cur->next = tmp->next;
-            game->arena[tmp->pc].color_carr = 0;
-            free(tmp);
+            tmp = cur->next;
+            if (tmp->last_live <= (game->cycles - game->cycles_to_die))
+            {
+                game->arena[tmp->pc].color_carr = 0;
+                if (tmp->next)
+                    cur->next = tmp->next;
+                free(tmp);
+                if (tmp->next == NULL)
+                    cur->next = NULL;
+            }
+            else
+                cur = cur->next;
         }
-        else
-            cur = cur->next;
     }
     return (head);
 }

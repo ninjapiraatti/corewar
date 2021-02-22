@@ -6,7 +6,10 @@
 
 void     run_check(t_game *game)
 {
-    game->head = kill_carriages(game->head, game);
+    if (game->cycles_to_die <= 0)
+        game->head = kill_all_carriages(game->head);
+    else
+        game->head = kill_carriages(game->head, game);
     if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
     {
         game->cycles_to_die -= CYCLE_DELTA;

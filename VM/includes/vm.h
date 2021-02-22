@@ -169,6 +169,9 @@ void    dump_memory(t_arena *arena);
 void        initialize_registries(int *new_regs, int id, int *copy_regs);
 void	ft_add_carriage(t_carriage **alst, t_carriage *new);
 t_carriage  *create_carriage(int player_id, int position);
+t_carriage  *kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game);
+t_carriage    *kill_carriages(t_carriage *head, t_game *game);
+t_carriage  *kill_all_carriages(t_carriage *head);
 
 /*
 ** vm_loop.h
@@ -178,8 +181,6 @@ void    vm_loop(t_game *game);
 void    run_carriage(t_game *game, t_carriage *carr);
 void    set_new_pc_and_color(t_arena *arena, t_carriage *carr);
 void    run_check(t_game *game);
-t_carriage    *kill_carriages(t_carriage *head, t_game *game);
-t_carriage  *kill_all_carriages(t_carriage *head);
 void    prepare_game_variables(t_game *game);
 
 /*
