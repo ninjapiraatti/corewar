@@ -10,9 +10,12 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <errno.h>
+# include <ncurses.h>
 
-# define INIT_FLAGS -10000
+# define INIT_FLAG -10000
 # define SIZE_MAGIC_NUM 4
+# define JUMPED 20000
+# define VISUAL 1
 
 /*
 ** Simple struct for storing command line argc and **argv
@@ -37,6 +40,7 @@ typedef struct  s_pl
     int         pl_num;
     header_t    **h_info;
     unsigned char   **exec;
+    int         last_life[MAX_PLAYERS + 1];
 }               t_pl;
 
 /*
@@ -49,6 +53,7 @@ typedef struct  s_flag
 {
     int n[MAX_PLAYERS + 1];
     int dump;
+    int viz;
 }               t_flag;
 
 /*
@@ -59,32 +64,20 @@ typedef struct  s_flag
 typedef struct      s_arena
 {
     unsigned char ar;
-    char          color[11];
+    int           color;
+    int             color_carr;
 }                   t_arena;
 
-/*
-** Enum with a color for each player according to
-** the player's index number.
-*/
-
-enum    e_color 
-{ 
-    yellow, 
-    cyan, 
-    magenta, 
-    green 
-};
-
-enum e_carry {
-    false,
-    true
-}; // carry-flag
+// enum e_carry {           for some reason, enums wont work w ncurses lib included
+//     false,
+//     true
+// }; // carry-flag
 
 
 typedef struct          s_carriage
 {
-    int                 id; // unique carriage number
-    enum e_carry        carry;
+    // int                 id; // unique carriage number
+    int                 carry; //changed to int from enum
     int                 pc;
     int                 cycles_to_wait;// time to wait
     int                 last_live;// when live was (index of cycle)
@@ -105,7 +98,7 @@ typedef struct      s_game
 {
     t_arena         arena[MEM_SIZE];
     t_pl            *players;
-    enum e_color    colors;
+    t_flag          *flags;
     t_carriage      *head; //linked list with list front add
     int             id_last_live;//player last told he was alive
     int             cycles;//cycles passed
@@ -120,8 +113,6 @@ typedef struct      s_game
 int             parse_champ_files(t_pl *players);
 void            introduce_players(t_pl *players);
 
-
-void    place_players_in_mem(t_game *game, t_pl *pl);
 /*
 ** vm_error.c
 */
@@ -157,15 +148,18 @@ unsigned char   *read_champ_executable(int fd, int prog_size);
 ** place_in_memory.c
 */
 
-void    place_players_in_mem(t_game *game, t_pl *pl);
+void    place_players_in_mem(t_game *game, t_pl *pl, t_flag *flags);
 int     player_to_arena(t_arena *start, unsigned char *code, int len, int index);
 void    add_color(char *color, int player_number);
+void    init_mem_area_to_zero(t_arena *arena);
+
 
 /*
 **  print_hex.c
 */
 
 void    print_hex(t_arena *arena);
+void    dump_memory(t_arena *arena);
 
 /*
 ** carriages.c
@@ -173,7 +167,7 @@ void    print_hex(t_arena *arena);
 
 void        initialize_registries(int *new_regs, int id, int *copy_regs);
 void	ft_add_carriage(t_carriage **alst, t_carriage *new);
-t_carriage  *create_carriage(int car_id, int player_id, int position);
+t_carriage  *create_carriage(int player_id, int position);
 
 /*
 ** vm_loop.h
@@ -181,7 +175,11 @@ t_carriage  *create_carriage(int car_id, int player_id, int position);
 
 void    vm_loop(t_game *game);
 void    run_carriage(t_game *game, t_carriage *carr);
-
+void    set_new_pc_and_color(t_arena *arena, t_carriage *carr);
+void    run_check(t_game *game);
+t_carriage    *kill_carriages(t_carriage *head, t_game *game);
+t_carriage  *kill_all_carriages(t_carriage *head);
+void    prepare_game_variables(t_game *game);
 
 /*
 ** manage_st.c
@@ -235,4 +233,31 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst);
 */
 
 void    manage_live(t_carriage *carr, t_game *game);
+
+/*
+** manage_fork.c
+*/
+
+void    manage_fork(t_game *game, t_carriage *carr);
+void    manage_lfork(t_game *game, t_carriage *carr);
+
+/*
+** manage_zjmp.c
+*/
+
+void    manage_zjmp(t_arena *arena, t_carriage *carr);
+
+/*
+** ncurses_colors.c
+*/
+int    start_visualizer(void);
+int    ncurses_print_arena(t_arena *arena);
+void    print_hex_color(t_arena arena);
+void    print_carriage_color(t_arena *arena, t_carriage *carr);
+void    init_ncurses_colors(void);
+void    perform_visualization(t_game *game);
+void    ncurses_print_game_info(t_game *game, int x);
+void    ncurses_declare_winner(int winner_number, char *winner_name);
+
+
 # endif

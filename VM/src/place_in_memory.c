@@ -1,26 +1,6 @@
 #include "vm.h"
 
 /*
-** Adds color to the arena-byte's 'color'-string according
-** to the player's index number.
-*/
-
-void    add_color(char *color, int player_number)
-{
-    enum e_color colors;
-
-    colors = player_number;
-    if (colors == yellow)
-        ft_strcpy(color, YELLOW);
-    else if (colors == cyan)
-        ft_strcpy(color, CYAN);
-    else if (colors == magenta)
-        ft_strcpy(color, MAGENTA);
-    else
-        ft_strcpy(color, GREEN);
-}
-
-/*
 ** Puts the player's executable code into the arena (into the 'ar'-byte of the
 ** struct) and sends the corresponding 'color'-string and the player's index
 ** number to add_color(). Returns the amount of bytes written.
@@ -34,10 +14,29 @@ int     player_to_arena(t_arena *start, unsigned char *code, int len, int index)
     while (k < len)
     {
         start[k].ar = code[k];
-        add_color(start[k].color, index);
+        start[k].color = index + 11;
+        start[k].color_carr = 0;
         k++;
     }
     return (k);
+}
+
+/*
+** Set remaining bytes in a player's area to 0 and color to neutral.
+*/
+
+void    init_mem_area_to_zero(t_arena *arena)
+{
+    int i;
+
+    i = 0;
+    while (i < MEM_SIZE)
+    {
+        arena[i].ar = 0;
+        arena[i].color = 20;
+        arena[i].color_carr = 0;
+        i++;
+    }
 }
 
 /*
@@ -48,34 +47,30 @@ int     player_to_arena(t_arena *start, unsigned char *code, int len, int index)
 ** 'color' -string to zero also.
 */
 
-void    place_players_in_mem(t_game *game, t_pl *pl)
+void    place_players_in_mem(t_game *game, t_pl *pl, t_flag *flags)
 {
-    int     per_pl;
-    int     i;
-    int     k;
-    t_arena *arena;
-    t_carriage  *head;
+    int         per_pl;
+    int         i;
+    int         k;
+    t_arena     *arena;
     t_carriage  *new;
 
-    head = NULL;
+    game->head = NULL;
     arena = game->arena;
+    init_mem_area_to_zero(arena);
     per_pl = MEM_SIZE / pl->pl_num;
     i = 0;
     while (i < pl->pl_num)
     {
         k = i * per_pl;
-        new = create_carriage(i, (i + 1), k);
-        ft_add_carriage(&head, new);
+        new = create_carriage((i + 1), k);
+        initialize_registries(new->regs, (i + 1), NULL);
+        ft_add_carriage(&(game->head), new);
         k += player_to_arena(&arena[k], pl->exec[i + 1], pl->h_info[i + 1]->prog_size, i);
+        arena[new->pc].color_carr = new->color_id;
         i++;
-        while (k < i * per_pl)
-        {
-            game->arena[k].ar = 0;
-            ft_bzero(game->arena[k].color, 11);
-            k++;
-        }
     }
-    game->head = head;
     game->car_num = i;
     game->players = pl;
+    game->flags = flags;
 }

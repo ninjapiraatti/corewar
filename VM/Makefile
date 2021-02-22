@@ -25,9 +25,12 @@ manage_live.c \
 manage_st.c \
 manage_and.c \
 manage_ld.c \
+manage_fork.c \
+manage_zjmp.c \
 check_args.c \
 op_tools.c \
 perform_statement.c \
+ncurses_colors.c \
 
 
 SRC_DIR = src/
@@ -58,7 +61,7 @@ $(NAME):
 	@gcc -c $(FLAGS)  $(SRCS) $(INCLUDES)
 	@mkdir -p $(OBJ_DIR)
 	@mv -f $(OBJ) $(OBJ_DIR)
-	@gcc $(FLAGS) $(OBJECTS) $(INCLUDES) $(LIB) -o $(NAME)
+	@gcc $(FLAGS) $(OBJECTS) $(INCLUDES) $(LIB) -o $(NAME) -lncurses
 	@echo "\033[32mCompiled\033[0m $(NAME)\033[32m!\033[0m"
 
 clean:

@@ -82,6 +82,6 @@ int		read_bytes(t_arena *arena, int index, int size)
 	if (size == 4)
 		return ((buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]);
 	if (size == 2)
-		return (buf[0] << 8 | buf[1]);
+		return ((short)(buf[0] << 8 | buf[1])); //the casting ensures that neg numbers will overflow
 	return (0);
 }

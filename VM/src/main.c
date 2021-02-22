@@ -52,8 +52,19 @@ void    declare_winner(t_game *game)
     char    *winner_name;
 
     winner_number = game->id_last_live;
-    winner_name = game->players->h_info[winner_number]->prog_name;
-    ft_printf("Player %d (%s) won\n", winner_number, winner_name);
+    if (winner_number > 0)
+        winner_name = game->players->h_info[winner_number]->prog_name;
+    else
+        winner_name = NULL;
+    if (game->flags->viz == 1)
+        ncurses_declare_winner(winner_number, winner_name);
+    else
+    {
+        if (winner_number > 0)
+            ft_printf("Player %d (%s) won\n", winner_number, winner_name);
+        else
+            ft_printf("EVERYONE LOSES!\n");
+    }
 }
 
 int     main(int argc, char **argv)
@@ -71,20 +82,10 @@ int     main(int argc, char **argv)
     parse_flags_player_order(&players, &flags, &avac);
     parse_champ_files(&players);
     introduce_players(&players);
-    place_players_in_mem(&game, &players);
-    // print_hex(game.arena);
+    place_players_in_mem(&game, &players, &flags);
+    if (flags.viz == 1)
+        start_visualizer();
     vm_loop(&game);
     declare_winner(&game);
     return (0);
 }
-
-/*
-**  to-do list
-** DONE-parse flags and players (assign player numbers etc)
-** DONE-check file sizes (x has too large a code (993 bytes > 682 bytes)) CHAMP_MAX_SIZE
-** DONE-introduce players and their comments on stdout
-** DONE-create memory area
-** DONE-create regstries??
-** DONE-place players in memory area
-** etc.
-*/

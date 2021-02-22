@@ -50,9 +50,16 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst)
 	else if (inst == 3)
 		manage_st(carr, game->arena);
 
+	else if (inst == 9)
+		manage_zjmp(game->arena, carr);
+
 	else if (inst == 10)
 		manage_ldi(carr, game->arena);
 	else if (inst == 11)
 		manage_sti(carr, game->arena);
 
+	else if (inst == 12)
+		manage_fork(game, carr);
+	else if (inst == 15)
+		manage_lfork(game, carr);
 }
