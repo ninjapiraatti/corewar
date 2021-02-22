@@ -1,6 +1,7 @@
 # Project specific
 
 VM/corewar
+.vscode
 
 *.cor
 asm/asm
