@@ -14,7 +14,7 @@ void    manage_fork(t_game *game, t_carriage *carr)
     t_carriage  *new;
 
     arg = read_bytes(game->arena, carr->pc + 1, 2);
-    address = (carr->pc + (arg % IDX_MOD)) % MEM_SIZE;
+    address = (unsigned int)(carr->pc + (arg % IDX_MOD)) % MEM_SIZE;
     new = create_carriage(carr->color_id, address);
     new->carry = carr->carry;
     new->last_live = carr->last_live;
@@ -35,7 +35,7 @@ void    manage_lfork(t_game *game, t_carriage *carr)
     t_carriage  *new;
 
     arg = read_bytes(game->arena, carr->pc + 1, 2);
-    address = (carr->pc + arg) % MEM_SIZE;
+    address = (unsigned int)(carr->pc + arg) % MEM_SIZE;
     new = create_carriage(carr->color_id, address);
     new->carry = carr->carry;
     new->last_live = carr->last_live;

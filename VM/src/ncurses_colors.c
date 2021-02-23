@@ -99,6 +99,11 @@ void    ncurses_print_game_info(t_game *game, int y)
     attron(A_BOLD);
     mvprintw(y += 2, x = 5, "Cycle: %d", game->cycles);
     mvprintw(y += 2, x, "Cycles to die: %d", game->cycles_to_die);
+    mvprintw(y += 2, x, "Number of cycles before check: %d",
+        game->cycles_to_die - game->cycles % game->cycles_to_die);
+    mvprintw(y += 2, x, "Max checks: %d", MAX_CHECKS);
+    mvprintw(y += 2, x, "Checks in current period: %d", game->checks);
+    mvprintw(y += 2, x, "Lives performed in current period: %d", game->lives_num);
     mvprintw(y += 2, x, "Players:");
     attroff(A_BOLD);
     i = 0;

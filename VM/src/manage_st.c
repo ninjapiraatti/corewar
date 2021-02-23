@@ -24,7 +24,6 @@ void   manage_st(t_carriage *carr, t_arena *arena)
     {
         arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
             carr->arg_size[1]);
-        ft_printf("arg2 %d\n", arg2);
         arg2 = carr->pc + arg2 % IDX_MOD;
         write_to_memory(arena, arg2, arg1, REG_SIZE);
         update_color(carr, arena, arg2, REG_SIZE);
