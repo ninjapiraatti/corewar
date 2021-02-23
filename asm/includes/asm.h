@@ -64,5 +64,6 @@ int						is_t_ind(char *file);
 int						is_t_dir(char *file);
 int						is_t_reg(char *file);
 int						is_label(char *str, int mode);
+int						skip_spaces(char *file);
 
 #endif
