@@ -1,4 +1,4 @@
-# include "vm.h"
+#include "vm.h"
 
 /*
 ** Kills certain carriages from list and updates cycles_to_die when needed.
@@ -25,7 +25,7 @@ void    set_new_pc_and_color(t_arena *arena, t_carriage *carr)
     if (carr->next_state != JUMPED)
     {
         arena[carr->pc].color_carr = 0;
-        carr->pc = (carr->pc + carr->next_state) % MEM_SIZE; // 4. move carriage
+        carr->pc = (carr->pc + carr->next_state) % MEM_SIZE;
         arena[carr->pc].color_carr = carr->color_id;
     }
 }
@@ -47,17 +47,15 @@ void    run_carriage(t_game *game, t_carriage *carr)
     arena = game->arena;
     inst = arena[carr->pc].ar;
     arg_code = arena[carr->pc + 1].ar;
-    // if (carr->cycles_to_wait == -1)
-	//     carr->cycles_to_wait = 0; // move this to initialising carr
-    if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17) // 1. set statement code
+    if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17)
         carr->cycles_to_wait = op_table[inst - 1].cycles_to_wait;
-    if (carr->cycles_to_wait > 0) // 2. reduce number of cycles before execution
+    if (carr->cycles_to_wait > 0)
         carr->cycles_to_wait--;
     if (carr->cycles_to_wait == 0)
     {
         if (inst > 0 && inst < 17)
         {
-            if (check_instruction(inst, arg_code, carr, arena)) // 3. perform statement
+            if (check_instruction(inst, arg_code, carr, arena))
                 perform_statement(carr, game, inst);
         }
         else
@@ -81,7 +79,7 @@ void    vm_loop(t_game *game)
     t_carriage *cur;
 
     prepare_game_variables(game);
-    while (game->game_state == 1)// will be a variable in game
+    while (game->game_state == 1)
     {
 		cur = game->head;
         game->cycles++;

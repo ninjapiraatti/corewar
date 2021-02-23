@@ -1,4 +1,4 @@
-# include "vm.h"
+#include "vm.h"
 
 /*
 ** Copies spedified memory area into buf(no trailing '\0')
@@ -17,7 +17,7 @@ char     *copy_mem_area(t_arena *arena, int start, int size)
         buf[i] = arena[start + i].ar;
         i++;
     }
-    return(buf);
+    return (buf);
 }
 
 /*
@@ -29,11 +29,11 @@ int      read_bytes_convert(t_arena *arena, int pos, int size)
 {
     char    *buf;
     int     res;
-    
+
     buf = copy_mem_area(arena, pos, size);
     ft_revbytes(buf, size);
     res =  *(int*)buf;
-    return(res);
+    return (res);
 }
 
 /*
@@ -48,7 +48,7 @@ void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
     i = size - 1;
     while (i >= 0)
     {
-        pos = pos % MEM_SIZE;      
+        pos = pos % MEM_SIZE;
         arena[pos].ar = arg >> (8 * i) & 0xff;
         i--;
         pos++;
@@ -63,7 +63,7 @@ void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
 
 int		read_bytes(t_arena *arena, int index, int size)
 {
-	unsigned char	buf[size]; // is it ok to define string size like this?
+	unsigned char	buf[size];
 	int				i;
 
 	i = 0;
@@ -82,7 +82,7 @@ int		read_bytes(t_arena *arena, int index, int size)
 	if (size == 4)
 		return ((buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]);
 	if (size == 2)
-		return ((short)(buf[0] << 8 | buf[1])); //the casting ensures that neg numbers will overflow
+		return ((short)(buf[0] << 8 | buf[1]));
 	return (0);
 }
 
