@@ -4,20 +4,20 @@
 ** Copies spedified memory area into buf(no trailing '\0')
 */
 
-char     *copy_mem_area(t_arena *arena, int start, int size)
+char	*copy_mem_area(t_arena *arena, int start, int size)
 {
-    int     i;
-    char    *buf;
+	int		i;
+	char	*buf;
 
-    if (!(buf = (char*)malloc(sizeof(char) * size)))
-        vm_error(strerror(errno));
-    i = 0;
-    while (i < size)
-    {
-        buf[i] = arena[start + i].ar;
-        i++;
-    }
-    return (buf);
+	if (!(buf = (char*)malloc(sizeof(char) * size)))
+		vm_error(strerror(errno));
+	i = 0;
+	while (i < size)
+	{
+		buf[i] = arena[start + i].ar;
+		i++;
+	}
+	return (buf);
 }
 
 /*
@@ -25,15 +25,15 @@ char     *copy_mem_area(t_arena *arena, int start, int size)
 ** the function turns the bytes around and casts it to an int.
 */
 
-int      read_bytes_convert(t_arena *arena, int pos, int size)
+int		read_bytes_convert(t_arena *arena, int pos, int size)
 {
-    char    *buf;
-    int     res;
+	char	*buf;
+	int		res;
 
-    buf = copy_mem_area(arena, pos, size);
-    ft_revbytes(buf, size);
-    res =  *(int*)buf;
-    return (res);
+	buf = copy_mem_area(arena, pos, size);
+	ft_revbytes(buf, size);
+	res = *(int*)buf;
+	return (res);
 }
 
 /*
@@ -41,18 +41,18 @@ int      read_bytes_convert(t_arena *arena, int pos, int size)
 ** Because the VM is big-endian, the most significant bytes are written first.
 */
 
-void    write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
+void	write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
 {
-    int i;
+	int i;
 
-    i = size - 1;
-    while (i >= 0)
-    {
-        pos = pos % MEM_SIZE;
-        arena[pos].ar = arg >> (8 * i) & 0xff;
-        i--;
-        pos++;
-    }
+	i = size - 1;
+	while (i >= 0)
+	{
+		pos = pos % MEM_SIZE;
+		arena[pos].ar = arg >> (8 * i) & 0xff;
+		i--;
+		pos++;
+	}
 }
 
 /*
@@ -86,17 +86,17 @@ int		read_bytes(t_arena *arena, int index, int size)
 	return (0);
 }
 
-void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size)
+void	update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size)
 {
-    int i;
-    int address;
+	int i;
+	int address;
 
-    i = 0;
-    while (i < size)
-    {
-        address = (pos + i) % MEM_SIZE;
-        arena[address].color = carr->color_id + 10;
-        arena[address].color_bold = 100;
-        i++;
-    }
+	i = 0;
+	while (i < size)
+	{
+		address = (pos + i) % MEM_SIZE;
+		arena[address].color = carr->color_id + 10;
+		arena[address].color_bold = 100;
+		i++;
+	}
 }
