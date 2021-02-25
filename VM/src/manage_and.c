@@ -52,11 +52,9 @@ void	manage_and(t_carriage *carr, t_arena *arena)
 	else
 		res = 0;
 	carr->regs[arg3 - 1] = res;
-	/*
 	ft_putstr_fd("Value in reg ", 2);
 	ft_putnbr_fd(arg3, 2);
 	ft_putstr_fd(":", 2);
 	ft_putnbr_fd(carr->regs[arg3 - 1], 2);
 	ft_putstr_fd("\n", 2);
-	*/
 }
