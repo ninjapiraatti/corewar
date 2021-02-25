@@ -30,8 +30,8 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst)
 		manage_add(carr, game->arena);
 	else if (inst == 5)
 		manage_sub(carr, game->arena);
-	// else if (inst == 6)
-	// 	manage_and(carr, arena);
+	else if (inst == 6)
+		manage_and(carr, game->arena);
 	// else if (inst == 7)
 	// 	manage_or(carr, arena);
 	// else if (inst == 8)
