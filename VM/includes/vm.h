@@ -16,6 +16,9 @@
 # define SIZE_MAGIC_NUM 4
 # define JUMPED 20000
 # define VISUAL 1
+# define OP_AND 1
+# define OP_OR	2
+# define OP_XOR 3 
 
 /*
 ** Simple struct for storing command line argc and **argv
@@ -196,6 +199,8 @@ void    manage_sti(t_carriage *carr, t_arena *arena);
 */
 
 void	manage_and(t_carriage *carr, t_arena *arena);
+void	manage_or(t_carriage *carr, t_arena *arena);
+void	manage_xor(t_carriage *carr, t_arena *arena);
 void    manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
 void    manage_sub(t_carriage *carr, t_arena *arena);
 
