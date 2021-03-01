@@ -32,10 +32,10 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst)
 		manage_sub(carr, game->arena);
 	else if (inst == 6)
 		manage_and(carr, game->arena);
-	// else if (inst == 7)
-	// 	manage_or(carr, arena);
-	// else if (inst == 8)
-	// 	manage_xor(carr, arena);
+	else if (inst == 7)
+	 	manage_or(carr, game->arena);
+	else if (inst == 8)
+	 	manage_xor(carr, game->arena);
 	else if (inst == 9)
 		manage_zjmp(game->arena, carr);
 	else if (inst == 10)
