@@ -60,6 +60,7 @@ void    write_hexa(t_asm *assm, char *file_name)
     output_file = get_file_name(file_name);
     ft_printf("Writing output to: %s\n", output_file);
     fd = open(output_file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+    free(output_file);
 	write_header(assm, fd);
     write_champ_exec_code_size(assm, fd);
     write_champion_comment(assm, fd);

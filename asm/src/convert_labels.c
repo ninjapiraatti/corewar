@@ -1,5 +1,18 @@
 #include "../includes/asm.h"
 
+void free_2d_array(char **arr)
+{
+    int i;
+
+    i = 0;
+    while (arr[i])
+    {
+        free(arr[i]);
+        i++;
+    }
+    free(arr);
+}
+
 char     *count_label_size(t_statement *state, int arg_i, int label_i, int check)
 {
     int     start;
@@ -25,7 +38,7 @@ char     *count_label_size(t_statement *state, int arg_i, int label_i, int check
     }
     res = ft_itoa(result);
     if (check == 0)
-        return (ft_strjoin("%", res));
+        return (free_strjoin(ft_strdup("%"), res));
     return (res);
 }
 
@@ -40,7 +53,7 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
     state = tmp;
     arr = ft_strsplit(str, ':');
     free(str);
-    str = arr[0][0] == '%' ? arr[1] : arr[0];
+    str = arr[0][0] == '%' ? ft_strdup(arr[1]) : ft_strdup(arr[0]);
     check = arr[0][0] == '%' ? 0 : 1;
     while (state)
     {
@@ -49,18 +62,23 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
             while (state->label[i])
             {
                 if (ft_strcmp(str, state->label[i]) == 0)
+                {
+                    free_2d_array(arr);
                     return (count_label_size(tmp, index, count, check));
+                }
                 i++;
             }
         count++;
         state = state->next;
     }
+    free_2d_array(arr);
     return (NULL);
 }
 
 void    convert_labels(t_statement *tmp, int i, int count)
 {
     t_statement *state;
+    char        *temp;
 
     state = tmp;
     while (state)
@@ -69,7 +87,12 @@ void    convert_labels(t_statement *tmp, int i, int count)
         if (state->args)
             while (state->args[++i])
                     if (ft_strchr(state->args[i], ':'))
-                        state->args[i] = count_label_index(state->args[i], tmp, 0, count);
+                    {
+                        temp = count_label_index(state->args[i], tmp, 0, count);
+                        free(state->args[i]);
+                        state->args[i] = ft_strdup(temp);
+                        free(temp);
+                    }
         count++;
         state = state->next;
     }

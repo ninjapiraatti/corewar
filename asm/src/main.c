@@ -84,5 +84,6 @@ int	main(int argc, char **argv)
 	get_name_and_comment(assm);
 	lexical_analysis(assm);
 	write_hexa(assm, argv[argc - 1]);
+	while(1);
 	return (0);
 }
