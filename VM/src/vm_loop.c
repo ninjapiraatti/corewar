@@ -72,6 +72,7 @@ void	prepare_game_variables(t_game *game)
 	game->cycles_to_die = CYCLE_TO_DIE;
 	game->cycles = 0;
 	game->id_last_live = 0;
+	game->time_to_check = CYCLE_TO_DIE;
 }
 
 void	vm_loop(t_game *game)
@@ -83,6 +84,7 @@ void	vm_loop(t_game *game)
 	{
 		cur = game->head;
 		game->cycles++;
+		game->time_to_check--;
 		while (cur)
 		{
 			run_carriage(game, cur);
@@ -92,8 +94,11 @@ void	vm_loop(t_game *game)
 			perform_visualization(game);
 		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
 			dump_memory(game->arena);
-		if (game->cycles % game->cycles_to_die == 0 || game->cycles_to_die <= 0)
+		if (game->time_to_check == 0 || game->cycles_to_die <= 0)
+		{
 			run_check(game);
+			game->time_to_check = game->cycles_to_die;
+		}
 		if (!game->head)
 			game->game_state = 0;
 	}

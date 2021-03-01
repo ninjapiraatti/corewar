@@ -112,6 +112,7 @@ typedef struct      s_game
     unsigned int    checks;
     int             car_num; //num of carriages
     int             game_state;
+    int             time_to_check;
 }                   t_game;
 
 /*
