@@ -6,7 +6,7 @@
 
 void	error_management(char *str)
 {
-	ft_printf("%s\n", str);
+	ft_putendl(str);
 	exit(1);
 }
 

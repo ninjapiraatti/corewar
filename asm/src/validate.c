@@ -59,6 +59,7 @@ int		validate_header(char **file)
 	i = 0;
 	name = 0;
 	comment = 0;
+	j = 0;
 	while (file[i] != NULL && (name == 0 || comment == 0))
 	{
 		j = skip_spaces(&file[i][j]);
@@ -91,5 +92,5 @@ void	validate_file(t_asm *assm)
 
 	i = validate_header(assm->file);
 	validate_instructions(assm->file, i);
-	ft_printf("		~ validation successful ~\n");
+	ft_putstr("		~ validation successful ~\n");
 }
