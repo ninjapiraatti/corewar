@@ -44,13 +44,13 @@ void	check_last_row(char *str)
 ** reads champion file into 2d array
 */
 
-char	**read_file(char *file)
+char	**read_file(char *file, int i)
 {
 	int	 	fd;
 	char	buf[BUF_SIZE + 1];
 	char	*input;
 	char	*tmp;
-	int		i;
+	char	**arr;
 
 	fd = open(file, O_RDONLY);
 	input = ft_strnew(0);
@@ -66,7 +66,9 @@ char	**read_file(char *file)
 	if (input == NULL)
 		error_management("empty input file");
 	check_last_row(input);
-	return (ft_strsplit(input, '\n'));
+	arr = ft_strsplit(input, '\n');
+	ft_strdel(&input);
+	return (arr);
 }
 
 int	main(int argc, char **argv)
@@ -79,10 +81,11 @@ int	main(int argc, char **argv)
 		argv[argc - 1][ft_strlen(argv[argc - 1]) - 2] != '.')
 		error_management("Error, wrong file type.");
 	assm = init_asm();
-	assm->file = read_file(argv[argc - 1]);
+	assm->file = read_file(argv[argc - 1], 0);
 	validate_file(assm);
 	get_name_and_comment(assm);
 	lexical_analysis(assm);
 	write_hexa(assm, argv[argc - 1]);
+	while(1);
 	return (0);
 }
