@@ -55,7 +55,7 @@ void	run_carriage(t_game *game, t_carriage *carr)
 	{
 		if (inst > 0 && inst < 17)
 		{
-			if (check_instruction(inst, arg_code, carr, arena))
+			if (check_inst(inst, arg_code, carr, arena))
 				perform_statement(carr, game, inst);
 		}
 		else

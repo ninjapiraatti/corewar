@@ -223,7 +223,7 @@ void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int
 ** check_args.c
 */
 
-int     check_instruction(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
+int     check_inst(int inst, unsigned char arg_code, t_carriage *c, t_arena *a);
 int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
 int     check_args(char arg, int i, int inst);
 int		check_regs(t_carriage *carr, t_arena *arena);
