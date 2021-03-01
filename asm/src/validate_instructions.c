@@ -19,13 +19,10 @@ int		validate_arg(char *file, int op, int args)
 	if (i == 0 && op_table[op].arguments[args][2] == IND_CODE)
 		i = is_t_ind(&file[i]);
 	if (i == 0)
-	{
-		// ft_printf("at %s ", file);
 		error_management("didnt find correct argument");
-	}
-	while (file[i] != '\0' && ft_isspace(file[i]))
-		i++;
-	if (op_table[op].arg_amount > 1 && args < op_table[op].arg_amount - 1 && file[i] != SEPARATOR_CHAR)
+	i += skip_spaces(&file[i]);
+	if (op_table[op].arg_amount > 1 && args < op_table[op].arg_amount - 1 \
+	&& file[i] != SEPARATOR_CHAR)
 		error_management("no separator char");
 	if (file[i] == SEPARATOR_CHAR)
 		i++;
@@ -45,8 +42,7 @@ void	validate_arguments(char *file, int op)
 	args = 0;
 	while (args < op_table[op].arg_amount)
 	{
-		while (file[i] != '\0' && ft_isspace(file[i]))
-			i++;
+		i += skip_spaces(&file[i]);
 		i += validate_arg(&file[i], op, args);
 		if (i == 0)
 			error_management("invalid arguments");
@@ -66,23 +62,24 @@ void	validate_arguments(char *file, int op)
 
 int		validate_instruction(char *file)
 {
-	int	i;
-	int	code;
+	int		i;
+	int		code;
+	char	*op_name;
 
 	code = -1;
 	i = 0;
-	while (file[i] != '\0' && ft_isspace(file[i]))
-		i++;
+	i += skip_spaces(&file[i]);
 	if (file[i] != '\0')
 	{
 		file = &file[i];
 		i = OP_CODE_COUNT - 1;
 		while (i >= 0)
 		{
-			if (ft_strncmp(op_table[i].op_name, file, ft_strlen(op_table[i].op_name)) == 0)
+			op_name = op_table[i].op_name;
+			if (ft_strncmp(op_name, file, ft_strlen(op_name)) == 0)
 			{
 				code = i;
-				validate_arguments(file + ft_strlen(op_table[i].op_name), code);
+				validate_arguments(file + ft_strlen(op_name), code);
 				break ;
 			}
 			i--;
@@ -115,14 +112,13 @@ int		validate_label(char *file)
 void	validate_instructions(char **file, int i)
 {
 	int	j;
-  
+
 	while (file[i] != NULL)
 	{
 		j = 0;
 		if (ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR) != NULL)
 			remove_comment(ft_str2chr(file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
-		while (file[i][j] != '\0' && ft_isspace(file[i][j]))
-			j++;
+		j += skip_spaces(&file[i][j]);
 		if (file[i][j] != '\0' && validate_label(&file[i][j]) == 0)
 		{
 			if (validate_instruction(&file[i][j]) == -1)
