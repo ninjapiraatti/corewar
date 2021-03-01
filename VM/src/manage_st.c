@@ -17,8 +17,7 @@ void   manage_st(t_carriage *carr, t_arena *arena)
     if (carr->args[1] == REG_CODE)
     {
         reg = arena[carr->pc + 2 + carr->arg_size[0]].ar;
-        arg2 = carr->regs[reg - 1];
-        arg2 = arg1;
+        carr->regs[reg - 1] = arg1;
     }
     else //arg2 is T_IND 2
     {

@@ -6,5 +6,6 @@
 # lld	- dir/ind | reg
 # lldi	- reg/dir/ind | reg/dir | reg
 
-ld	-478, r5
+ld	%-478, r5
+st	r5, 70
 live	%-1

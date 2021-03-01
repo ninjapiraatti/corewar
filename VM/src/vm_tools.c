@@ -82,3 +82,26 @@ int     ft_str_is_empty(char *str, int size)
     }
     return (ret);
 }
+
+/*
+** Sets registries for the new carriage. If carriage will be a copy,
+** copy registries from *copy_regs, otherwise set them to 0.
+** Place players 'id' in the first registry with a '-' sign.
+*/
+
+void		initialize_registries(int *new_regs, int id, int *copy_regs)
+{
+	int i;
+
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		if (i == 0)
+			new_regs[i] = (id * -1);
+		else if (!copy_regs)
+			new_regs[i] = 0;
+		else
+			new_regs[i] = copy_regs[i];
+		i++;
+	}
+}

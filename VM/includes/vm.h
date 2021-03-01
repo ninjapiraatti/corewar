@@ -114,9 +114,13 @@ typedef struct      s_game
     int             game_state;
 }                   t_game;
 
+/*
+** main.c
+*/
 
 int             parse_champ_files(t_pl *players);
 void            introduce_players(t_pl *players);
+void	        declare_winner(t_game *game);
 
 /*
 ** vm_error.c
@@ -132,6 +136,7 @@ void            init_structs(t_pl *players, t_flag *flags);
 header_t        **prepare_header_info_array(int pl_num);
 void            ft_revbytes(char *bytes, size_t size);
 int             ft_str_is_empty(char *str, int size);
+void        initialize_registries(int *new_regs, int id, int *copy_regs);
 
 /*
 ** parse_flags_player_order.c
@@ -170,7 +175,6 @@ void    dump_memory(t_arena *arena);
 ** carriages.c
 */
 
-void        initialize_registries(int *new_regs, int id, int *copy_regs);
 void	ft_add_carriage(t_carriage **alst, t_carriage *new);
 t_carriage  *create_carriage(int player_id, int position);
 t_carriage  *kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game);
@@ -178,7 +182,7 @@ t_carriage    *kill_carriages(t_carriage *head, t_game *game);
 t_carriage  *kill_all_carriages(t_carriage *head);
 
 /*
-** vm_loop.h
+** vm_loop.c
 */
 
 void    vm_loop(t_game *game);
