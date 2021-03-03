@@ -61,7 +61,7 @@ void	write_to_memory(t_arena *arena, unsigned int pos, int arg, int size)
 ** Currently only allows sizes 1, 2 and 4
 */
 
-int		read_bytes(t_arena *arena, int index, int size)
+int		read_bytes(t_arena *arena, unsigned int index, int size)
 {
 	unsigned char	buf[size];
 	int				i;
