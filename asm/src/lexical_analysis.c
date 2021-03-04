@@ -58,7 +58,7 @@ void		lexical_analysis(t_asm *assm)
 	{
 		if (contains_statement(assm->file[assm->index]))
 		{
-			if (!assm->statements)
+			if (assm->statements == NULL)
 			{
 				statements = new_statement(assm);
 				assm->statements = statements;

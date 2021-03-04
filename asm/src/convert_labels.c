@@ -84,16 +84,21 @@ void    convert_labels(t_statement *tmp, int i, int count)
     state = tmp;
     while (state)
     {
-        i = -1;
+        i = 0;
         if (state->args)
-            while (state->args[++i])
-                    if (ft_strchr(state->args[i], ':'))
-                    {
-                        temp = count_label_index(state->args[i], tmp, 0, count);
-                        free(state->args[i]);
-                        state->args[i] = ft_strdup(temp);
-                        free(temp);
-                    }
+        {
+            while (state->args[i] != NULL)
+            {
+                if (ft_strchr(state->args[i], ':'))
+                {
+                    temp = count_label_index(state->args[i], tmp, 0, count);
+                    free(state->args[i]);
+                    state->args[i] = ft_strdup(temp);
+                    free(temp);
+                }
+                i++;
+            }
+        }
         count++;
         state = state->next;
     }

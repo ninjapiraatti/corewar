@@ -17,6 +17,14 @@ t_asm	*init_asm()
 
 	if (!(assm = (t_asm*)malloc(sizeof(t_asm))))
 		error_management("Malloc error");
+	assm->statements = NULL;
+	assm->name = NULL;
+	assm->comment = NULL;
+	assm->file = NULL;
+	assm->file1d = NULL;
+	assm->champion_size = 0;
+	assm->file_size = 0;
+	assm->index = 0;
 	return (assm);
 }
 
