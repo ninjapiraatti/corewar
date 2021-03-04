@@ -44,9 +44,9 @@ int		check_args(char arg, int i, int inst)
 	{
 		if (op_table[inst].arguments[i][j] == 0)
 			count++;
-		if (count < 3 && arg == 0)
-			return (0);
 	}
+	if (count < 3 && arg == 0)
+		return (0);
 	j = 0;
 	while (j < 3)
 	{
