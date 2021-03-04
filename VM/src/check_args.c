@@ -66,6 +66,10 @@ int     check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
     c->arg_size[0] = get_arg_size(c->args[0], inst);
 	c->arg_size[1] = get_arg_size(c->args[1], inst);
 	c->arg_size[2] = get_arg_size(c->args[2], inst);
+    // useful for debugging
+    // ft_printf("arg1: %d size: %d\n", c->args[0], c->arg_size[0]);
+    // ft_printf("arg2: %d size: %d\n", c->args[1], c->arg_size[1]);
+    // ft_printf("arg3: %d size: %d\n", c->args[2], c->arg_size[2]);
     c->next_state = 2 + c->arg_size[0] + c->arg_size[1] + c->arg_size[2];
     while (i < 3)
     {
