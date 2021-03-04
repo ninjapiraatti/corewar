@@ -31,7 +31,7 @@ typedef struct			s_asm
 	int					index;
 }						t_asm;
 
-void					get_name_and_comment(t_asm *assm);
+void					get_name_and_comment(t_asm *assm, int i, int check);
 void					lexical_analysis(t_asm *assm);
 void					error_management(char *str);
 void					validate_file(t_asm *assm);

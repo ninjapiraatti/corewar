@@ -62,11 +62,13 @@ void		lexical_analysis(t_asm *assm)
 			{
 				statements = new_statement(assm);
 				assm->statements = statements;
+				statements->next = NULL;
 			}
 			else
 			{
 				statements->next = new_statement(assm);
 				statements = statements->next;
+				statements->next = NULL;
 			}
 		}
 		assm->index++;

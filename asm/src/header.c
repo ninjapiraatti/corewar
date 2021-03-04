@@ -4,7 +4,7 @@
 ** parses NAME_CMD_STRING from the champion file.
 */
 
-void		get_name(char **file, t_asm *assm)
+int		loop_name(char **file, t_asm *assm)
 {
 	char		*name;
 
@@ -19,14 +19,15 @@ void		get_name(char **file, t_asm *assm)
 			break ;
 	}
 	*ft_strrchr(name, '"') = '\0';
-	assm->name = name;
+	ft_strdel(&name);
+	return (1);
 }
 
 /*
 ** parses COMMENT_CMD_STRING from the champion file.
 */
 
-void		get_comment(char **file, t_asm *assm)
+int		loop_comment(char **file, t_asm *assm)
 {
 	char		*comment;
 
@@ -41,27 +42,66 @@ void		get_comment(char **file, t_asm *assm)
 			break ;
 	}
 	*ft_strrchr(comment, '"') = '\0';
-	assm->comment = comment;
+	ft_strdel(&comment);
+	return (1);
 }
 
 /*
 ** searches for NAME_CMD_STRING and COMMENT_CMD_STRING from the champion file.
 */
 
-void			get_name_and_comment(t_asm *assm)
+int		loop_index(t_asm *assm, int name, int comment, int check)
 {
 	assm->index = 0;
 	while (assm->file[assm->index])
 	{
-		if (assm->name && assm->comment)
+		if (name && comment)
 			break ;
 		if (ft_strnequ(assm->file[assm->index], NAME_CMD_STRING,
 		ft_strlen(NAME_CMD_STRING)))
-			get_name(assm->file, assm);
+		{
+			name = loop_name(assm->file, assm);
+			if (comment == 0)
+				check = 0;
+		}
 		else if (ft_strnequ(assm->file[assm->index], COMMENT_CMD_STRING,
 		ft_strlen(COMMENT_CMD_STRING)))
-			get_comment(assm->file, assm);
+		{
+			comment = loop_comment(assm->file, assm);
+			if (name == 0)
+				check = 1;
+		}
 		else
 			assm->index++;
 	}
+	return (check);
+}
+
+void	get_name_and_comment(t_asm *assm, int i, int check)
+{
+	char	*str;
+	char	*first;
+
+	check = loop_index(assm, 0, 0, 2);
+	if (check == 0)
+		first = ".name";
+	else
+		first = ".comment";
+	str = ft_strchr(ft_strstr(assm->file1d, first), '"') + 1;
+	while(str[i] && str[i] != '"')
+		i++;
+	if (check == 0)
+		assm->name = ft_strsub(str, 0, i);
+	else
+		assm->comment = ft_strsub(str, 0, i);
+	str = ft_strchr(str, '"') + 1;
+	i = 0;
+	first = check == 0 ? ".comment" : ".name";
+	str = ft_strchr(ft_strstr(str, first), '"') + 1;
+	while(str[i] && str[i] != '"')
+		i++;
+	if (check == 0)
+		assm->comment = ft_strsub(str, 0, i);
+	else
+		assm->name = ft_strsub(str, 0, i);
 }

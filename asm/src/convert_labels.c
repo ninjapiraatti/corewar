@@ -72,6 +72,7 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
         state = state->next;
     }
     free_2d_array(arr);
+    error_management("error while converting labels, no such label");
     return (NULL);
 }
 
