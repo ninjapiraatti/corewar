@@ -6,27 +6,27 @@
 ** with the help of IDX_MOD.
 */
 
-void   manage_st(t_carriage *carr, t_arena *arena)
+void	manage_st(t_carriage *carr, t_arena *arena)
 {
-    int reg;
-    int arg1;
-    int arg2;
+	int		reg;
+	int		arg1;
+	int		arg2;
 
-    reg = arena[carr->pc + 2].ar;
-    arg1 = carr->regs[reg - 1];
-    if (carr->args[1] == REG_CODE)
-    {
-        reg = arena[carr->pc + 2 + carr->arg_size[0]].ar;
-        carr->regs[reg - 1] = arg1;
-    }
-    else //arg2 is T_IND 2
-    {
-        arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
-            carr->arg_size[1]);
-        arg2 = carr->pc + arg2 % IDX_MOD;
-        write_to_memory(arena, arg2, arg1, REG_SIZE);
-        update_color(carr, arena, arg2, REG_SIZE);
-    }
+	reg = arena[carr->pc + 2].ar;
+	arg1 = carr->regs[reg - 1];
+	if (carr->args[1] == REG_CODE)
+	{
+		reg = arena[carr->pc + 2 + carr->arg_size[0]].ar;
+		carr->regs[reg - 1] = arg1;
+	}
+	else //arg2 is T_IND 2
+	{
+		arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
+			carr->arg_size[1]);
+		arg2 = carr->pc + arg2 % IDX_MOD;
+		write_to_memory(arena, arg2, arg1, REG_SIZE);
+		update_color(carr, arena, arg2, REG_SIZE);
+	}
 }
 
 /*
@@ -37,33 +37,33 @@ void   manage_st(t_carriage *carr, t_arena *arena)
 ** last argument.
 */
 
-void    manage_sti(t_carriage *carr, t_arena *arena)
+void	manage_sti(t_carriage *carr, t_arena *arena)
 {
-    int arg1;
-    int arg2;
-    int arg3;
-    int pos;
-    int k; //makes it easier to keep track of what byte we are reading at the moment
+	int		arg1;
+	int		arg2;
+	int		arg3;
+	int		pos;
+	int		k; //makes it easier to keep track of what byte we are reading at the moment
 
-    arg1 = carr->regs[arena[carr->pc + 2].ar - 1];
-    k = 2 + carr->arg_size[0];
-    if (carr->args[1] == REG_CODE)
-        arg2 = carr->regs[arena[carr->pc + k].ar - 1];
-    else
-    {
-        arg2 = read_bytes(arena, carr->pc + k, carr->arg_size[1]);
-        if (carr->args[1] == IND_CODE)
-        {
-            arg2 = carr->pc + arg2 % IDX_MOD;
-            arg2 = read_bytes(arena, arg2, carr->arg_size[1]);
-        }
-    }
-    k += carr->arg_size[1];
-    if (carr->args[2] == REG_CODE)
-        arg3 = carr->regs[arena[carr->pc + k].ar - 1];
-    else
-        arg3 = read_bytes(arena, carr->pc + k, carr->arg_size[2]);
-    pos = carr->pc + (arg2 + arg3) % IDX_MOD;
-    write_to_memory(arena, pos, arg1, REG_SIZE);
-    update_color(carr, arena, pos, REG_SIZE);
+	arg1 = carr->regs[arena[carr->pc + 2].ar - 1];
+	k = 2 + carr->arg_size[0];
+	if (carr->args[1] == REG_CODE)
+		arg2 = carr->regs[arena[carr->pc + k].ar - 1];
+	else
+	{
+		arg2 = read_bytes(arena, carr->pc + k, carr->arg_size[1]);
+		if (carr->args[1] == IND_CODE)
+		{
+			arg2 = carr->pc + arg2 % IDX_MOD;
+			arg2 = read_bytes(arena, arg2, carr->arg_size[1]);
+		}
+	}
+	k += carr->arg_size[1];
+	if (carr->args[2] == REG_CODE)
+		arg3 = carr->regs[arena[carr->pc + k].ar - 1];
+	else
+		arg3 = read_bytes(arena, carr->pc + k, carr->arg_size[2]);
+	pos = carr->pc + (arg2 + arg3) % IDX_MOD;
+	write_to_memory(arena, pos, arg1, REG_SIZE);
+	update_color(carr, arena, pos, REG_SIZE);
 }

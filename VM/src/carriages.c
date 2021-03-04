@@ -35,7 +35,6 @@ t_carriage	*create_carriage(int player_id, int position)
 	return (new);
 }
 
-
 /*
 ** This function kills all carriages in the event that cycles_to_die
 ** is <= 0.
@@ -53,7 +52,6 @@ t_carriage	*kill_all_carriages(t_carriage *head)
 	}
 	return (head);
 }
-
 
 t_carriage	*kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game)
 {
