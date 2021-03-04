@@ -1,4 +1,4 @@
-# include "vm.h"
+#include "vm.h"
 
 void	manage_and_or_xor(t_carriage *carr, t_arena *arena, int op)
 {
@@ -9,8 +9,10 @@ void	manage_and_or_xor(t_carriage *carr, t_arena *arena, int op)
 
 	res = 0;
 	arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
-	arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0], carr->arg_size[1]);
-	arg3 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0] + carr->arg_size[1], carr->arg_size[2]);
+	arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
+		carr->arg_size[1]);
+	arg3 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0] +
+		carr->arg_size[1], carr->arg_size[2]);
 	if (carr->args[0] == REG_CODE)
 		arg1 = carr->regs[arg1 - 1];
 	else if (carr->args[0] == IND_CODE)
@@ -21,25 +23,28 @@ void	manage_and_or_xor(t_carriage *carr, t_arena *arena, int op)
 		arg2 = read_bytes(arena, carr->pc + arg2 % IDX_MOD, carr->arg_size[1]);
 	if (op == OP_AND)
 		res = arg1 & arg2;
-	else if (op ==  OP_OR)
+	else if (op == OP_OR)
 		res = arg1 | arg2;
 	else if (op == OP_XOR)
-		res =  arg1 ^ arg2;
-	if (res ==  0)
+		res = arg1 ^ arg2;
+	if (res == 0)
 		carr->carry = 1;
 	else
 		carr->carry = 0;
 	carr->regs[arg3 - 1] = res;
 }
 
-void	manage_and(t_carriage *carr, t_arena *arena) {
+void	manage_and(t_carriage *carr, t_arena *arena)
+{
 	manage_and_or_xor(carr, arena, OP_AND);
 }
 
-void	manage_or(t_carriage *carr, t_arena *arena) {
+void	manage_or(t_carriage *carr, t_arena *arena)
+{
 	manage_and_or_xor(carr, arena, OP_OR);
 }
 
-void	manage_xor(t_carriage *carr, t_arena *arena) {
+void	manage_xor(t_carriage *carr, t_arena *arena)
+{
 	manage_and_or_xor(carr, arena, OP_XOR);
 }
