@@ -37,10 +37,10 @@ void	manage_ldi(t_carriage *c, t_arena *arena)
 	if (c->args[0] == REG_CODE)
 		arg1 = c->regs[arg1 - 1];
 	else if (c->args[0] == IND_CODE)
-		arg1 = read_bytes(arena, c->pc + arg1 % IDX_MOD, c->arg_size[0]);
+		arg1 = read_bytes(arena, c->pc + arg1 % IDX_MOD, REG_SIZE);
 	if (c->args[1] == REG_CODE)
 		arg2 = c->regs[arg2 - 1];
-	c->regs[arg3 - 1] = read_bytes(arena, c->pc + (arg1 + arg2) % IDX_MOD, 4);
+	c->regs[arg3 - 1] = read_bytes(arena, c->pc + (arg1 + arg2) % IDX_MOD, REG_SIZE);
 }
 
 void	manage_lld(t_carriage *c, t_arena *arena)
@@ -51,7 +51,7 @@ void	manage_lld(t_carriage *c, t_arena *arena)
 	arg2 = arena[c->pc + 2 + c->arg_size[0]].ar;
 	arg1 = read_bytes(arena, c->pc + 2, c->arg_size[0]);
 	if (c->args[0] == IND_CODE)
-		arg1 = read_bytes(arena, c->pc + arg1, 4);
+		arg1 = read_bytes(arena, c->pc + arg1, 2); // should apparently read 4 bytes but original corewar reads 2
 	c->regs[arg2 - 1] = arg1;
 	if (arg1 == 0)
 		c->carry = 1;
@@ -72,8 +72,12 @@ void	manage_lldi(t_carriage *c, t_arena *arena)
 	if (c->args[0] == REG_CODE)
 		arg1 = c->regs[arg1 - 1];
 	else if (c->args[0] == IND_CODE)
-		arg1 = read_bytes(arena, c->pc + arg1 % IDX_MOD, c->arg_size[0]);
+		arg1 = read_bytes(arena, c->pc + arg1 % IDX_MOD, REG_SIZE);
 	if (c->args[1] == REG_CODE)
 		arg2 = c->regs[arg2 - 1];
-	c->regs[arg3 - 1] = read_bytes(arena, c->pc + (arg1 + arg2), 4);
+	c->regs[arg3 - 1] = read_bytes(arena, c->pc + (arg1 + arg2), REG_SIZE);
+	if (c->regs[arg3 - 1] == 0)
+		c->carry = 1;
+	else
+		c->carry = 0;
 }
