@@ -97,7 +97,12 @@ void		initialize_registries(int *new_regs, int id, int *copy_regs)
 	while (i < REG_NUMBER)
 	{
 		if (i == 0)
-			new_regs[i] = (id * -1);
+		{
+			if (copy_regs)
+				new_regs[i] = copy_regs[i];
+			else
+				new_regs[i] = (id * -1);
+		}
 		else if (!copy_regs)
 			new_regs[i] = 0;
 		else

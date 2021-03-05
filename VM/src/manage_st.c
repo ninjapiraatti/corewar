@@ -55,7 +55,7 @@ void	manage_sti(t_carriage *carr, t_arena *arena)
 		if (carr->args[1] == IND_CODE)
 		{
 			arg2 = carr->pc + arg2 % IDX_MOD;
-			arg2 = read_bytes(arena, arg2, carr->arg_size[1]);
+			arg2 = read_bytes(arena, arg2, REG_SIZE);
 		}
 	}
 	k += carr->arg_size[1];
