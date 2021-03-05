@@ -33,7 +33,17 @@ int		skip_spaces(char *file)
 	int	i;
 
 	i = 0;
-	while (file[i] != '\0' && ft_isspace(file[i]))
+	while (file[i] != '\0' && file[i] != '\n' && ft_isspace(file[i]))
 		i++;
 	return (i);
+}
+
+int		skip_comment(char *file)
+{
+	int	i;
+
+	i = 0;
+	while (file[i] != '\0' && file[i] != '\n')
+		i++;
+	return (i + 1);
 }
