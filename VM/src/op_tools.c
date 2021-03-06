@@ -70,7 +70,7 @@ int		read_bytes(t_arena *arena, unsigned int index, int size)
 	if (size != 1 && size != 2 && size != 4)
 		return (0);
 	if (size == 1)
-		return ((int)arena[index].ar);
+		return ((int)arena[index].ar);//if unsigned, whis has to be %MEM_SIZE
 	ft_memset(buf, 0, size);
 	while (i < size)
 	{

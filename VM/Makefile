@@ -34,6 +34,7 @@ check_args.c \
 op_tools.c \
 perform_statement.c \
 ncurses_colors.c \
+op_tools2.c \
 
 
 SRC_DIR = src/

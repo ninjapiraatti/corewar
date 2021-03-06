@@ -197,7 +197,7 @@ void    prepare_game_variables(t_game *game);
 */
 
 void    manage_st(t_carriage *carr, t_arena *arena);
-void    manage_sti(t_carriage *carr, t_arena *arena);
+void    manage_sti(t_carriage *c, t_arena *arena);
 
 /*
 ** Manage statements
@@ -230,11 +230,17 @@ int		read_bytes(t_arena *arena, unsigned int index, int size);
 void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size);
 
 /*
+** op_tools2.c
+*/
+
+int  get_registry_content(t_arena *arena, t_carriage *c, int extra);
+
+/*
 ** check_args.c
 */
 
 int     check_inst(int inst, unsigned char arg_code, t_carriage *c, t_arena *a);
-int     check_arg_type_code(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
+int     check_(int inst, unsigned char arg_code, t_carriage *carr, t_arena *arena);
 int     check_args(char arg, int i, int inst);
 int		check_regs(t_carriage *carr, t_arena *arena);
 
