@@ -29,6 +29,7 @@ t_carriage	*create_carriage(int player_id, int position)
 	new->next = NULL;
 	new->pc = position;
 	new->cycles_to_wait = 0; //might have to put back to -1
+	new->last_live = 0;
 	new->args[0] = 0;
 	new->args[1] = 0;
 	new->args[2] = 0;

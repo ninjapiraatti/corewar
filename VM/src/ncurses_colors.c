@@ -135,7 +135,7 @@ void	perform_visualization(t_game *game)
 {
 	int y;
 
-	napms(10);
+	napms(1000);
 	erase();
 	y = ncurses_print_arena(game->arena);
 	ncurses_print_game_info(game, y);

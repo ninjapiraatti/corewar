@@ -63,7 +63,10 @@ void	declare_winner(t_game *game)
 		if (winner_number > 0)
 			ft_printf("Player %d (%s) won\n", winner_number, winner_name);
 		else
-			ft_printf("EVERYONE LOSES!\n");
+		{
+			ft_printf("Player %d (%s) won\n", game->players->pl_num, game->players->h_info[game->players->pl_num]->prog_name);
+			//ft_printf("EVERYONE LOSES!\n");
+		}
 	}
 }
 

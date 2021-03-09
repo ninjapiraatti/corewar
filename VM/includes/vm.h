@@ -58,6 +58,7 @@ typedef struct  s_flag
     int dump;
     int viz;
     int aff;
+    int live;
 }               t_flag;
 
 /*

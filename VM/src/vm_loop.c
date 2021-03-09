@@ -92,14 +92,14 @@ void	vm_loop(t_game *game)
 		}
 		if (game->flags->viz == 1)
 			perform_visualization(game);
-		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
-			dump_memory(game->arena);
 		if (game->time_to_check == 0 || game->cycles_to_die <= 0)
 		{
 			run_check(game);
 			game->time_to_check = game->cycles_to_die;
 		}
 		if (!game->head)
-			game->game_state = 0;
+			break;
+		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
+			dump_memory(game->arena);	
 	}
 }

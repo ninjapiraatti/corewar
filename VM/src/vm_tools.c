@@ -16,6 +16,7 @@ void		init_structs(t_pl *players, t_flag *flags)
 	}
 	flags->dump = INIT_FLAG;
 	flags->viz = INIT_FLAG;
+	flags->live = INIT_FLAG;
 	flags->aff = 0;
 }
 
