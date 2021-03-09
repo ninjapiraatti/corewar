@@ -135,7 +135,11 @@ void	perform_visualization(t_game *game)
 {
 	int y;
 
-	napms(1000);
+	// if (game->cycles < 800)
+	// 	napms(10);
+	// else
+	// 	napms(1000);
+	napms(10);
 	erase();
 	y = ncurses_print_arena(game->arena);
 	ncurses_print_game_info(game, y);
