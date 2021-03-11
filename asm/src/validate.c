@@ -7,6 +7,8 @@ int		count_rows(char *file, int end)
 
 	i = 0;
 	rows = 0;
+	while (ft_isspace(file[end]))
+		end++;
 	while (i <= end)
 	{
 		if (file[i] == '\n' && file[i + 1] != '\n')
@@ -67,34 +69,25 @@ int		validate_header(char *file)
 	comment = 0;
 	while (file[i] != '\0' && (name == 0 || comment == 0))
 	{
-		// ft_printf("at %.10s ", &file[i]);
 		i += skip_spaces(&file[i]);
 		if (!ft_strncmp(&file[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		{
 			i += ft_strlen(NAME_CMD_STRING);
 			i = validate_st(file, i, PROG_NAME_LENGTH);
-			// ft_printf("found name\n");
 			name++;
 		}
 		else if (!ft_strncmp(&file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 		{
 			i += ft_strlen(COMMENT_CMD_STRING);
 			i = validate_st(file, i, COMMENT_LENGTH);
-			// ft_printf("found player comment\n");
 			comment++;
 		}
 		else if (file[i] == COMMENT_CHAR || file[i] == ALT_COMMENT_CHAR)
-		{
 			i += skip_comment(ft_str2chr(&file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
-			// ft_printf("found comment\n");
-		}
 		else if (file[i] == '\n')
 			i++;
 		else
-		{
-			// ft_printf("found nothing\n");
 			error_management("error in header");
-		}
 	}
 	if (name != 1 || comment != 1)
 		error_management("statement duplicate or missing");

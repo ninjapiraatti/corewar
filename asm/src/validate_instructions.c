@@ -24,6 +24,8 @@ int		validate_arg(char *file, int op, int args)
 	if (op_table[op].arg_amount > 1 && args < op_table[op].arg_amount - 1 \
 	&& file[i] != SEPARATOR_CHAR)
 		error_management("no separator char");
+	else if (args == op_table[op].arg_amount - 1 && file[i] == SEPARATOR_CHAR)
+		error_management("separator char after last parameter");
 	if (file[i] == SEPARATOR_CHAR)
 		i++;
 	return (i);
