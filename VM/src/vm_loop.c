@@ -98,8 +98,8 @@ void	vm_loop(t_game *game)
 			game->time_to_check = game->cycles_to_die;
 		}
 		if (!game->head)
-			break;
+			break ;
 		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
-			dump_memory(game->arena);	
+			dump_memory(game->arena);
 	}
 }
