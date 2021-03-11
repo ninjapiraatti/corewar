@@ -30,7 +30,7 @@ unsigned char	get_arg_type_code(t_statement *statement)
 	int				type;
 	int				i;
 	int				bytes;
-	
+
 	code = 0;
 	i = 0;
 	bytes = 7;

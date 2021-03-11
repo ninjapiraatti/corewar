@@ -24,10 +24,11 @@ int		count_rows(char *file, int end)
 ** Change 2d array to 1d to be able to count empty lines
 */
 
-int		validate_st(char *file, int i, int max_length)
+int		validate_st(char *file, int i, int max_length, char *cmd_string)
 {
 	int		len;
 
+	i += ft_strlen(cmd_string);
 	i += skip_spaces(&file[i]);
 	if (file[i] != '"')
 		error_management("error in champion statement");
@@ -58,32 +59,26 @@ int		validate_st(char *file, int i, int max_length)
 ** lines are allowed, everything else leads to an error.
 */
 
-int		validate_header(char *file)
+int		validate_header(char *file, int name, int comment)
 {
 	int	i;
-	int	name;
-	int comment;
 
 	i = 0;
-	name = 0;
-	comment = 0;
 	while (file[i] != '\0' && (name == 0 || comment == 0))
 	{
 		i += skip_spaces(&file[i]);
 		if (!ft_strncmp(&file[i], NAME_CMD_STRING, ft_strlen(NAME_CMD_STRING)))
 		{
-			i += ft_strlen(NAME_CMD_STRING);
-			i = validate_st(file, i, PROG_NAME_LENGTH);
+			i = validate_st(file, i, PROG_NAME_LENGTH, NAME_CMD_STRING);
 			name++;
 		}
 		else if (!ft_strncmp(&file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
 		{
-			i += ft_strlen(COMMENT_CMD_STRING);
-			i = validate_st(file, i, COMMENT_LENGTH);
+			i = validate_st(file, i, COMMENT_LENGTH, COMMENT_CMD_STRING);
 			comment++;
 		}
 		else if (file[i] == COMMENT_CHAR || file[i] == ALT_COMMENT_CHAR)
-			i += skip_comment(ft_str2chr(&file[i], COMMENT_CHAR, ALT_COMMENT_CHAR));
+			i += skip_comment(&file[i]);
 		else if (file[i] == '\n')
 			i++;
 		else
@@ -98,7 +93,7 @@ void	validate_file(t_asm *assm)
 {
 	int		i;
 
-	i = validate_header(assm->file1d);
+	i = validate_header(assm->file1d, 0, 0);
 	validate_instructions(assm->file, i);
 	ft_putstr("		~ validation successful ~\n");
 }
