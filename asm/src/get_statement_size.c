@@ -32,5 +32,5 @@ int		get_statement_size(t_statement *statement)
 		size += get_arg_size(statement->code, arg_type);
 		i++;
 	}
-	return(size);
+	return (size);
 }

@@ -86,7 +86,7 @@ int		read_bytes(t_arena *arena, unsigned int index, int size)
 	return (0);
 }
 
-void	update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size)
+void	update_color(t_carriage *c, t_arena *arena, unsigned int pos, int size)
 {
 	int i;
 	int address;
@@ -95,7 +95,7 @@ void	update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int size)
 	while (i < size)
 	{
 		address = (pos + i) % MEM_SIZE;
-		arena[address].color = carr->color_id + 10;
+		arena[address].color = c->color_id + 10;
 		arena[address].color_bold = 100;
 		i++;
 	}

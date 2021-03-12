@@ -9,7 +9,7 @@ char	*ft_str2chr(const char *s, int c, int h)
 	p = (char *)s;
 	while (*p != c && *p != h)
 	{
-		if (*p == '\0')
+		if (*p == '\0' || *p == '\n')
 			return (NULL);
 		p++;
 	}
@@ -21,10 +21,13 @@ void	remove_comment(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	if (str[i] == COMMENT_CHAR || str[i] == ALT_COMMENT_CHAR)
 	{
-		str[i] = ' ';
-		i++;
+		while (str[i] != '\0')
+		{
+			str[i] = ' ';
+			i++;
+		}
 	}
 }
 
@@ -43,6 +46,8 @@ int		skip_comment(char *file)
 	int	i;
 
 	i = 0;
+	if (file[i] != COMMENT_CHAR && file[i] != ALT_COMMENT_CHAR)
+		return (0);
 	while (file[i] != '\0' && file[i] != '\n')
 		i++;
 	return (i + 1);

@@ -88,7 +88,7 @@ void	get_name_and_comment(t_asm *assm, int i, int check)
 	else
 		first = ".comment";
 	str = ft_strchr(ft_strstr(assm->file1d, first), '"') + 1;
-	while(str[i] && str[i] != '"')
+	while (str[i] && str[i] != '"')
 		i++;
 	if (check == 0)
 		assm->name = ft_strsub(str, 0, i);
@@ -98,7 +98,7 @@ void	get_name_and_comment(t_asm *assm, int i, int check)
 	i = 0;
 	first = check == 0 ? ".comment" : ".name";
 	str = ft_strchr(ft_strstr(str, first), '"') + 1;
-	while(str[i] && str[i] != '"')
+	while (str[i] && str[i] != '"')
 		i++;
 	if (check == 0)
 		assm->comment = ft_strsub(str, 0, i);

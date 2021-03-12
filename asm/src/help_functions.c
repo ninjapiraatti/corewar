@@ -1,7 +1,8 @@
 #include "../includes/asm.h"
 
 /*
-** prints error message given as parameter and a newline, then exits the program.
+** prints error message given as parameter and a newline,
+** then exits the program.
 */
 
 void	error_management(char *str)
@@ -27,7 +28,8 @@ int		get_2d_array_size(char **arr)
 }
 
 /*
-** reallocates 2d array with size + 1 and adds string given as parameter to the 2d array.
+** reallocates 2d array with size + 1 and adds string given
+** as parameter to the 2d array.
 */
 
 char	**resize_2d_array(char **arr, char *str)
