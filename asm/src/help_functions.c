@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   help_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/12 12:22:02 by pkuussaa          #+#    #+#             */
+/*   Updated: 2021/03/12 12:40:04 by pkuussaa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/asm.h"
 
 /*
@@ -88,10 +100,12 @@ char	*free_strtrim(char *s)
 	len = ft_strlen(s);
 	if (!s)
 		return (NULL);
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' || s[i] == '\r' || s[i] == '\v')
+	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' ||
+	s[i] == '\r' || s[i] == '\v')
 		i++;
 	start = i;
-	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n' || s[len - 1] == '\r' || s[len - 1] == '\v')
+	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n'
+	|| s[len - 1] == '\r' || s[len - 1] == '\v')
 		len--;
 	if (len < start)
 	{

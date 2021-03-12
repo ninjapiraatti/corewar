@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/12 12:21:56 by pkuussaa          #+#    #+#             */
+/*   Updated: 2021/03/12 12:38:58 by pkuussaa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/asm.h"
 
 /*
@@ -54,7 +66,6 @@ int		loop_index(t_asm *assm, int name, int comment, int check)
 {
 	int		i;
 
-	assm->index = 0;
 	while (assm->file[assm->index])
 	{
 		i = 0;
@@ -66,15 +77,13 @@ int		loop_index(t_asm *assm, int name, int comment, int check)
 		ft_strlen(NAME_CMD_STRING)))
 		{
 			name = loop_name(assm->file, assm);
-			if (comment == 0)
-				check = 0;
+			check = comment == 0 ? 0 : check;
 		}
 		else if (ft_strnequ(assm->file[assm->index] + i, COMMENT_CMD_STRING,
 		ft_strlen(COMMENT_CMD_STRING)))
 		{
 			comment = loop_comment(assm->file, assm);
-			if (name == 0)
-				check = 1;
+			check = name == 0 ? 1 : check;
 		}
 		else
 			assm->index++;

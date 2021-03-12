@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexical_analysis.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/12 12:22:07 by pkuussaa          #+#    #+#             */
+/*   Updated: 2021/03/12 12:41:12 by pkuussaa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/asm.h"
 
 /*
@@ -15,7 +27,7 @@ int			contains_statement(char *line)
 	{
 		if (line[i] == '.' || line[i] == COMMENT_CHAR ||
 		line[i] == ALT_COMMENT_CHAR)
-			return  (0);
+			return (0);
 		if (!ft_isspace(line[i]))
 			return (1);
 		i++;
