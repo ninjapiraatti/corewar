@@ -14,7 +14,7 @@ void	run_check(t_game *game)
 	{
 		game->cycles_to_die -= CYCLE_DELTA;
 		game->checks = 0;
-		//ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+		ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
 	}
 	else
 	{
@@ -23,7 +23,7 @@ void	run_check(t_game *game)
 		{
 			game->cycles_to_die -= CYCLE_DELTA;
 			game->checks = 0;
-			//ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+			ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
 		}
 	}
 	game->lives_num = 0;
@@ -49,7 +49,7 @@ void	set_new_pc_and_color(t_arena *arena, t_carriage *carr)
 
 void	run_carriage(t_game *game, t_carriage *carr)
 {
-	char	inst;
+	int		inst;
 	char	arg_code;
 	t_arena	*arena;
 
@@ -96,7 +96,7 @@ void	vm_loop(t_game *game)
 	{
 		cur = game->head;
 		game->cycles++;
-		//ft_printf("It is now cycle %d\n", game->cycles);
+		ft_printf("It is now cycle %d\n", game->cycles);
 		game->time_to_check--;
 		while (cur)
 		{
