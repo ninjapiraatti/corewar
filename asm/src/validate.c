@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/12 12:22:50 by pkuussaa          #+#    #+#             */
+/*   Updated: 2021/03/12 12:43:44 by pkuussaa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/asm.h"
 
 int		count_rows(char *file, int end)
@@ -59,11 +71,8 @@ int		validate_st(char *file, int i, int max_length, char *cmd_string)
 ** lines are allowed, everything else leads to an error.
 */
 
-int		validate_header(char *file, int name, int comment)
+int		validate_header(char *file, int name, int comment, int i)
 {
-	int	i;
-
-	i = 0;
 	while (file[i] != '\0' && (name == 0 || comment == 0))
 	{
 		i += skip_spaces(&file[i]);
@@ -72,7 +81,8 @@ int		validate_header(char *file, int name, int comment)
 			i = validate_st(file, i, PROG_NAME_LENGTH, NAME_CMD_STRING);
 			name++;
 		}
-		else if (!ft_strncmp(&file[i], COMMENT_CMD_STRING, ft_strlen(COMMENT_CMD_STRING)))
+		else if (!ft_strncmp(&file[i], COMMENT_CMD_STRING,
+		ft_strlen(COMMENT_CMD_STRING)))
 		{
 			i = validate_st(file, i, COMMENT_LENGTH, COMMENT_CMD_STRING);
 			comment++;
@@ -93,7 +103,7 @@ void	validate_file(t_asm *assm)
 {
 	int		i;
 
-	i = validate_header(assm->file1d, 0, 0);
+	i = validate_header(assm->file1d, 0, 0, 0);
 	validate_instructions(assm->file, i);
 	ft_putstr("		~ validation successful ~\n");
 }

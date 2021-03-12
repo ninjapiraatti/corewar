@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_header_name.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/12 12:22:58 by pkuussaa          #+#    #+#             */
+/*   Updated: 2021/03/12 12:47:07 by pkuussaa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/asm.h"
 
 void		write_name(int fd, char a, t_asm *assm)
@@ -30,7 +42,7 @@ void		write_header(t_asm *assm, int fd)
 	int				i;
 	int				magic;
 
-	a = 0x00; // Why can't this be directly written like write(fd, 0x0, 1)? It must be possible.
+	a = 0x00;
 	i = 3;
 	magic = COREWAR_EXEC_MAGIC;
 	while (i >= 0)
