@@ -1,4 +1,4 @@
-.name           "42ghfghfd
+     .name           "42ghfghfd
 aff r2
 
 
@@ -17,7 +17,7 @@ fadfsg
 
 
 "
-.comment        "Juram
+		.comment        "Juram
 .name"
 lfork %1
 aff r2
