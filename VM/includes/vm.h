@@ -89,6 +89,7 @@ typedef struct          s_carriage
     int                 last_live;// when live was (index of cycle)
     int                 regs[REG_NUMBER]; //should we specify REG_SIZE, or is int enough??
     int                 color_id;   //maybe color of carriage
+    int                 carr_id;
     int                 next_state;
     struct s_carriage   *next;
     int                 args[3];
@@ -172,6 +173,7 @@ void    init_mem_area_to_zero(t_arena *arena);
 
 void    print_hex(t_arena *arena);
 void    dump_memory(t_arena *arena);
+void	print_moves(t_carriage *carr, int inst, t_arena *arena);
 
 /*
 ** carriages.c

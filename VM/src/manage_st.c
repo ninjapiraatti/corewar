@@ -65,4 +65,6 @@ void	manage_sti(t_carriage *c, t_arena *arena)
 	pos = c->pc + (arg2 + arg3) % IDX_MOD;
 	write_to_memory(arena, pos, arg1, REG_SIZE);
 	update_color(c, arena, pos, REG_SIZE);
+	// ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+	// 	arg2, arg3, arg2 + arg3, pos);
 }

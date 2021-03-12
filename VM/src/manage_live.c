@@ -14,8 +14,8 @@ void	manage_live(t_carriage *carr, t_game *game)
 	{
 		game->id_last_live = arg;
 		if (game->flags->live == 1)
-			ft_printf("A process shows that player %d (%s) is alive\n", 
-				arg, game->players->pl_order[arg]);
+			ft_printf("Player %d (%s) is said to be alive\n", 
+				arg, game->players->h_info[arg]->prog_name);
 		game->players->last_life[arg] = game->cycles;
 	}
 }

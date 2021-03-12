@@ -1,7 +1,8 @@
 #include "vm.h"
 
 /*
-** Adds new carriage to the beginning of the list.
+** Adds new carriage to the beginning of the list and updates the
+** new carriages carr_id.
 */
 
 void		ft_add_carriage(t_carriage **alst, t_carriage *new)
@@ -12,6 +13,7 @@ void		ft_add_carriage(t_carriage **alst, t_carriage *new)
 			*alst = new;
 		else
 		{
+			new->carr_id = (*alst)->carr_id + 1;
 			new->next = *alst;
 			*alst = new;
 		}
@@ -33,6 +35,7 @@ t_carriage	*create_carriage(int player_id, int position)
 	new->args[0] = 0;
 	new->args[1] = 0;
 	new->args[2] = 0;
+	new->carr_id = 1;
 	return (new);
 }
 

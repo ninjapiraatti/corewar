@@ -28,6 +28,7 @@ int		check_regs(t_carriage *carr, t_arena *arena)
 				return (0);
 		}
 		i += carr->arg_size[arg];
+		i = (unsigned int)i % MEM_SIZE;
 		arg++;
 	}
 	return (1);

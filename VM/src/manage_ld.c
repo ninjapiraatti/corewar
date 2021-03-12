@@ -29,6 +29,7 @@ void	manage_ldi(t_carriage *c, t_arena *arena)
 	int	arg1;
 	int	arg2;
 	int	arg3;
+	int	pos;
 
 	arg1 = read_bytes(arena, c->pc + 2, c->arg_size[0]);
 	arg2 = read_bytes(arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
@@ -40,7 +41,10 @@ void	manage_ldi(t_carriage *c, t_arena *arena)
 		arg1 = read_bytes(arena, c->pc + arg1 % IDX_MOD, REG_SIZE);
 	if (c->args[1] == REG_CODE)
 		arg2 = c->regs[arg2 - 1];
-	c->regs[arg3 - 1] = read_bytes(arena, c->pc + (arg1 + arg2) % IDX_MOD, REG_SIZE);
+	pos = read_bytes(arena, c->pc + (arg1 + arg2) % IDX_MOD, REG_SIZE);
+	c->regs[arg3 - 1] = pos;
+	// ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+	// 	arg1, arg2, arg1 + arg2,  c->pc + (arg1 + arg2) % IDX_MOD);
 }
 
 void	manage_lld(t_carriage *c, t_arena *arena)

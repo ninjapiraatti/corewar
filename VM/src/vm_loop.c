@@ -14,9 +14,18 @@ void	run_check(t_game *game)
 	{
 		game->cycles_to_die -= CYCLE_DELTA;
 		game->checks = 0;
+		//ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
 	}
 	else
+	{
 		game->checks++;
+		if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
+		{
+			game->cycles_to_die -= CYCLE_DELTA;
+			game->checks = 0;
+			//ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+		}
+	}
 	game->lives_num = 0;
 }
 
@@ -56,7 +65,10 @@ void	run_carriage(t_game *game, t_carriage *carr)
 		if (inst > 0 && inst < 17)
 		{
 			if (check_inst(inst, arg_code, carr, arena))
+			{
+				//print_moves(carr, inst, arena);
 				perform_statement(carr, game, inst);
+			}
 		}
 		else
 			carr->next_state = 1;
@@ -84,6 +96,7 @@ void	vm_loop(t_game *game)
 	{
 		cur = game->head;
 		game->cycles++;
+		//ft_printf("It is now cycle %d\n", game->cycles);
 		game->time_to_check--;
 		while (cur)
 		{
