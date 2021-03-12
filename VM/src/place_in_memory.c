@@ -67,7 +67,8 @@ void	place_players_in_mem(t_game *game, t_pl *pl, t_flag *flags)
 		new = create_carriage((i + 1), k);
 		initialize_registries(new->regs, (i + 1), NULL);
 		ft_add_carriage(&(game->head), new);
-		k += player_to_arena(&arena[k], pl->exec[i + 1], pl->h_info[i + 1]->prog_size, i);
+		k += player_to_arena(&arena[k], pl->exec[i + 1], \
+		pl->h_info[i + 1]->prog_size, i);
 		arena[new->pc].color_carr = new->color_id;
 		i++;
 	}

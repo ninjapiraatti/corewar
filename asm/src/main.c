@@ -11,7 +11,7 @@ void	print_2d_array(char **arr)
 		ft_printf("%s\n", arr[i]);
 }
 
-t_asm	*init_asm()
+t_asm	*init_asm(void)
 {
 	t_asm	*assm;
 
@@ -54,7 +54,7 @@ void	check_last_row(char *str)
 
 char	**read_file(char *file, int i, t_asm *assm)
 {
-	int	 	fd;
+	int		fd;
 	char	buf[BUF_SIZE + 1];
 	char	*input;
 	char	*tmp;
@@ -79,7 +79,7 @@ char	**read_file(char *file, int i, t_asm *assm)
 	return (arr);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_asm		*assm;
 

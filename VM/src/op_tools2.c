@@ -6,10 +6,10 @@
 ** the argument_type_code byte and 'extra' is to skip over possible arguments.
 */
 
-int  get_registry_content(t_arena *arena, t_carriage *c, int extra)
+int	get_registry_content(t_arena *arena, t_carriage *c, int extra)
 {
-    int reg;
+	int reg;
 
 	reg = c->regs[arena[(unsigned int)(c->pc + 2 + extra) % MEM_SIZE].ar - 1];
-    return (reg);
+	return (reg);
 }
