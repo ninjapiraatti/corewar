@@ -52,7 +52,7 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
     count = 0;
     state = tmp;
     arr = ft_strsplit(str, ':');
-    free(str);
+    ft_strdel(&str);
     str = arr[0][0] == '%' ? ft_strdup(arr[1]) : ft_strdup(arr[0]);
     check = arr[0][0] == '%' ? 0 : 1;
     while (state)
@@ -64,6 +64,7 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
                 if (ft_strcmp(str, state->label[i]) == 0)
                 {
                     free_2d_array(arr);
+                    ft_strdel(&str);
                     return (count_label_size(tmp, index, count, check));
                 }
                 i++;
@@ -72,6 +73,7 @@ char    *count_label_index(char *str, t_statement *tmp, int check, int index)
         state = state->next;
     }
     free_2d_array(arr);
+    ft_strdel(&str);
     error_management("error while converting labels, no such label");
     return (NULL);
 }
@@ -92,9 +94,8 @@ void    convert_labels(t_statement *tmp, int i, int count)
                 if (ft_strchr(state->args[i], ':'))
                 {
                     temp = count_label_index(state->args[i], tmp, 0, count);
-                    free(state->args[i]);
                     state->args[i] = ft_strdup(temp);
-                    free(temp);
+                    ft_strdel(&temp);
                 }
                 i++;
             }
