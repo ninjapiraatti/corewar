@@ -96,11 +96,7 @@ t_carriage	*kill_carriages(t_carriage *head, t_game *game)
 				game->arena[tmp->pc].color_carr = 0;
 				if (tmp->next)
 					cur->next = tmp->next;
-<<<<<<< HEAD
 				else
-=======
-				if (tmp->next == NULL)
->>>>>>> 2347af8241f23fc56dfa829dd811f586ee40cd85
 					cur->next = NULL;
 				free(tmp);
 			}
