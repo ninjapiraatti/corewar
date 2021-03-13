@@ -52,6 +52,8 @@ void	manage_lld(t_carriage *c, t_arena *arena)
 	int	arg1;
 	int	arg2;
 
+	if (c->carr_id == 1268)
+		ft_printf("im in lld\n");
 	arg2 = arena[c->pc + 2 + c->arg_size[0]].ar;
 	arg1 = read_bytes(arena, c->pc + 2, c->arg_size[0]);
 	if (c->args[0] == IND_CODE)

@@ -66,7 +66,7 @@ void	run_carriage(t_game *game, t_carriage *carr)
 		{
 			if (check_inst(inst, arg_code, carr, arena))
 			{
-				//print_moves(carr, inst, arena);
+				//print_moves(carr, inst, arena); //cycle=25902 color_id=1 | carr_id=81674 | pc=2103 | inst=01
 				perform_statement(carr, game, inst);
 			}
 		}
@@ -84,6 +84,7 @@ void	prepare_game_variables(t_game *game)
 	game->cycles_to_die = CYCLE_TO_DIE;
 	game->cycles = 0;
 	game->id_last_live = 0;
+	game->lives_num = 0;
 	game->time_to_check = CYCLE_TO_DIE;
 }
 

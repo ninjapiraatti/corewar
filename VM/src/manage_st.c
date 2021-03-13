@@ -45,6 +45,8 @@ void	manage_sti(t_carriage *c, t_arena *arena)
 	int	arg3;
 	int	pos;
 
+	if (c->carr_id == 1268)
+		ft_printf("im in sti\n");
 	arg1 = get_registry_content(arena, c, 0);
 	if (c->args[1] == REG_CODE)
 		arg2 = get_registry_content(arena, c, c->arg_size[0]);

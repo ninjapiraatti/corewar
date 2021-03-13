@@ -63,6 +63,7 @@ t_carriage	*kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game)
 	int			limit;
 
 	limit = game->cycles - game->cycles_to_die;
+	
 	while (head && head->last_live <= limit)
 	{
 		tmp = head->next;
@@ -95,9 +96,9 @@ t_carriage	*kill_carriages(t_carriage *head, t_game *game)
 				game->arena[tmp->pc].color_carr = 0;
 				if (tmp->next)
 					cur->next = tmp->next;
-				free(tmp);
-				if (tmp->next == NULL)
+				else
 					cur->next = NULL;
+				free(tmp);
 			}
 			else
 				cur = cur->next;
