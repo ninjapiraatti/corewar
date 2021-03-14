@@ -77,7 +77,11 @@ int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 	while (i < 3)
 	{
 		if (!check_args(c->args[i], i, inst - 1))
+		{
+			// if (inst == 3)
+			// 	c->next_state = 2;
 			return (0);
+		}
 		i++;
 	}
 	return (check_regs(c, a));

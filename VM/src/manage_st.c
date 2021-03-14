@@ -13,7 +13,7 @@ void	manage_st(t_carriage *carr, t_game *game)
 	int	pos;
 	int	arg2;
 
-	reg = game->arena[carr->pc + 2].ar;
+	reg = game->arena[(unsigned int)(carr->pc + 2) % MEM_SIZE].ar;
 	arg1 = carr->regs[reg - 1];
 	if (carr->args[1] == REG_CODE)
 	{
@@ -48,7 +48,7 @@ void	manage_sti(t_carriage *c, t_game *game)
 	int reg;
 	int	pos;
 
-	reg = game->arena[c->pc + 2].ar;
+	reg = game->arena[(unsigned int)(c->pc + 2) % MEM_SIZE].ar;
 	arg1 = c->regs[reg - 1];
 	if (c->args[1] == REG_CODE)
 		arg2 = get_registry_content(game->arena, c, c->arg_size[0]);
