@@ -15,9 +15,13 @@ void		init_structs(t_pl *players, t_flag *flags)
 		players->last_life[i] = 0;
 	}
 	flags->dump = INIT_FLAG;
-	flags->viz = INIT_FLAG;
-	flags->live = INIT_FLAG;
+	flags->viz = 0;
+	flags->live = 0;
 	flags->aff = 0;
+	flags->moves = 0;
+	flags->kill = 0;
+	flags->pc_move = 0;
+	flags->show_cycles = 0;
 }
 
 /*

@@ -3,15 +3,15 @@
 void	perform_statement2(t_carriage *carr, t_game *game, int inst)
 {
 	if (inst == 10)
-		manage_ldi(carr, game->arena);
+		manage_ldi(carr, game);
 	else if (inst == 11)
-		manage_sti(carr, game->arena);
+		manage_sti(carr, game);
 	else if (inst == 12)
 		manage_fork(game, carr);
 	else if (inst == 13)
-		manage_lld(carr, game->arena);
+		manage_lld(carr, game);
 	else if (inst == 14)
-		manage_lldi(carr, game->arena);
+		manage_lldi(carr, game);
 	else if (inst == 15)
 		manage_lfork(game, carr);
 	else if (inst == 16)
@@ -23,21 +23,21 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst)
 	if (inst == 1)
 		manage_live(carr, game);
 	else if (inst == 2)
-		manage_ld(carr, game->arena);
+		manage_ld(carr, game);
 	else if (inst == 3)
-		manage_st(carr, game->arena);
+		manage_st(carr, game);
 	else if (inst == 4)
-		manage_add(carr, game->arena);
+		manage_add(carr, game);
 	else if (inst == 5)
-		manage_sub(carr, game->arena);
+		manage_sub(carr, game);
 	else if (inst == 6)
-		manage_and(carr, game->arena);
+		manage_and(carr, game);
 	else if (inst == 7)
-		manage_or(carr, game->arena);
+		manage_or(carr, game);
 	else if (inst == 8)
-		manage_xor(carr, game->arena);
+		manage_xor(carr, game);
 	else if (inst == 9)
-		manage_zjmp(game->arena, carr);
+		manage_zjmp(game, carr);
 	else
 		perform_statement2(carr, game, inst);
 }

@@ -14,7 +14,8 @@ void	run_check(t_game *game)
 	{
 		game->cycles_to_die -= CYCLE_DELTA;
 		game->checks = 0;
-		ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+		if (game->flags->show_cycles)
+			ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
 	}
 	else
 	{
@@ -23,19 +24,34 @@ void	run_check(t_game *game)
 		{
 			game->cycles_to_die -= CYCLE_DELTA;
 			game->checks = 0;
-			ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+			if (game->flags->show_cycles)
+				ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
 		}
 	}
 	game->lives_num = 0;
 }
 
-void	set_new_pc_and_color(t_arena *arena, t_carriage *carr)
+void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 {
+	int	i;
+
+	i = 0;
 	if (carr->next_state != JUMPED)
 	{
-		arena[carr->pc].color_carr = 0;
-		carr->pc = (carr->pc + carr->next_state) % MEM_SIZE;
-		arena[carr->pc].color_carr = carr->color_id;
+		if (game->flags->pc_move && carr->next_state != 1)
+		{
+			ft_printf("ADV %d (0x%04x -> 0x%04x) ",
+				carr->next_state, carr->pc, carr->pc + carr->next_state);
+			while (i < carr->next_state)
+			{
+				ft_printf("%02x ", game->arena[carr->pc + i].ar);
+				i++;
+			}
+			ft_printf("\n");
+		}
+		game->arena[carr->pc].color_carr = 0;
+		carr->pc = (unsigned int)(carr->pc + carr->next_state) % MEM_SIZE;
+		game->arena[carr->pc].color_carr = carr->color_id;
 	}
 }
 
@@ -66,13 +82,14 @@ void	run_carriage(t_game *game, t_carriage *carr)
 		{
 			if (check_inst(inst, arg_code, carr, arena))
 			{
-				//print_moves(carr, inst, arena); //cycle=25902 color_id=1 | carr_id=81674 | pc=2103 | inst=01
+				if (game->flags->moves)
+					ft_printf("P %4d | %s", carr->carr_id, op_table[inst - 1].op_name);
 				perform_statement(carr, game, inst);
 			}
 		}
 		else
 			carr->next_state = 1;
-		set_new_pc_and_color(game->arena, carr);
+		set_new_pc_and_color(game, carr);
 	}
 }
 
@@ -97,14 +114,15 @@ void	vm_loop(t_game *game)
 	{
 		cur = game->head;
 		game->cycles++;
-		ft_printf("It is now cycle %d\n", game->cycles);
+		if (game->flags->show_cycles)
+			ft_printf("It is now cycle %d\n", game->cycles);
 		game->time_to_check--;
 		while (cur)
 		{
 			run_carriage(game, cur);
 			cur = cur->next;
 		}
-		if (game->flags->viz == 1)
+		if (game->flags->viz)
 			perform_visualization(game);
 		if (game->time_to_check == 0 || game->cycles_to_die <= 0)
 		{

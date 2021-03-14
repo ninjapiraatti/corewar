@@ -1,13 +1,15 @@
 # include "vm.h"
 
-void	manage_and_or_xor(t_carriage *carr, t_arena *arena, int op)
+void	manage_and_or_xor(t_carriage *carr, t_game *game, int op)
 {
 	int	arg1;
 	int	arg2;
 	int	arg3;
 	int res;
+	t_arena *arena;
 
 	res = 0;
+	arena = game->arena;
 	arg1 = read_bytes(arena, carr->pc + 2, carr->arg_size[0]);
 	arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0], carr->arg_size[1]);
 	arg3 = arena[carr->pc + 2 + carr->arg_size[0] + carr->arg_size[1]].ar;
@@ -32,16 +34,18 @@ void	manage_and_or_xor(t_carriage *carr, t_arena *arena, int op)
 		carr->carry = 0;
 	carr->regs[arg3 - 1] = res;
 	// ft_printf("res %d\n", res);
+	if (game->flags->moves)
+		ft_printf(" %d %d r%d\n",arg1, arg2, arg3);
 }
 
-void	manage_and(t_carriage *carr, t_arena *arena) {
-	manage_and_or_xor(carr, arena, OP_AND);
+void	manage_and(t_carriage *carr, t_game *game) {
+	manage_and_or_xor(carr, game, OP_AND);
 }
 
-void	manage_or(t_carriage *carr, t_arena *arena) {
-	manage_and_or_xor(carr, arena, OP_OR);
+void	manage_or(t_carriage *carr, t_game *game) {
+	manage_and_or_xor(carr, game, OP_OR);
 }
 
-void	manage_xor(t_carriage *carr, t_arena *arena) {
-	manage_and_or_xor(carr, arena, OP_XOR);
+void	manage_xor(t_carriage *carr, t_game *game) {
+	manage_and_or_xor(carr, game, OP_XOR);
 }

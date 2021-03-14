@@ -22,6 +22,8 @@ void	manage_fork(t_game *game, t_carriage *carr)
 	new->next_state = 0;
 	ft_add_carriage(&(game->head), new);
 	game->arena[new->pc].color_carr = new->color_id;
+	if (game->flags->moves)
+		ft_printf(" %d (%d)\n", arg, address);
 }
 
 /*
@@ -44,6 +46,6 @@ void	manage_lfork(t_game *game, t_carriage *carr)
 	new->next_state = 0;
 	ft_add_carriage(&(game->head), new);
 	game->arena[new->pc].color_carr = new->color_id;
-	if (carr->carr_id == 1268)
-		ft_printf("made new carr!");
+	if (game->flags->moves)
+		ft_printf(" %d (%d)\n", arg, address);
 }

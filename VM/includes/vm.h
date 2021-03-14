@@ -59,6 +59,10 @@ typedef struct  s_flag
     int viz;
     int aff;
     int live;
+    int moves;
+    int kill;
+    int pc_move;
+    int show_cycles;
 }               t_flag;
 
 /*
@@ -173,7 +177,6 @@ void    init_mem_area_to_zero(t_arena *arena);
 
 void    print_hex(t_arena *arena);
 void    dump_memory(t_arena *arena);
-void	print_moves(t_carriage *carr, int inst, t_arena *arena);
 
 /*
 ** carriages.c
@@ -191,7 +194,7 @@ t_carriage  *kill_all_carriages(t_carriage *head);
 
 void    vm_loop(t_game *game);
 void    run_carriage(t_game *game, t_carriage *carr);
-void    set_new_pc_and_color(t_arena *arena, t_carriage *carr);
+void    set_new_pc_and_color(t_game *game, t_carriage *carr);
 void    run_check(t_game *game);
 void    prepare_game_variables(t_game *game);
 
@@ -199,27 +202,27 @@ void    prepare_game_variables(t_game *game);
 ** manage_st.c
 */
 
-void    manage_st(t_carriage *carr, t_arena *arena);
-void    manage_sti(t_carriage *c, t_arena *arena);
+void    manage_st(t_carriage *carr, t_game *game);
+void    manage_sti(t_carriage *c, t_game *game);
 
 /*
 ** Manage statements
 */
 
-void	manage_and(t_carriage *carr, t_arena *arena);
-void	manage_or(t_carriage *carr, t_arena *arena);
-void	manage_xor(t_carriage *carr, t_arena *arena);
+void	manage_and(t_carriage *carr, t_game *game);
+void	manage_or(t_carriage *carr, t_game *game);
+void	manage_xor(t_carriage *carr, t_game *game);
 void    manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
-void    manage_sub(t_carriage *carr, t_arena *arena);
+void    manage_sub(t_carriage *carr, t_game *game);
 
 /*
 ** manage_ld.c
 */
 
-void	manage_ld(t_carriage *carr, t_arena *arena);
-void	manage_ldi(t_carriage *carr, t_arena *arena);
-void	manage_lld(t_carriage *carr, t_arena *arena);
-void	manage_lldi(t_carriage *carr, t_arena *arena);
+void	manage_ld(t_carriage *carr, t_game *game);
+void	manage_ldi(t_carriage *carr, t_game *game);
+void	manage_lld(t_carriage *carr, t_game *game);
+void	manage_lldi(t_carriage *carr, t_game *game);
 
 
 /*
@@ -270,13 +273,13 @@ void    manage_lfork(t_game *game, t_carriage *carr);
 ** manage_zjmp.c
 */
 
-void    manage_zjmp(t_arena *arena, t_carriage *carr);
+void    manage_zjmp(t_game *game, t_carriage *carr);
 
 /*
 ** manage_add.c
 */
 
-void    manage_add(t_carriage *carr, t_arena *arena);
+void    manage_add(t_carriage *carr, t_game *game);
 
 
 /*

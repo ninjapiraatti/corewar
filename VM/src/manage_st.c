@@ -6,28 +6,30 @@
 ** to be defined with the help of IDX_MOD.
 */
 
-void	manage_st(t_carriage *carr, t_arena *arena)
+void	manage_st(t_carriage *carr, t_game *game)
 {
 	int	reg;
 	int	arg1;
-	int	arg2;
 	int	pos;
+	int	arg2;
 
-	arg1 = get_registry_content(arena, carr, 0);
+	reg = game->arena[carr->pc + 2].ar;
+	arg1 = carr->regs[reg - 1];
 	if (carr->args[1] == REG_CODE)
 	{
 		pos = (unsigned int)(carr->pc + 2 + carr->arg_size[0]) % MEM_SIZE;
-		reg = arena[pos].ar;
-		carr->regs[reg - 1] = arg1;
+		carr->regs[game->arena[pos].ar - 1] = arg1;
 	}
 	else
 	{
-		arg2 = read_bytes(arena, carr->pc + 2 + carr->arg_size[0],
+		pos = read_bytes(game->arena, carr->pc + 2 + carr->arg_size[0],
 			carr->arg_size[1]);
-		arg2 = carr->pc + arg2 % IDX_MOD;
-		write_to_memory(arena, arg2, arg1, REG_SIZE);
-		update_color(carr, arena, arg2, REG_SIZE);
+		arg2 = carr->pc + pos % IDX_MOD;
+		write_to_memory(game->arena, arg2, arg1, REG_SIZE);
+		update_color(carr, game->arena, arg2, REG_SIZE);
 	}
+	if (game->flags->moves)
+		ft_printf(" r%d %d\n", reg, pos);
 }
 
 /*
@@ -38,35 +40,39 @@ void	manage_st(t_carriage *carr, t_arena *arena)
 ** last argument.
 */
 
-void	manage_sti(t_carriage *c, t_arena *arena)
+void	manage_sti(t_carriage *c, t_game *game)
 {
 	int	arg1;
 	int	arg2;
 	int	arg3;
+	int reg;
 	int	pos;
 
-	if (c->carr_id == 1268)
-		ft_printf("im in sti\n");
-	arg1 = get_registry_content(arena, c, 0);
+	reg = game->arena[c->pc + 2].ar;
+	arg1 = c->regs[reg - 1];
 	if (c->args[1] == REG_CODE)
-		arg2 = get_registry_content(arena, c, c->arg_size[0]);
+		arg2 = get_registry_content(game->arena, c, c->arg_size[0]);
 	else
 	{
-		arg2 = read_bytes(arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
+		arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
 		if (c->args[1] == IND_CODE)
 		{
 			arg2 = c->pc + arg2 % IDX_MOD;
-			arg2 = read_bytes(arena, arg2, REG_SIZE);
+			arg2 = read_bytes(game->arena, arg2, REG_SIZE);
 		}
 	}
 	if (c->args[2] == REG_CODE)
-		arg3 = get_registry_content(arena, c, c->arg_size[0] + c->arg_size[1]);
+		arg3 = get_registry_content(game->arena, c, c->arg_size[0] + c->arg_size[1]);
 	else
-		arg3 = read_bytes(arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
+		arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
 			c->arg_size[2]);
 	pos = c->pc + (arg2 + arg3) % IDX_MOD;
-	write_to_memory(arena, pos, arg1, REG_SIZE);
-	update_color(c, arena, pos, REG_SIZE);
-	// ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-	// 	arg2, arg3, arg2 + arg3, pos);
+	write_to_memory(game->arena, pos, arg1, REG_SIZE);
+	update_color(c, game->arena, pos, REG_SIZE);
+	if (game->flags->moves)
+	{
+		ft_printf(" r%d %d %d\n", reg, arg2, arg3);
+		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+			arg2, arg3, arg2 + arg3, pos);
+	}
 }
