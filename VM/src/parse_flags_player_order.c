@@ -109,17 +109,17 @@ void		parse_flags_player_order(t_pl *players, t_flag *flags, t_avac *avac)
 		}
 		else if (!ft_strcmp(avac->av[i], "-v"))
 			flags->viz = 1;
-		else if (!ft_strcmp(avac->av[1], "-a"))
+		else if (!ft_strcmp(avac->av[i], "-a"))
 			flags->aff = 1;
-		else if (!ft_strcmp(avac->av[1], "-k"))
+		else if (!ft_strcmp(avac->av[i], "-k"))
 			flags->kill = 1;
-		else if (!ft_strcmp(avac->av[1], "-l"))
+		else if (!ft_strcmp(avac->av[i], "-l"))
 			flags->live = 1;
-		else if (!ft_strcmp(avac->av[1], "-m"))
+		else if (!ft_strcmp(avac->av[i], "-m"))
 			flags->moves = 1;
-		else if (!ft_strcmp(avac->av[1], "-p"))
+		else if (!ft_strcmp(avac->av[i], "-p"))
 			flags->pc_move = 1;
-		else if (!ft_strcmp(avac->av[1], "-c"))
+		else if (!ft_strcmp(avac->av[i], "-c"))
 			flags->show_cycles = 1;
 		else if (avac->av[i][0] == '-')
 			i = parse_flags(i, flags, players, avac);
