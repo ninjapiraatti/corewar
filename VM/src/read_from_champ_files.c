@@ -139,7 +139,8 @@ unsigned char	*read_champ_executable(int fd, int prog_size)
 		close(fd);
 		vm_error("Error! Stated program size does not match executable code");
 	}
-	if (!(executable = (unsigned char*)malloc(sizeof(unsigned char) * (prog_size + 1))))
+	if (!(executable = (unsigned char*)malloc(sizeof(unsigned char) *
+	(prog_size + 1))))
 		vm_error(strerror(errno));
 	ft_memcpy(executable, buf, prog_size);
 	return (executable);

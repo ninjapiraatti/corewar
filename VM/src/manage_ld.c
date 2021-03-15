@@ -49,7 +49,7 @@ void	manage_ldi(t_carriage *c, t_game *game)
 	{
 		ft_printf(" %d %d r%d\n", arg1, arg2, arg3);
 		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
-			arg1, arg2, arg1 + arg2,  c->pc + (arg1 + arg2) % IDX_MOD);
+			arg1, arg2, arg1 + arg2, c->pc + (arg1 + arg2) % IDX_MOD);
 	}
 }
 

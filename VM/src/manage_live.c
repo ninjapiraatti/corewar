@@ -1,6 +1,7 @@
 #include "vm.h"
 
-/*in subject, it is stated that every time a valid live is performed, it should be printed. example corewar does not do it.*/
+/*in subject, it is stated that every time a valid live is
+performed, it should be printed. example corewar does not do it.*/
 
 void	manage_live(t_carriage *carr, t_game *game)
 {
@@ -16,7 +17,7 @@ void	manage_live(t_carriage *carr, t_game *game)
 	{
 		game->id_last_live = arg;
 		if (game->flags->live)
-			ft_printf("Player %d (%s) is said to be alive\n", 
+			ft_printf("Player %d (%s) is said to be alive\n",
 				arg, game->players->h_info[arg]->prog_name);
 		game->players->last_life[arg] = game->cycles;
 	}
