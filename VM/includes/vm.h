@@ -98,6 +98,7 @@ typedef struct          s_carriage
     struct s_carriage   *next;
     int                 args[3];
     int                 arg_size[3];
+    int                 inst;
 }                       t_carriage;
 
 

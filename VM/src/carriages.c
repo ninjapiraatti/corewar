@@ -36,6 +36,7 @@ t_carriage	*create_carriage(int player_id, int position)
 	new->args[1] = 0;
 	new->args[2] = 0;
 	new->carr_id = 1;
+	new->inst = -1;
 	return (new);
 }
 
