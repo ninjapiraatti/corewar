@@ -20,24 +20,21 @@ void	manage_and_or_xor(t_carriage *carr, t_game *game, int op)
 	int		arg2;
 	int		arg3;
 	int		res;
-	t_arena	*arena;
 
 	res = 0;
-	arena = game->arena;
-	arg1 = read_bytes(arena, (unsigned int)(carr->pc + 2) %
-		MEM_SIZE, carr->arg_size[0]);
-	arg2 = read_bytes(arena, (unsigned int)(carr->pc + 2 +
-		carr->arg_size[0]) % MEM_SIZE, carr->arg_size[1]);
-	arg3 = arena[(unsigned int)(carr->pc + 2 + carr->arg_size[0] +
-		carr->arg_size[1]) % MEM_SIZE].ar;
+	arg1 = read_bytes(game->arena, carr->pc + 2, carr->arg_size[0]);
+	arg2 = read_bytes(game->arena, carr->pc + 2 +
+		carr->arg_size[0], carr->arg_size[1]);
+	arg3 = game->arena[modpc(carr->pc + 2 + carr->arg_size[0] +
+		carr->arg_size[1])].ar;
 	if (carr->args[0] == REG_CODE)
 		arg1 = carr->regs[arg1 - 1];
 	else if (carr->args[0] == IND_CODE)
-		arg1 = read_bytes(arena, carr->pc + arg1 % IDX_MOD, REG_SIZE);
+		arg1 = read_bytes(game->arena, carr->pc + arg1 % IDX_MOD, REG_SIZE);
 	if (carr->args[1] == REG_CODE)
 		arg2 = carr->regs[arg2 - 1];
 	else if (carr->args[1] == IND_CODE)
-		arg2 = read_bytes(arena, carr->pc + arg2 % IDX_MOD, REG_SIZE);
+		arg2 = read_bytes(game->arena, carr->pc + arg2 % IDX_MOD, REG_SIZE);
 	res = do_operation(arg1, arg2, op);
 	carr->carry = res == 0 ? 1 : 0;
 	carr->regs[arg3 - 1] = res;

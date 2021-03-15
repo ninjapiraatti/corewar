@@ -50,7 +50,7 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 			ft_printf("\n");
 		}
 		game->arena[carr->pc].color_carr = 0;
-		carr->pc = (unsigned int)(carr->pc + carr->next_state) % MEM_SIZE;
+		carr->pc = modpc(carr->pc + carr->next_state);
 		game->arena[carr->pc].color_carr = carr->color_id;
 	}
 }
@@ -69,7 +69,7 @@ void	run_carriage(t_game *game, t_carriage *carr)
 	t_arena	*arena;
 
 	arena = game->arena;
-	arg_code = arena[(unsigned int)(carr->pc + 1) % MEM_SIZE].ar;
+	arg_code = arena[modpc(carr->pc + 1)].ar;
 	if (carr->cycles_to_wait == 0)
 	{
 		carr->inst = arena[carr->pc].ar;

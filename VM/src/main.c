@@ -35,13 +35,13 @@ void	introduce_players(t_pl *players)
 {
 	int	i;
 
-	ft_putendl("Introducing contestants..."); //check this, because subject has ' ' before dots, but real corewar doesnt
+	ft_putendl("Introducing contestants...");
 	i = 1;
 	while (i <= players->pl_num)
 	{
 		ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
 			i, players->h_info[i]->prog_size, players->h_info[i]->prog_name,
-			players->h_info[i]->comment); // check this because subject doesnt have space before last !, but real corewar does
+			players->h_info[i]->comment);
 		i++;
 	}
 }
@@ -68,7 +68,6 @@ void	declare_winner(t_game *game)
 			ft_printf("Contestant %d, \"%s\", has won !\n",
 			game->players->pl_num,
 			game->players->h_info[game->players->pl_num]->prog_name);
-			//ft_printf("EVERYONE LOSES!\n");
 		}
 	}
 }

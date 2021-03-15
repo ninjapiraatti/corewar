@@ -13,11 +13,11 @@ void	manage_st(t_carriage *carr, t_game *game)
 	int	pos;
 	int	arg2;
 
-	reg = game->arena[(unsigned int)(carr->pc + 2) % MEM_SIZE].ar;
+	reg = game->arena[modpc(carr->pc + 2)].ar;
 	arg1 = carr->regs[reg - 1];
 	if (carr->args[1] == REG_CODE)
 	{
-		pos = (unsigned int)(carr->pc + 2 + carr->arg_size[0]) % MEM_SIZE;
+		pos = modpc(carr->pc + 2 + carr->arg_size[0]);
 		carr->regs[game->arena[pos].ar - 1] = arg1;
 	}
 	else
@@ -48,7 +48,7 @@ void	manage_sti(t_carriage *c, t_game *game)
 	int reg;
 	int	pos;
 
-	reg = game->arena[(unsigned int)(c->pc + 2) % MEM_SIZE].ar;
+	reg = game->arena[modpc(c->pc + 2)].ar;
 	arg1 = c->regs[reg - 1];
 	if (c->args[1] == REG_CODE)
 		arg2 = get_registry_content(game->arena, c, c->arg_size[0]);
