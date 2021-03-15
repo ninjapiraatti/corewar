@@ -7,7 +7,7 @@
 void	run_check(t_game *game)
 {
 	if (game->ctd <= 0)
-		game->head = kill_all_carriages(game->head);
+		game->head = kill_all_carriages(game->head, game);
 	else
 		game->head = kill_carriages(game->head, game);
 	if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
@@ -116,6 +116,7 @@ void	vm_loop(t_game *game)
 	{
 		cur = game->head;
 		game->cycles++;
+		game->time_to_check--;
 		if (game->flags->show_cycles)
 			ft_printf("It is now cycle %d\n", game->cycles);
 		while (cur)
@@ -134,6 +135,5 @@ void	vm_loop(t_game *game)
 			break ;
 		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
 			dump_memory(game->arena);
-		game->time_to_check--;
 	}
 }

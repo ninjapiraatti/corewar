@@ -24,9 +24,6 @@ void	manage_fork(t_game *game, t_carriage *carr)
 	game->arena[new->pc].color_carr = new->color_id;
 	if (game->flags->moves)
 		ft_printf(" %d (%d)\n", arg, address);
-	new->inst = game->arena[new->pc].ar;
-	if (new->inst > 0 && new->inst < 17)
-		new->cycles_to_wait = op_table[new->inst - 1].cycles_to_wait;
 }
 
 /*
@@ -51,7 +48,4 @@ void	manage_lfork(t_game *game, t_carriage *carr)
 	game->arena[new->pc].color_carr = new->color_id;
 	if (game->flags->moves)
 		ft_printf(" %d (%d)\n", arg, address);
-	new->inst = game->arena[new->pc].ar;
-	if (new->inst > 0 && new->inst < 17)
-		new->cycles_to_wait = op_table[new->inst - 1].cycles_to_wait;
 }

@@ -61,29 +61,26 @@ int		check_args(char arg, int i, int inst)
 int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 {
 	int		i;
+	int		prob;
 
 	i = 0;
+	prob = 0;
 	c->args[0] = arg_code >> 6;
 	c->args[1] = (arg_code >> 4) & 3;
 	c->args[2] = (arg_code >> 2) & 3;
 	c->arg_size[0] = get_arg_size(c->args[0], inst);
 	c->arg_size[1] = get_arg_size(c->args[1], inst);
 	c->arg_size[2] = get_arg_size(c->args[2], inst);
-	// ft_printf("inst = %d\n", inst);
-	// ft_printf("arg1 %d, size %d\n", c->args[0], c->arg_size[0]);
-	// ft_printf("arg2 %d, size %d\n", c->args[1], c->arg_size[1]);
-	// ft_printf("arg3 %d, size %d\n", c->args[2], c->arg_size[2]);
-	c->next_state = 2 + c->arg_size[0] + c->arg_size[1] + c->arg_size[2];
-	while (i < 3)
+	c->next_state = 2;
+	while (i < op_table[inst - 1].arg_amount)
 	{
+		c->next_state += c->arg_size[i];
 		if (!check_args(c->args[i], i, inst - 1))
-		{
-			// if (inst == 3)
-			// 	c->next_state = 2;
-			return (0);
-		}
+			prob = 1;;	
 		i++;
 	}
+	if (prob)
+		return (0);
 	return (check_regs(c, a));
 }
 

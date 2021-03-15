@@ -186,7 +186,7 @@ void	ft_add_carriage(t_carriage **alst, t_carriage *new);
 t_carriage  *create_carriage(int player_id, int position);
 t_carriage  *kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game);
 t_carriage    *kill_carriages(t_carriage *head, t_game *game);
-t_carriage  *kill_all_carriages(t_carriage *head);
+t_carriage  *kill_all_carriages(t_carriage *head, t_game *game);
 
 /*
 ** vm_loop.c
