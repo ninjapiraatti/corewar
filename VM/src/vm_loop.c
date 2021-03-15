@@ -118,7 +118,6 @@ void	vm_loop(t_game *game)
 		game->cycles++;
 		if (game->flags->show_cycles)
 			ft_printf("It is now cycle %d\n", game->cycles);
-		game->time_to_check--;
 		while (cur)
 		{
 			run_carriage(game, cur);
@@ -135,5 +134,6 @@ void	vm_loop(t_game *game)
 			break ;
 		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
 			dump_memory(game->arena);
+		game->time_to_check--;
 	}
 }
