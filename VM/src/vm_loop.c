@@ -1,31 +1,31 @@
 #include "vm.h"
 
 /*
-** Kills certain carriages from list and updates cycles_to_die when needed.
+** Kills certain carriages from list and updates ctd when needed.
 */
 
 void	run_check(t_game *game)
 {
-	if (game->cycles_to_die <= 0)
+	if (game->ctd <= 0)
 		game->head = kill_all_carriages(game->head);
 	else
 		game->head = kill_carriages(game->head, game);
 	if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
 	{
-		game->cycles_to_die -= CYCLE_DELTA;
+		game->ctd -= CYCLE_DELTA;
 		game->checks = 0;
 		if (game->flags->show_cycles)
-			ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+			ft_printf("Cycle to die is now %d\n", game->ctd);
 	}
 	else
 	{
 		game->checks++;
 		if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
 		{
-			game->cycles_to_die -= CYCLE_DELTA;
+			game->ctd -= CYCLE_DELTA;
 			game->checks = 0;
 			if (game->flags->show_cycles)
-				ft_printf("Cycle to die is now %d\n", game->cycles_to_die);
+				ft_printf("Cycle to die is now %d\n", game->ctd);
 		}
 	}
 	game->lives_num = 0;
@@ -98,7 +98,7 @@ void	prepare_game_variables(t_game *game)
 	game->checks = 0;
 	game->game_state = 1;
 	game->lives_num = 0;
-	game->cycles_to_die = CYCLE_TO_DIE;
+	game->ctd = CYCLE_TO_DIE;
 	game->cycles = 0;
 	game->id_last_live = 0;
 	game->lives_num = 0;
@@ -124,10 +124,10 @@ void	vm_loop(t_game *game)
 		}
 		if (game->flags->viz)
 			perform_visualization(game);
-		if (game->time_to_check == 0 || game->cycles_to_die <= 0)
+		if (game->time_to_check == 0 || game->ctd <= 0)
 		{
 			run_check(game);
-			game->time_to_check = game->cycles_to_die;
+			game->time_to_check = game->ctd;
 		}
 		if (!game->head)
 			break ;

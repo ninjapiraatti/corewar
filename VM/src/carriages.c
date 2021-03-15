@@ -40,7 +40,7 @@ t_carriage	*create_carriage(int player_id, int position)
 }
 
 /*
-** This function kills all carriages in the event that cycles_to_die
+** This function kills all carriages in the event that ctd
 ** is <= 0.
 */
 
@@ -62,15 +62,14 @@ t_carriage	*kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game)
 	t_carriage	*tmp;
 	int			limit;
 
-	limit = game->cycles - game->cycles_to_die;
-	
+	limit = game->cycles - game->ctd;
 	while (head && head->last_live <= limit)
 	{
 		tmp = head->next;
 		game->arena[head->pc].color_carr = 0;
 		if (game->flags->kill)
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				head->carr_id, limit, game->cycles_to_die);
+				head->carr_id, limit, game->ctd);
 		free(head);
 		head = tmp;
 	}
@@ -94,16 +93,13 @@ t_carriage	*kill_carriages(t_carriage *head, t_game *game)
 		while (cur->next)
 		{
 			tmp = cur->next;
-			if (tmp->last_live <= (game->cycles - game->cycles_to_die))
+			if (tmp->last_live <= (game->cycles - game->ctd))
 			{
 				if (game->flags->kill)
-					ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						tmp->carr_id, game->cycles - game->cycles_to_die, game->cycles_to_die);
+					ft_printf("Process %d is dead for %d cycles (CTD %d)\n",
+						tmp->carr_id, game->cycles - game->ctd, game->ctd);
 				game->arena[tmp->pc].color_carr = 0;
-				if (tmp->next)
-					cur->next = tmp->next;
-				else
-					cur->next = NULL;
+				cur->next = tmp->next ? tmp->next : NULL;
 				free(tmp);
 			}
 			else
