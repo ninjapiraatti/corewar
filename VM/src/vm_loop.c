@@ -7,7 +7,7 @@
 void	run_check(t_game *game)
 {
 	if (game->ctd <= 0)
-		game->head = kill_all_carriages(game->head);
+		game->head = kill_all_carriages(game->head, game);
 	else
 		game->head = kill_carriages(game->head, game);
 	if (game->lives_num >= NBR_LIVE || game->checks == MAX_CHECKS)
