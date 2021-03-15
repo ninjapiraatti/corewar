@@ -44,7 +44,8 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 				carr->next_state, carr->pc, carr->pc + carr->next_state);
 			while (i < carr->next_state)
 			{
-				ft_printf("%02x ", game->arena[carr->pc + i].ar);
+				ft_printf("%02x ",
+					game->arena[(unsigned int)(carr->pc + i) % MEM_SIZE].ar);
 				i++;
 			}
 			ft_printf("\n");
