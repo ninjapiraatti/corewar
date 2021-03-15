@@ -73,18 +73,21 @@ void	run_carriage(t_game *game, t_carriage *carr)
 	inst = arena[carr->pc].ar;
 	arg_code = arena[(unsigned int)(carr->pc + 1) % MEM_SIZE].ar;
 	if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17)
+	{
+		carr->inst = inst;
 		carr->cycles_to_wait = op_table[inst - 1].cycles_to_wait;
+	}
 	if (carr->cycles_to_wait > 0)
 		carr->cycles_to_wait--;
 	if (carr->cycles_to_wait == 0)
 	{
-		if (inst > 0 && inst < 17)
+		if (carr->inst > 0 && carr->inst < 17)
 		{
-			if (check_inst(inst, arg_code, carr, arena))
+			if (check_inst(carr->inst, arg_code, carr, arena))
 			{
 				if (game->flags->moves)
-					ft_printf("P %4d | %s", carr->carr_id, op_table[inst - 1].op_name);
-				perform_statement(carr, game, inst);
+					ft_printf("P %4d | %s", carr->carr_id, op_table[carr->inst - 1].op_name);
+				perform_statement(carr, game, carr->inst);
 			}
 		}
 		else
