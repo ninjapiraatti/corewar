@@ -35,7 +35,7 @@ void	manage_ldi(t_carriage *c, t_game *game)
 
 	arg1 = read_bytes(game->arena, c->pc + 2, c->arg_size[0]);
 	arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
-	arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1], \
+	arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
 	c->arg_size[2]);
 	if (c->args[0] == REG_CODE)
 		arg1 = c->regs[arg1 - 1];
@@ -79,7 +79,7 @@ void	manage_lldi(t_carriage *c, t_game *game)
 
 	arg1 = read_bytes(game->arena, c->pc + 2, c->arg_size[0]);
 	arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
-	arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1], \
+	arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
 	c->arg_size[2]);
 	if (c->args[0] == REG_CODE)
 		arg1 = c->regs[arg1 - 1];
@@ -87,7 +87,8 @@ void	manage_lldi(t_carriage *c, t_game *game)
 		arg1 = read_bytes(game->arena, c->pc + arg1 % IDX_MOD, REG_SIZE);
 	if (c->args[1] == REG_CODE)
 		arg2 = c->regs[arg2 - 1];
-	c->regs[arg3 - 1] = read_bytes(game->arena, c->pc + (arg1 + arg2), REG_SIZE);
+	c->regs[arg3 - 1] = read_bytes(game->arena, c->pc +
+	(arg1 + arg2), REG_SIZE);
 	if (c->regs[arg3 - 1] == 0)
 		c->carry = 1;
 	else
