@@ -86,7 +86,6 @@ typedef struct      s_arena
 
 typedef struct          s_carriage
 {
-    // int                 id; // unique carriage number
     int                 carry; //changed to int from enum
     int                 pc;
     int                 cycles_to_wait;// time to wait
