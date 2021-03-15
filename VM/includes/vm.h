@@ -114,7 +114,7 @@ typedef struct      s_game
     int             id_last_live;//player last told he was alive
     int             cycles;//cycles passed
     unsigned int    lives_num;
-    int             cycles_to_die;
+    int             ctd;
     unsigned int    checks;
     int             car_num; //num of carriages
     int             game_state;
