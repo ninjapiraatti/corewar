@@ -65,17 +65,16 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 
 void	run_carriage(t_game *game, t_carriage *carr)
 {
-	int		inst;
 	char	arg_code;
 	t_arena	*arena;
 
 	arena = game->arena;
-	inst = arena[carr->pc].ar;
 	arg_code = arena[(unsigned int)(carr->pc + 1) % MEM_SIZE].ar;
-	if (carr->cycles_to_wait == 0 && inst > 0 && inst < 17)
+	if (carr->cycles_to_wait == 0)
 	{
-		carr->inst = inst;
-		carr->cycles_to_wait = op_table[inst - 1].cycles_to_wait;
+		carr->inst = arena[carr->pc].ar;
+		if (carr->inst > 0 && carr->inst < 17)
+			carr->cycles_to_wait = op_table[carr->inst - 1].cycles_to_wait;
 	}
 	if (carr->cycles_to_wait > 0)
 		carr->cycles_to_wait--;
