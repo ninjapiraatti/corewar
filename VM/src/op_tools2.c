@@ -10,6 +10,15 @@ int	get_registry_content(t_arena *arena, t_carriage *c, int extra)
 {
 	int reg;
 
-	reg = c->regs[arena[(unsigned int)(c->pc + 2 + extra) % MEM_SIZE].ar - 1];
+	reg = c->regs[arena[modpc(c->pc + 2 + extra)].ar - 1];
 	return (reg);
+}
+
+/*
+** Tiny function to save space and apply mod MEM_SIZE
+*/
+
+int	modpc(unsigned int address)
+{
+	return (address % MEM_SIZE);
 }

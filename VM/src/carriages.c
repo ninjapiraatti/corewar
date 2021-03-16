@@ -100,8 +100,9 @@ t_carriage	*kill_carriages(t_carriage *head, t_game *game)
 			if (tmp->last_live <= (game->cycles - game->ctd))
 			{
 				if (game->flags->kill)
-					ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-						tmp->carr_id, game->cycles - tmp->last_live, game->ctd);
+					ft_printf("Process %d hasn't lived for %d cycles \
+						(CTD %d)\n", tmp->carr_id, game->cycles -
+							tmp->last_live, game->ctd);
 				game->arena[tmp->pc].color_carr = 0;
 				cur->next = tmp->next ? tmp->next : NULL;
 				free(tmp);

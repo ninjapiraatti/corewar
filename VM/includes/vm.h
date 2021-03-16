@@ -240,6 +240,7 @@ void        update_color(t_carriage *carr, t_arena *arena, unsigned int pos, int
 */
 
 int  get_registry_content(t_arena *arena, t_carriage *c, int extra);
+int     modpc(unsigned int address);
 
 /*
 ** check_args.c

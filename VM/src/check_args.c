@@ -17,7 +17,7 @@ int		check_regs(t_carriage *carr, t_arena *arena)
 	int		reg;
 	int		i;
 
-	i = (unsigned int)(carr->pc + 2) % MEM_SIZE;
+	i = modpc(carr->pc + 2);
 	arg = 0;
 	while (arg < 3)
 	{
@@ -76,7 +76,7 @@ int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 	{
 		c->next_state += c->arg_size[i];
 		if (!check_args(c->args[i], i, inst - 1))
-			prob = 1;;	
+			prob = 1;
 		i++;
 	}
 	if (prob)
