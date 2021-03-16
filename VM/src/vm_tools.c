@@ -94,7 +94,7 @@ int			ft_str_is_empty(char *str, int size)
 ** Place players 'id' in the first registry with a '-' sign.
 */
 
-void		initialize_registries(int *new_regs, int id, int *copy_regs)
+void		init_registries(int *new_regs, int id, int *copy_regs)
 {
 	int			i;
 

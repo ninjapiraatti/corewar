@@ -51,7 +51,7 @@ void	manage_sti(t_carriage *c, t_game *game)
 	reg = game->arena[modpc(c->pc + 2)].ar;
 	arg1 = c->regs[reg - 1];
 	if (c->args[1] == REG_CODE)
-		arg2 = get_registry_content(game->arena, c, c->arg_size[0]);
+		arg2 = get_reg(game->arena, c, c->arg_size[0]);
 	else
 	{
 		arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
@@ -62,7 +62,7 @@ void	manage_sti(t_carriage *c, t_game *game)
 		}
 	}
 	if (c->args[2] == REG_CODE)
-		arg3 = get_registry_content(game->arena, c, c->arg_size[0] + c->arg_size[1]);
+		arg3 = get_reg(game->arena, c, c->arg_size[0] + c->arg_size[1]);
 	else
 		arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
 			c->arg_size[2]);

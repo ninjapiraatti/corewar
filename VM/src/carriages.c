@@ -61,7 +61,11 @@ t_carriage	*kill_all_carriages(t_carriage *head, t_game *game)
 	return (head);
 }
 
-t_carriage	*kill_carrs_from_beginning_of_list(t_carriage *head, t_game *game)
+/*
+** kills carriages from beginning of list
+*/
+
+t_carriage	*kill_first_carrs(t_carriage *head, t_game *game)
 {
 	t_carriage	*tmp;
 	int			limit;
@@ -90,7 +94,7 @@ t_carriage	*kill_carriages(t_carriage *head, t_game *game)
 	t_carriage	*cur;
 	t_carriage	*tmp;
 
-	head = kill_carrs_from_beginning_of_list(head, game);
+	head = kill_first_carrs(head, game);
 	cur = head;
 	if (cur)
 	{

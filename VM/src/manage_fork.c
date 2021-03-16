@@ -18,7 +18,7 @@ void	manage_fork(t_game *game, t_carriage *carr)
 	new = create_carriage(carr->color_id, address);
 	new->carry = carr->carry;
 	new->last_live = carr->last_live;
-	initialize_registries(new->regs, carr->color_id, carr->regs);
+	init_registries(new->regs, carr->color_id, carr->regs);
 	new->next_state = 0;
 	ft_add_carriage(&(game->head), new);
 	game->arena[new->pc].color_carr = new->color_id;
@@ -42,7 +42,7 @@ void	manage_lfork(t_game *game, t_carriage *carr)
 	new = create_carriage(carr->color_id, address);
 	new->carry = carr->carry;
 	new->last_live = carr->last_live;
-	initialize_registries(new->regs, carr->color_id, carr->regs);
+	init_registries(new->regs, carr->color_id, carr->regs);
 	new->next_state = 0;
 	ft_add_carriage(&(game->head), new);
 	game->arena[new->pc].color_carr = new->color_id;

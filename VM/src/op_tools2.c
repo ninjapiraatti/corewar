@@ -6,7 +6,7 @@
 ** the argument_type_code byte and 'extra' is to skip over possible arguments.
 */
 
-int	get_registry_content(t_arena *arena, t_carriage *c, int extra)
+int	get_reg(t_arena *arena, t_carriage *c, int extra)
 {
 	int reg;
 

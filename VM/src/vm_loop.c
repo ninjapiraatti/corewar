@@ -29,6 +29,7 @@ void	run_check(t_game *game)
 		}
 	}
 	game->lives_num = 0;
+	game->time_to_check = game->ctd;
 }
 
 void	set_new_pc_and_color(t_game *game, t_carriage *carr)
@@ -50,7 +51,7 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 			ft_printf("\n");
 		}
 		game->arena[carr->pc].color_carr = 0;
-		carr->pc = modpc(carr->pc + carr->next_state);
+		carr->pc = (unsigned int)(carr->pc + carr->next_state) % MEM_SIZE;
 		game->arena[carr->pc].color_carr = carr->color_id;
 	}
 }
@@ -63,35 +64,32 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 ** 4. move carriage to the next position if cycles_to_wait is 0.
 */
 
-void	run_carriage(t_game *game, t_carriage *carr)
+void	run_carriage(t_game *game, t_carriage *c)
 {
 	char	arg_code;
 	t_arena	*arena;
 
 	arena = game->arena;
-	arg_code = arena[modpc(carr->pc + 1)].ar;
-	if (carr->cycles_to_wait == 0)
+	arg_code = arena[modpc(c->pc + 1)].ar;
+	if (c->cycles_to_wait == 0)
 	{
-		carr->inst = arena[carr->pc].ar;
-		if (carr->inst > 0 && carr->inst < 17)
-			carr->cycles_to_wait = op_table[carr->inst - 1].cycles_to_wait;
+		c->inst = arena[c->pc].ar;
+		if (c->inst > 0 && c->inst < 17)
+			c->cycles_to_wait = op_table[c->inst - 1].cycles_to_wait;
 	}
-	if (carr->cycles_to_wait > 0)
-		carr->cycles_to_wait--;
-	if (carr->cycles_to_wait == 0)
+	if (c->cycles_to_wait > 0)
+		c->cycles_to_wait--;
+	if (c->cycles_to_wait == 0)
 	{
-		if (carr->inst > 0 && carr->inst < 17)
+		if (!(c->inst > 0 && c->inst < 17))
+			c->next_state = 1;
+		else if (check_inst(c->inst, arg_code, c, arena))
 		{
-			if (check_inst(carr->inst, arg_code, carr, arena))
-			{
-				if (game->flags->moves)
-					ft_printf("P %4d | %s", carr->carr_id, op_table[carr->inst - 1].op_name);
-				perform_statement(carr, game, carr->inst);
-			}
+			if (game->flags->moves)
+				ft_printf("P %4d | %s", c->carr_id, op_table[c->inst - 1].name);
+			perform_statement(c, game, c->inst);
 		}
-		else
-			carr->next_state = 1;
-		set_new_pc_and_color(game, carr);
+		set_new_pc_and_color(game, c);
 	}
 }
 
@@ -127,10 +125,7 @@ void	vm_loop(t_game *game)
 		if (game->flags->viz)
 			perform_visualization(game);
 		if (game->time_to_check == 0 || game->ctd <= 0)
-		{
 			run_check(game);
-			game->time_to_check = game->ctd;
-		}
 		if (!game->head)
 			break ;
 		if (game->flags->dump != INIT_FLAG && game->flags->dump == game->cycles)
