@@ -118,9 +118,9 @@ typedef struct			s_game
 ** main.c
 */
 
+void					declare_winner(t_game *game);
 int						parse_champ_files(t_pl *players);
 void					introduce_players(t_pl *players);
-void					declare_winner(t_game *game);
 
 /*
 ** vm_error.c
@@ -144,6 +144,13 @@ void					init_registries(int *new_regs, int id, int *copy_regs);
 
 void					parse_flags_player_order(t_pl *players,
 						t_flag *flags, t_avac *avac);
+
+/*
+** player_order.c
+*/
+
+void	assign_player_order(t_pl *ps, char *champion, int pos);
+void	double_check_player_order(char **order, int player_num);
 
 /*
 ** read_from_champ_files.c
@@ -192,12 +199,6 @@ void					run_carriage(t_game *game, t_carriage *carr);
 void					set_new_pc_and_color(t_game *game, t_carriage *carr);
 void					run_check(t_game *game);
 void					prepare_game_variables(t_game *game);
-
-/*
-** perform_statement.c
-*/
-
-void					perform_statement(t_carriage *c, t_game *g, int inst);
 
 /*
 ** op_tools.c
@@ -285,15 +286,19 @@ void    manage_lfork(t_game *game, t_carriage *carr);
 void    manage_zjmp(t_game *game, t_carriage *carr);
 
 /*
-** ncurses_colors.c
+** visualizer_ncurses1.c
 */
 int    start_visualizer(void);
 int    ncurses_print_arena(t_arena *arena);
-t_arena    print_hex_color(t_arena arena);
-void    print_carriage_color(t_arena *arena, t_carriage *carr);
-void    init_ncurses_colors(void);
 void    perform_visualization(t_game *game);
-void    ncurses_print_game_info(t_game *game, int x);
 void    ncurses_declare_winner(int winner_number, char *winner_name);
+
+/*
+** visualizer_ncurses2.c
+*/
+
+t_arena    print_hex_color(t_arena arena);
+void	ncurses_print_players(t_game *game, int y, int x);
+void    ncurses_print_game_info(t_game *game, int x);
 
 # endif

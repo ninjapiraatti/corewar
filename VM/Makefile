@@ -13,7 +13,8 @@
 NAME = corewar
 
 SRC_NAME = main.c \
-parse_flags_player_order.c \
+parse_flags.c \
+player_order.c \
 read_from_champ_files.c \
 vm_error.c \
 vm_tools.c \
@@ -32,8 +33,9 @@ manage_add_sub.c \
 check_args.c \
 op_tools.c \
 perform_statement.c \
-ncurses_visualizer.c \
 op_tools2.c \
+visualizer_ncurses1.c \
+visualizer_ncurses2.c \
 
 
 SRC_DIR = src/

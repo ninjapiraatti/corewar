@@ -10,7 +10,7 @@ void	dump_memory(t_arena *arena)
 	{
 		ft_printf("0x%04x : ", i);
 		j = 0;
-		while (j < 64) //change back to 32
+		while (j < 32)
 		{
 			ft_printf("%02x ", arena[i].ar);
 			j++;
