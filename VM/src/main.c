@@ -46,29 +46,27 @@ void	introduce_players(t_pl *players)
 	}
 }
 
+/*
+** Declares the winner to be the player who last performed a live valid
+** live statement. If no-one has performed a live statement, the winner
+** is the player who was last placed on the arena, AKA the last player.
+*/
+
 void	declare_winner(t_game *game)
 {
 	int		winner_number;
 	char	*winner_name;
 
 	winner_number = game->id_last_live;
-	if (winner_number > 0)
-		winner_name = game->players->h_info[winner_number]->prog_name;
-	else
-		winner_name = NULL;
+	if (winner_number == 0)
+		winner_number = game->players->pl_num;
+	winner_name = game->players->h_info[winner_number]->prog_name;
 	if (game->flags->viz == 1)
 		ncurses_declare_winner(winner_number, winner_name);
 	else
 	{
-		if (winner_number > 0)
-			ft_printf("Contestant %d, \"%s\", has won !\n",
-			winner_number, winner_name);
-		else
-		{
-			ft_printf("Contestant %d, \"%s\", has won !\n",
-			game->players->pl_num,
-			game->players->h_info[game->players->pl_num]->prog_name);
-		}
+		ft_printf("Contestant %d, \"%s\", has won !\n",
+		winner_number, winner_name);
 	}
 }
 
