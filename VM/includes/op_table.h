@@ -1,14 +1,11 @@
 #ifndef OP_TABLE_H
 # define OP_TABLE_H
-
 # include "op.h"
-
-
 # define OP_CODE_COUNT 16
 
 typedef struct		s_op_table
 {
-	char			*op_name;
+	char			*name;
 	unsigned int	op_code;
 	int				t_dir_size;
 	int				arg_type_code;

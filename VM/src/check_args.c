@@ -86,9 +86,13 @@ int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 
 int		check_inst(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 {
-	if (op_table[inst - 1].arg_type_code == 1)
-		return (check_code(inst, arg_code, c, a));
-	else
-		c->next_state = 1 + op_table[inst - 1].t_dir_size;
-	return (1);
+	if (inst > 0 && inst < 17)
+	{
+		if (op_table[inst - 1].arg_type_code == 1)
+			return (check_code(inst, arg_code, c, a));
+		else
+			c->next_state = 1 + op_table[inst - 1].t_dir_size;
+		return (1);
+	}
+	return (0);
 }

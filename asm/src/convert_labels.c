@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_labels.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:21:27 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:28:23 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:13:53 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*count_label_index(char *str, t_statement *tmp, int count, int index)
 		state = state->next;
 	}
 	error_management("error while converting labels, no such label");
+	return (NULL);
 }
 
 void	convert_labels(t_statement *tmp, int i, int count)

@@ -53,6 +53,11 @@ void	manage_ldi(t_carriage *c, t_game *game)
 	}
 }
 
+/*
+** At line 68, original corewar reads 2 bytes but it's more logical
+** to read 4 bytes
+*/
+
 void	manage_lld(t_carriage *c, t_game *game)
 {
 	int	arg1;
@@ -61,7 +66,7 @@ void	manage_lld(t_carriage *c, t_game *game)
 	arg2 = game->arena[c->pc + 2 + c->arg_size[0]].ar;
 	arg1 = read_bytes(game->arena, c->pc + 2, c->arg_size[0]);
 	if (c->args[0] == IND_CODE)
-		arg1 = read_bytes(game->arena, c->pc + arg1, 2); // should apparently read 4 bytes but original corewar reads 2
+		arg1 = read_bytes(game->arena, c->pc + arg1, 2);
 	c->regs[arg2 - 1] = arg1;
 	if (arg1 == 0)
 		c->carry = 1;

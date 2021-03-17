@@ -3,6 +3,7 @@
 42-Corewar-Checker
 VM/corewar
 .vscode
+asm/testfiles
 
 *.cor
 asm/asm
