@@ -5,7 +5,7 @@ void	manage_ld(t_carriage *c, t_game *game)
 	int	arg1;
 	int	arg2;
 
-	arg2 = game->arena[c->pc + 2 + c->arg_size[0]].ar;
+	arg2 = game->arena[modpc(c->pc + 2 + c->arg_size[0])].ar;
 	arg1 = read_bytes(game->arena, c->pc + 2, c->arg_size[0]);
 	if (c->args[0] == IND_CODE)
 		arg1 = read_bytes(game->arena, c->pc + arg1 % IDX_MOD, REG_SIZE);

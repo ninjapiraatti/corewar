@@ -18,7 +18,7 @@
 # define VISUAL 1
 # define OP_AND 1
 # define OP_OR	2
-# define OP_XOR 3 
+# define OP_XOR 3
 
 /*
 ** Simple struct for storing command line argc and **argv
@@ -26,8 +26,8 @@
 
 typedef struct  s_avac
 {
-    int     ac;
-    char    **av;
+    int         ac;
+    char        **av;
 }               t_avac;
 
 /*
@@ -172,11 +172,11 @@ void    init_mem_area_to_zero(t_arena *arena);
 
 
 /*
-**  print_hex.c
+**  print_dump.c
 */
 
-void    print_hex(t_arena *arena);
 void    dump_memory(t_arena *arena);
+void	print_sti_info(int reg, int arg2, int arg3, int pos);
 
 /*
 ** carriages.c
@@ -197,33 +197,6 @@ void    run_carriage(t_game *game, t_carriage *carr);
 void    set_new_pc_and_color(t_game *game, t_carriage *carr);
 void    run_check(t_game *game);
 void    prepare_game_variables(t_game *game);
-
-/*
-** manage_st.c
-*/
-
-void    manage_st(t_carriage *carr, t_game *game);
-void    manage_sti(t_carriage *c, t_game *game);
-
-/*
-** Manage statements
-*/
-
-void	manage_and(t_carriage *carr, t_game *game);
-void	manage_or(t_carriage *carr, t_game *game);
-void	manage_xor(t_carriage *carr, t_game *game);
-void    manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
-void    manage_sub(t_carriage *carr, t_game *game);
-
-/*
-** manage_ld.c
-*/
-
-void	manage_ld(t_carriage *carr, t_game *game);
-void	manage_ldi(t_carriage *carr, t_game *game);
-void	manage_lld(t_carriage *carr, t_game *game);
-void	manage_lldi(t_carriage *carr, t_game *game);
-
 
 /*
 ** op_tools.c
@@ -264,7 +237,39 @@ void	perform_statement(t_carriage *carr, t_game *game, int inst);
 void    manage_live(t_carriage *carr, t_game *game);
 
 /*
-** manage_fork.c
+** manage_ld_ldi_lld_lldi.c
+*/
+
+void	manage_ld(t_carriage *carr, t_game *game);
+void	manage_ldi(t_carriage *carr, t_game *game);
+void	manage_lld(t_carriage *carr, t_game *game);
+void	manage_lldi(t_carriage *carr, t_game *game);
+
+/*
+** manage_st_sti.c
+*/
+
+void    manage_st(t_carriage *carr, t_game *game);
+void    manage_sti(t_carriage *c, t_game *game);
+
+/*
+** manage_and_or_xor
+*/
+
+void	manage_and(t_carriage *carr, t_game *game);
+void	manage_or(t_carriage *carr, t_game *game);
+void	manage_xor(t_carriage *carr, t_game *game);
+void    manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
+
+/*
+** manage_add_sub.c
+*/
+
+void    manage_sub(t_carriage *carr, t_game *game);
+void    manage_add(t_carriage *carr, t_game *game);
+
+/*
+** manage_fork_lfork.c
 */
 
 void    manage_fork(t_game *game, t_carriage *carr);
@@ -277,13 +282,6 @@ void    manage_lfork(t_game *game, t_carriage *carr);
 void    manage_zjmp(t_game *game, t_carriage *carr);
 
 /*
-** manage_add.c
-*/
-
-void    manage_add(t_carriage *carr, t_game *game);
-
-
-/*
 ** ncurses_colors.c
 */
 int    start_visualizer(void);
@@ -294,6 +292,5 @@ void    init_ncurses_colors(void);
 void    perform_visualization(t_game *game);
 void    ncurses_print_game_info(t_game *game, int x);
 void    ncurses_declare_winner(int winner_number, char *winner_name);
-
 
 # endif

@@ -45,21 +45,16 @@ void	manage_sti(t_carriage *c, t_game *game)
 	int	arg1;
 	int	arg2;
 	int	arg3;
-	int reg;
 	int	pos;
 
-	reg = game->arena[modpc(c->pc + 2)].ar;
-	arg1 = c->regs[reg - 1];
+	arg1 = c->regs[game->arena[modpc(c->pc + 2)].ar - 1];
 	if (c->args[1] == REG_CODE)
 		arg2 = get_registry_content(game->arena, c, c->arg_size[0]);
 	else
 	{
 		arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
 		if (c->args[1] == IND_CODE)
-		{
-			arg2 = c->pc + arg2 % IDX_MOD;
-			arg2 = read_bytes(game->arena, arg2, REG_SIZE);
-		}
+			arg2 = read_bytes(game->arena, c->pc + arg2 % IDX_MOD, REG_SIZE);
 	}
 	if (c->args[2] == REG_CODE)
 		arg3 = get_registry_content(game->arena, c, c->arg_size[0] + c->arg_size[1]);
@@ -70,9 +65,5 @@ void	manage_sti(t_carriage *c, t_game *game)
 	write_to_memory(game->arena, pos, arg1, REG_SIZE);
 	update_color(c, game->arena, pos, REG_SIZE);
 	if (game->flags->moves)
-	{
-		ft_printf(" r%d %d %d\n", reg, arg2, arg3);
-		ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-			arg2, arg3, arg2 + arg3, pos);
-	}
+		print_sti_info(game->arena[modpc(c->pc + 2)].ar, arg2, arg3, pos);
 }

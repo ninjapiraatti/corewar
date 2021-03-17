@@ -17,23 +17,22 @@ parse_flags_player_order.c \
 read_from_champ_files.c \
 vm_error.c \
 vm_tools.c \
-print_hex.c \
+print_dump.c \
 place_in_memory.c \
 carriages.c \
 vm_loop.c \
 manage_live.c \
-manage_st.c \
-manage_and.c \
-manage_ld.c \
-manage_fork.c \
+manage_st_sti.c \
+manage_and_or_xor.c \
+manage_ld_ldi_lld_lldi.c \
+manage_fork_lfork.c \
 manage_zjmp.c \
 manage_aff.c \
-manage_add.c \
-manage_sub.c \
+manage_add_sub.c \
 check_args.c \
 op_tools.c \
 perform_statement.c \
-ncurses_colors.c \
+ncurses_visualizer.c \
 op_tools2.c \
 
 
