@@ -90,7 +90,7 @@ typedef struct			s_carriage
 	int					next_state;
 	struct s_carriage	*next;
 	int					args[3];
-	int					arg_size[3];
+	int					as[3];
 	int					inst;
 }						t_carriage;
 

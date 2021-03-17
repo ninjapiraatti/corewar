@@ -17,13 +17,13 @@ void	manage_st(t_carriage *carr, t_game *game)
 	arg1 = carr->regs[reg - 1];
 	if (carr->args[1] == REG_CODE)
 	{
-		pos = modpc(carr->pc + 2 + carr->arg_size[0]);
+		pos = modpc(carr->pc + 2 + carr->as[0]);
 		carr->regs[game->arena[pos].ar - 1] = arg1;
 	}
 	else
 	{
-		pos = read_bytes(game->arena, carr->pc + 2 + carr->arg_size[0],
-			carr->arg_size[1]);
+		pos = read_bytes(game->arena, carr->pc + 2 + carr->as[0],
+			carr->as[1]);
 		arg2 = carr->pc + pos % IDX_MOD;
 		write_to_memory(game->arena, arg2, arg1, REG_SIZE);
 		update_color(carr, game->arena, arg2, REG_SIZE);
@@ -49,18 +49,18 @@ void	manage_sti(t_carriage *c, t_game *game)
 
 	arg1 = c->regs[game->arena[modpc(c->pc + 2)].ar - 1];
 	if (c->args[1] == REG_CODE)
-		arg2 = get_reg(game->arena, c, c->arg_size[0]);
+		arg2 = get_reg(game->arena, c, c->as[0]);
 	else
 	{
-		arg2 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0], c->arg_size[1]);
+		arg2 = read_bytes(game->arena, c->pc + 2 + c->as[0], c->as[1]);
 		if (c->args[1] == IND_CODE)
 			arg2 = read_bytes(game->arena, c->pc + arg2 % IDX_MOD, REG_SIZE);
 	}
 	if (c->args[2] == REG_CODE)
-		arg3 = get_reg(game->arena, c, c->arg_size[0] + c->arg_size[1]);
+		arg3 = get_reg(game->arena, c, c->as[0] + c->as[1]);
 	else
-		arg3 = read_bytes(game->arena, c->pc + 2 + c->arg_size[0] + c->arg_size[1],
-			c->arg_size[2]);
+		arg3 = read_bytes(game->arena, c->pc + 2 + c->as[0] + c->as[1],
+			c->as[2]);
 	pos = c->pc + (arg2 + arg3) % IDX_MOD;
 	write_to_memory(game->arena, pos, arg1, REG_SIZE);
 	update_color(c, game->arena, pos, REG_SIZE);

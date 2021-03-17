@@ -22,11 +22,11 @@ void	manage_and_or_xor(t_carriage *carr, t_game *game, int op)
 	int		res;
 
 	res = 0;
-	arg1 = read_bytes(game->arena, carr->pc + 2, carr->arg_size[0]);
+	arg1 = read_bytes(game->arena, carr->pc + 2, carr->as[0]);
 	arg2 = read_bytes(game->arena, carr->pc + 2 +
-		carr->arg_size[0], carr->arg_size[1]);
-	arg3 = game->arena[modpc(carr->pc + 2 + carr->arg_size[0] +
-		carr->arg_size[1])].ar;
+		carr->as[0], carr->as[1]);
+	arg3 = game->arena[modpc(carr->pc + 2 + carr->as[0] +
+		carr->as[1])].ar;
 	if (carr->args[0] == REG_CODE)
 		arg1 = carr->regs[arg1 - 1];
 	else if (carr->args[0] == IND_CODE)

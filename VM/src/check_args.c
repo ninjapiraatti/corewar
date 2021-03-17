@@ -27,7 +27,7 @@ int		check_regs(t_carriage *carr, t_arena *arena)
 			if (reg < 1 || reg > 16)
 				return (0);
 		}
-		i += carr->arg_size[arg];
+		i += carr->as[arg];
 		i = (unsigned int)i % MEM_SIZE;
 		arg++;
 	}
@@ -68,13 +68,13 @@ int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 	c->args[0] = arg_code >> 6;
 	c->args[1] = (arg_code >> 4) & 3;
 	c->args[2] = (arg_code >> 2) & 3;
-	c->arg_size[0] = get_arg_size(c->args[0], inst);
-	c->arg_size[1] = get_arg_size(c->args[1], inst);
-	c->arg_size[2] = get_arg_size(c->args[2], inst);
+	c->as[0] = get_arg_size(c->args[0], inst);
+	c->as[1] = get_arg_size(c->args[1], inst);
+	c->as[2] = get_arg_size(c->args[2], inst);
 	c->next_state = 2;
 	while (i < op_table[inst - 1].arg_amount)
 	{
-		c->next_state += c->arg_size[i];
+		c->next_state += c->as[i];
 		if (!check_args(c->args[i], i, inst - 1))
 			prob = 1;
 		i++;
