@@ -6,7 +6,7 @@
 #    By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/01 14:57:04 by tlouekar          #+#    #+#              #
-#    Updated: 2020/07/06 14:18:33 by tlouekar         ###   ########.fr        #
+#    Updated: 2021/03/17 10:22:15 by tlouekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,6 @@ OBJS = 	ft_printf.o \
 		helpers_length.o \
 		ftoa.o \
 
-EXE = srcs/main.c
-
 EXEOB = main.o
 
 INCS = -I ./srcs -I ./libft/includes/
@@ -63,11 +61,6 @@ $(NAME):
 	@gcc -c -I $(HEADER) $(SRCS) $(INCS)
 	@ar rc $(NAME) *.o ./libft/*.o
 	@ranlib $(NAME)
-
-exe:
-	@make -C libft
-	@gcc $(CFLAGS) -c $(EXE) $(SRCS) $(INCS)
-	@gcc $(CFLAGS) $(INCS) $(EXEOB) $(OBJS) $(LIB) -o $(NAME)
 
 debug:
 
