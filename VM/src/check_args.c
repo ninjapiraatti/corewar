@@ -1,6 +1,6 @@
 #include "vm.h"
 
-size_t	get_arg_size(int arg_type, int inst)
+static size_t	get_arg_size(int arg_type, int inst)
 {
 	if (arg_type == REG_CODE)
 		return (1);
@@ -11,7 +11,7 @@ size_t	get_arg_size(int arg_type, int inst)
 	return (0);
 }
 
-int		check_regs(t_carriage *carr, t_arena *arena)
+static int		check_regs(t_carriage *carr, t_arena *arena)
 {
 	int		arg;
 	int		reg;
@@ -34,7 +34,7 @@ int		check_regs(t_carriage *carr, t_arena *arena)
 	return (1);
 }
 
-int		check_args(char arg, int i, int inst)
+static int		check_args(char arg, int i, int inst)
 {
 	int		j;
 	int		count;
@@ -58,24 +58,24 @@ int		check_args(char arg, int i, int inst)
 	return (0);
 }
 
-int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
+static int		check_code(unsigned char atc, t_carriage *c, t_arena *a)
 {
 	int		i;
 	int		prob;
 
 	i = 0;
 	prob = 0;
-	c->args[0] = arg_code >> 6;
-	c->args[1] = (arg_code >> 4) & 3;
-	c->args[2] = (arg_code >> 2) & 3;
-	c->as[0] = get_arg_size(c->args[0], inst);
-	c->as[1] = get_arg_size(c->args[1], inst);
-	c->as[2] = get_arg_size(c->args[2], inst);
+	c->args[0] = atc >> 6;
+	c->args[1] = (atc >> 4) & 3;
+	c->args[2] = (atc >> 2) & 3;
+	c->as[0] = get_arg_size(c->args[0], c->inst);
+	c->as[1] = get_arg_size(c->args[1], c->inst);
+	c->as[2] = get_arg_size(c->args[2], c->inst);
 	c->next_state = 2;
-	while (i < op_table[inst - 1].arg_amount)
+	while (i < op_table[c->inst - 1].arg_amount)
 	{
 		c->next_state += c->as[i];
-		if (!check_args(c->args[i], i, inst - 1))
+		if (!check_args(c->args[i], i, c->inst - 1))
 			prob = 1;
 		i++;
 	}
@@ -84,14 +84,14 @@ int		check_code(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
 	return (check_regs(c, a));
 }
 
-int		check_inst(int inst, unsigned char arg_code, t_carriage *c, t_arena *a)
+int				check_inst(unsigned char atc, t_carriage *c, t_arena *a)
 {
-	if (inst > 0 && inst < 17)
+	if (c->inst > 0 && c->inst < 17)
 	{
-		if (op_table[inst - 1].arg_type_code == 1)
-			return (check_code(inst, arg_code, c, a));
+		if (op_table[c->inst - 1].arg_type_code == 1)
+			return (check_code(atc, c, a));
 		else
-			c->next_state = 1 + op_table[inst - 1].t_dir_size;
+			c->next_state = 1 + op_table[c->inst - 1].t_dir_size;
 		return (1);
 	}
 	return (0);

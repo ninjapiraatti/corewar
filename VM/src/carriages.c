@@ -5,7 +5,7 @@
 ** new carriages carr_id.
 */
 
-void		ft_add_carriage(t_carriage **alst, t_carriage *new)
+void				ft_add_carriage(t_carriage **alst, t_carriage *new)
 {
 	if (new)
 	{
@@ -20,7 +20,7 @@ void		ft_add_carriage(t_carriage **alst, t_carriage *new)
 	}
 }
 
-t_carriage	*create_carriage(int player_id, int position)
+t_carriage			*create_carriage(int player_id, int position)
 {
 	t_carriage	*new;
 
@@ -45,7 +45,7 @@ t_carriage	*create_carriage(int player_id, int position)
 ** is <= 0.
 */
 
-t_carriage	*kill_all_carriages(t_carriage *head, t_game *game)
+t_carriage			*kill_all_carriages(t_carriage *head, t_game *game)
 {
 	t_carriage	*cur;
 
@@ -65,7 +65,7 @@ t_carriage	*kill_all_carriages(t_carriage *head, t_game *game)
 ** kills carriages from beginning of list
 */
 
-t_carriage	*kill_first_carrs(t_carriage *head, t_game *game)
+static t_carriage	*kill_first_carrs(t_carriage *head, t_game *game)
 {
 	t_carriage	*tmp;
 	int			limit;
@@ -89,7 +89,7 @@ t_carriage	*kill_first_carrs(t_carriage *head, t_game *game)
 ** statement in the required period. Returns the updated head of the list.
 */
 
-t_carriage	*kill_carriages(t_carriage *head, t_game *game)
+t_carriage			*kill_carriages(t_carriage *head, t_game *game)
 {
 	t_carriage	*cur;
 	t_carriage	*tmp;

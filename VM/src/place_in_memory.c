@@ -6,7 +6,7 @@
 ** number to add_color(). Returns the amount of bytes written.
 */
 
-int		player_to_arena(t_arena *start, unsigned char *code, int len, int index)
+static int	player_to_arena(t_arena *start, unsigned char *code, int len, int i)
 {
 	int			k;
 
@@ -14,7 +14,7 @@ int		player_to_arena(t_arena *start, unsigned char *code, int len, int index)
 	while (k < len)
 	{
 		start[k].ar = code[k];
-		start[k].color = index + 11;
+		start[k].color = i + 11;
 		start[k].color_carr = 0;
 		k++;
 	}
@@ -25,7 +25,7 @@ int		player_to_arena(t_arena *start, unsigned char *code, int len, int index)
 ** Set remaining bytes in a player's area to 0 and color to neutral.
 */
 
-void	init_mem_area_to_zero(t_arena *arena)
+static void	init_mem_area_to_zero(t_arena *arena)
 {
 	int			i;
 
@@ -48,7 +48,7 @@ void	init_mem_area_to_zero(t_arena *arena)
 ** 'color' -string to zero also.
 */
 
-void	place_players_in_mem(t_game *game, t_pl *pl, t_flag *flags)
+void		place_players_in_mem(t_game *game, t_pl *pl, t_flag *flags)
 {
 	int			per_pl;
 	int			i;

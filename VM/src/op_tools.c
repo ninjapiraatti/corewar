@@ -21,22 +21,6 @@ char	*copy_mem_area(t_arena *arena, int start, int size)
 }
 
 /*
-** After receiving buf, which is a copy of the specified memory area,
-** the function turns the bytes around and casts it to an int.
-*/
-
-int		read_bytes_convert(t_arena *arena, int pos, int size)
-{
-	char	*buf;
-	int		res;
-
-	buf = copy_mem_area(arena, pos, size);
-	ft_revbytes(buf, size);
-	res = *(int*)buf;
-	return (res);
-}
-
-/*
 ** Writes 'arg' divided into memory arena one byte at a time (until 'size').
 ** Because the VM is big-endian, the most significant bytes are written first.
 */

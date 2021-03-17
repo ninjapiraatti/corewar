@@ -4,7 +4,7 @@
 ** Kills certain carriages from list and updates ctd when needed.
 */
 
-void	run_check(t_game *game)
+static void	run_check(t_game *game)
 {
 	if (game->ctd <= 0)
 		game->head = kill_all_carriages(game->head, game);
@@ -32,7 +32,7 @@ void	run_check(t_game *game)
 	game->time_to_check = game->ctd;
 }
 
-void	set_new_pc_and_color(t_game *game, t_carriage *carr)
+static void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ void	set_new_pc_and_color(t_game *game, t_carriage *carr)
 ** 4. move carriage to the next position if cycles_to_wait is 0.
 */
 
-void	run_carriage(t_game *game, t_carriage *c)
+static void	run_carriage(t_game *game, t_carriage *c)
 {
 	char	arg_code;
 	t_arena	*arena;
@@ -83,7 +83,7 @@ void	run_carriage(t_game *game, t_carriage *c)
 	{
 		if (!(c->inst > 0 && c->inst < 17))
 			c->next_state = 1;
-		else if (check_inst(c->inst, arg_code, c, arena))
+		else if (check_inst(arg_code, c, arena))
 		{
 			if (game->flags->moves)
 				ft_printf("P %4d | %s", c->carr_id, op_table[c->inst - 1].name);
@@ -93,7 +93,7 @@ void	run_carriage(t_game *game, t_carriage *c)
 	}
 }
 
-void	prepare_game_variables(t_game *game)
+static void	prepare_game_variables(t_game *game)
 {
 	game->checks = 0;
 	game->game_state = 1;
@@ -105,7 +105,7 @@ void	prepare_game_variables(t_game *game)
 	game->time_to_check = CYCLE_TO_DIE;
 }
 
-void	vm_loop(t_game *game)
+void		vm_loop(t_game *game)
 {
 	t_carriage *cur;
 

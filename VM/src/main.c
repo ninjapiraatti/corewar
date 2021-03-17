@@ -5,7 +5,7 @@
 ** function can be found in "Read_from_champ_files.c".
 */
 
-int		parse_champ_files(t_pl *players)
+static int	parse_champ_files(t_pl *players)
 {
 	int fd;
 	int i;
@@ -31,7 +31,7 @@ int		parse_champ_files(t_pl *players)
 	return (0);
 }
 
-void	introduce_players(t_pl *players)
+static void	introduce_players(t_pl *players)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ void	introduce_players(t_pl *players)
 ** is the player who was last placed on the arena, AKA the last player.
 */
 
-void	declare_winner(t_game *game)
+static void	declare_winner(t_game *game)
 {
 	int		winner_number;
 	char	*winner_name;
@@ -70,7 +70,7 @@ void	declare_winner(t_game *game)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_pl	players;
 	t_flag	flags;
