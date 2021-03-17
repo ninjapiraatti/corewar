@@ -9,10 +9,11 @@
 ** Returns the current index i.
 */
 
-static int	parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
+int	parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
 {
 	int		pos;
 	char	**av;
+	char	*dump_str;
 
 	pos = 0;
 	av = avac->av;
@@ -20,19 +21,16 @@ static int	parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
 	{
 		if (fl->dump != INIT_FLAG)
 			vm_error("Error, too many -dump flags");
-		if (++i >= avac->ac ||
-			ft_strcmp(ft_itoa(fl->dump = ft_atoi(av[i])), av[i]))
+		if (++i >= avac->ac)
 			vm_error("Error, -dump flag must be followed by a number");
+		fl->dump = ft_atoi(av[i]);
+		dump_str = ft_itoa(fl->dump);
+		if (ft_strcmp(dump_str, av[i]))
+			vm_error("Error, -dump flag must be followed by a number");
+		ft_strdel(&dump_str);
 	}
 	else if (!ft_strcmp(av[i], "-n"))
-	{
-		fl->n[0] = 1;
-		if (++i + 1 >= avac->ac || ft_strcmp(ft_itoa((pos = ft_atoi(av[i]))),
-			av[i]) || pos < 1 || fl->n[pos] != INIT_FLAG || pos > MAX_PLAYERS)
-			vm_error("Error, invalid usage of -n flag");
-		i++;
-		assign_player_order(ps, av[i], pos);
-	}
+		i = change_player_order(i, fl, ps, avac);
 	else
 		vm_error("Error, invalid flag option");
 	return (i);
