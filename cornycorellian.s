@@ -5,22 +5,22 @@ basic:
 	st		r1, r8
 	st		r1, 6
 	live	%42
-	fork	%:floof
+	fork	%:basic
 
 floof:
 	st		r1, 6
 	live	%42
 
-loadfloof:
-	st		r1, 35
-	st		r1, 35
-	st		r1, 35
-	st		r1, 35
-	st		r8, 35
-	st		r1, 35
-	st		r1, 35
+load:
+	st		r1, 36
+	st		r1, 36
+	st		r1, 36
+	st		r1, 36
+	st		r8, 36
+	st		r1, 36
+	st		r1, 36
 
-livefloof:
+live:
 	live	%5682
 	live	%5682
 	live	%5682
@@ -28,3 +28,8 @@ livefloof:
 	live	%5682
 	live	%5682
 	live	%5682
+
+expand:
+	ld 		%1, r10
+	st		r10, 242
+	st		r1, 241
