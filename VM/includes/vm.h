@@ -134,6 +134,7 @@ void					init_registries(int *new_regs, int id, int *copy_regs);
 ** parse_flags.c
 */
 
+int						parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac);
 void					parse_flags_player_order(t_pl *players,
 						t_flag *flags, t_avac *avac);
 
@@ -141,6 +142,7 @@ void					parse_flags_player_order(t_pl *players,
 ** player_order.c
 */
 
+int						change_player_order(int i, t_flag *fl, t_pl *ps, t_avac *avac);
 void					assign_player_order(t_pl *ps, char *champion, int pos);
 void					double_check_player_order(char **order, int player_num);
 

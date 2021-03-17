@@ -1,5 +1,27 @@
 #include "vm.h"
 
+int		change_player_order(int i, t_flag *fl, t_pl *ps, t_avac *avac)
+{
+	char	*pos_string;
+	int		pos;
+	char	**av;
+
+	av = avac->av;
+	fl->n[0] = 1;
+	i++;
+	if (i + 1 >= avac->ac)
+		vm_error("Error, invalid usage of -n flag");
+	pos = ft_atoi(av[i]);
+	pos_string = ft_itoa(pos);
+	if (ft_strcmp(pos_string, av[i]) || pos < 1 ||
+		fl->n[pos] != INIT_FLAG || pos > MAX_PLAYERS)
+		vm_error("Error, invalid usage of -n flag");
+	i++;
+	ft_strdel(&pos_string);
+	assign_player_order(ps, av[i], pos);
+	return (i);
+}
+
 /*
 ** Assigns the player order for every champion found. If 'pos' is not
 ** zero, meaning that the assignment happens after -n flag is triggered,
