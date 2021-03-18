@@ -1,42 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   con_s.c                                            :+:      :+:    :+:   */
+/*   con_c.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:36:41 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/08 17:05:55 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:35:35 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void			con_s(t_printf *data, va_list args)
+void			con_c(t_printf *data, va_list args)
 {
-	char		*str;
-	char		*tmp;
+	char		c;
 
 	handle_stars(data, args);
-	if (data->spc == 1)
-		ft_putchar(' ');
-	if (!(str = va_arg(args, char *)))
+	data->len = 1;
+	if (data->minus == 0)
+		helper_print_padding(data);
+	if (!(c = va_arg(args, int)))
 	{
-		if (data->dot == 0)
-			tmp = ft_strdup("(null)");
-		else
-			tmp = ft_strsub("(null)", 0, data->prc);
+		if (c == 0)
+		{
+			ft_putchar('\0');
+			data->cc++;
+		}
 	}
 	else
 	{
-		if (data->dot == 0)
-			tmp = ft_strdup(str);
-		else
-			tmp = ft_strsub(str, 0, data->prc);
+		data->len = 1;
+		ft_putchar(c);
+		data->cc++;
 	}
-	data->len = ft_strlen(tmp);
-	data->minus == 0 ? helper_print_padding(data) : 0;
-	ft_putstr(tmp);
-	data->cc += ft_strlen(tmp) + data->spc;
-	free(tmp);
 }

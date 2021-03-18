@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:47:33 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:48:30 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 05:51:39 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ char	*get_file_name(char *file_name)
 {
 	char	*new_name;
 
-	if (ft_strchr(file_name, '/'))
-		new_name = ft_strrchr(file_name, '/') + 1;
-	else
-		new_name = file_name;
+	new_name = file_name;
 	*ft_strrchr(new_name, '.') = '\0';
+	ft_printf("Writing output to: %s.cor\n", file_name);
 	return (ft_strjoin(new_name, ".cor"));
 }
 
@@ -70,8 +68,6 @@ void	write_hexa(t_asm *assm, char *file_name)
 	char	*output_file;
 
 	output_file = get_file_name(file_name);
-	ft_putstr("Writing output to: ");
-	ft_putendl(output_file);
 	fd = open(output_file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	free(output_file);
 	write_header(assm, fd);

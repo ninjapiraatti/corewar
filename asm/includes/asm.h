@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:15:35 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/16 20:26:56 by spentti          ###   ########.fr       */
+/*   Updated: 2021/03/18 10:20:17 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <fcntl.h>
 # include "op.h"
 # include "op_table.h"
-# include "../../ft_printf/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
 
 # define BUF_SIZE	4194305
 

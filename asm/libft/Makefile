@@ -6,7 +6,7 @@
 #    By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/24 09:41:56 by tlouekar          #+#    #+#              #
-#    Updated: 2021/01/19 11:07:53 by tlouekar         ###   ########.fr        #
+#    Updated: 2021/03/18 09:32:55 by tlouekar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,21 @@ src/ft_strsplit.c \
 src/ft_strtrim.c \
 src/ft_strcsub.c \
 src/get_next_line.c \
+src/ft_printf.c \
+	src/con_c.c \
+	src/con_d.c \
+	src/con_o.c \
+	src/con_u.c \
+	src/con_p.c \
+	src/con_s.c \
+	src/con_x.c \
+	src/con_f.c \
+	src/parser.c \
+	src/initialize.c \
+	src/output.c \
+	src/helpers.c \
+	src/helpers_length.c \
+	src/ftoa.c \
 
 INCS = includes/
 
@@ -145,6 +160,21 @@ ft_strsplit.o \
 ft_strtrim.o \
 ft_strcsub.o \
 get_next_line.o \
+ft_printf.o \
+	con_c.o \
+	con_d.o \
+	con_o.o \
+	con_u.o \
+	con_p.o \
+	con_s.o \
+	con_x.o \
+	con_f.o \
+	parser.o \
+	initialize.o \
+	output.o \
+	helpers.o \
+	helpers_length.o \
+	ftoa.o \
 
 all: $(NAME)
 

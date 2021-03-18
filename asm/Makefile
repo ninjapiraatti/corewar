@@ -19,7 +19,7 @@ validate_arguments.c
 
 INC = -I /includes/
 
-LIB = ../ft_printf/libftprintf.a
+LIB = libft/libft.a
 
 SRC_DIR = src/
 
@@ -31,17 +31,17 @@ all: $(FILE)
 
 $(FILE):
 	@echo "Compiling..."
-	@cd ../ft_printf && make re && cd ../asm
+	@cd ./libft && make re && cd ..
 	@gcc $(INC) -o $(FILE) $(SRCS) $(LIB)
 	@echo "Done."
 
 clean:
 	@echo "cleaning libraries..."
-	@cd ../ft_printf && make clean && cd ../asm
+	@cd ./libft && make clean && cd ..
 
 fclean: clean
 	@echo "removing executables..."
-	@cd ../ft_printf && make fclean && cd ../asm
+	@cd ./libft && make fclean && cd ..
 	@rm -f $(FILE)
 
 re: fclean all

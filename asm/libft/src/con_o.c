@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   con_d.c                                            :+:      :+:    :+:   */
+/*   con_o.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:36:41 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/08 16:15:19 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:35:52 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void			con_d(t_printf *data, va_list args)
+void			con_o(t_printf *data, va_list args)
 {
 	char		*str;
 
 	handle_stars(data, args);
-	handle_length(data, args);
-	str = helper_itoa_base(data->val, 10, data);
+	handle_length_unsigned(data, args);
+	str = helper_itoa_base_u((unsigned long long)data->val, 8, data);
 	data->len = ft_strlen(str);
+	if (data->hash == 1 && data->val != 0)
+		data->len++;
 	if (data->minus == 0)
 		helper_print_padding(data);
-	helper_plusminus(data);
-	helper_spaces(data);
 	helper_prc_zeros(data);
-	if (!(data->dot == 1 && data->val == 0 && data->prc == 0))
+	if (!(data->dot == 1 && data->val == 0
+	&& data->prc == 0 && data->hash == 0))
 	{
 		ft_putstr(str);
 		data->cc += ft_strlen(str);

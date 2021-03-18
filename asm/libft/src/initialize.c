@@ -6,11 +6,11 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 11:07:43 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/07 16:03:14 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:36:47 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 t_printf		*initialize_more(char *ptr, t_printf *data)
 {

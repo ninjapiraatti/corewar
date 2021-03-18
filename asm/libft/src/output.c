@@ -6,13 +6,13 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 12:21:01 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/01 12:27:31 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:05:12 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void		con_loose(t_printf *data, va_list args)
+void		con_loose(t_printf *data)
 {
 	data->fieldwidth--;
 	if (data->minus == 0 && data->zero == 0)
@@ -43,10 +43,10 @@ void		print_con_spec(t_printf *data, va_list args)
 	else if (data->f == 1)
 		con_f(data, args);
 	else if (data->loose == 1)
-		con_loose(data, args);
+		con_loose(data);
 }
 
-int			output(t_printf *data, va_list args, int debug)
+int			output(t_printf *data, va_list args)
 {
 	if (data->dot > 0)
 		data->len = data->prc;

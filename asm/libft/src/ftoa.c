@@ -6,11 +6,11 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 08:33:06 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/06 10:27:54 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:36:29 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 long double		addfive(long double value, t_printf *data)
 {
