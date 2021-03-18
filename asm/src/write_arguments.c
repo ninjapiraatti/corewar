@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:44:39 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:46:30 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:12:44 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	write_dir(char *arg, int index, int fd)
 	int	dir;
 
 	dir = ft_atoi(arg + 1);
-	if (op_table[index].t_dir_size == 4)
+	if (g_op_table[index].t_dir_size == 4)
 	{
 		write(fd, &((unsigned char*)&dir)[3], 1);
 		write(fd, &((unsigned char*)&dir)[2], 1);

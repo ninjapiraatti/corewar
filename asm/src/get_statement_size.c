@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_statement_size2.c                              :+:      :+:    :+:   */
+/*   get_statement_size.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:21:45 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:32:19 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:11:57 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		get_arg_type(char *arg)
 int		get_arg_size(int code, int type)
 {
 	if (type == DIR_CODE)
-		return (op_table[code].t_dir_size);
+		return (g_op_table[code].t_dir_size);
 	return (type == REG_CODE ? 1 : 2);
 }
 
@@ -36,7 +36,7 @@ int		get_statement_size(t_statement *statement)
 
 	i = 0;
 	size = 1;
-	if (op_table[statement->code].arg_type_code)
+	if (g_op_table[statement->code].arg_type_code)
 		size += 1;
 	while (statement->args[i])
 	{

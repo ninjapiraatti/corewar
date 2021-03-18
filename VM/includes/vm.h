@@ -41,7 +41,7 @@ typedef struct			s_pl
 {
 	char				*pl_order[MAX_PLAYERS + 1];
 	int					pl_num;
-	header_t			**h_info;
+	t_header			**h_info;
 	unsigned char		**exec;
 	int					last_life[MAX_PLAYERS + 1];
 }						t_pl;
@@ -125,7 +125,7 @@ int						vm_error(char *str);
 */
 
 void					init_structs(t_pl *players, t_flag *flags);
-header_t				**prepare_header_info_array(int pl_num);
+t_header				**prepare_header_info_array(int pl_num);
 void					ft_revbytes(char *bytes, size_t size);
 int						ft_str_is_empty(char *str, int size);
 void					init_registries(int *new_regs, int id, int *copy_regs);

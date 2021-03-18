@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexical_analysis.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:22:07 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:41:12 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:25:56 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_statement	*new_statement(t_asm *assm)
 	t_statement	*statement;
 
 	if (!(statement = (t_statement*)malloc(sizeof(t_statement))))
-		error_management("Malloc error");
+		error_management(strerror(errno));
 	statement->label = get_label(assm);
 	statement->instruction = get_instruction(assm);
 	if (!statement->instruction)
@@ -65,7 +65,7 @@ void		lexical_analysis(t_asm *assm)
 {
 	t_statement *statements;
 
-	assm->file_size = get_2d_array_size(assm->file);
+	assm->file_size = get_2d_size(assm->file);
 	while (assm->file[assm->index])
 	{
 		if (contains_statement(assm->file[assm->index]))

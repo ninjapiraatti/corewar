@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:22:50 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:43:44 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/17 20:20:42 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,4 @@ void	validate_file(t_asm *assm)
 
 	i = validate_header(assm->file1d, 0, 0, 0);
 	validate_instructions(assm->file, i);
-	ft_putstr("		~ validation successful ~\n");
 }
