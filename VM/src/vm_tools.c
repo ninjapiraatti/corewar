@@ -6,7 +6,7 @@
 /*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:56:02 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 10:56:04 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:38:45 by ksalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ void		init_structs(t_pl *players, t_flag *flags)
 {
 	int			i;
 
-	i = -1;
-	while (++i < MAX_PLAYERS + 1)
+	i = 0;
+	while (i < MAX_PLAYERS + 1)
+	{
 		players->pl_order[i] = NULL;
+		i++;
+	}
 	players->pl_num = 0;
 	i = -1;
 	while (++i < MAX_PLAYERS + 1)

@@ -6,7 +6,7 @@
 /*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:52:37 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 10:52:40 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:48:27 by ksalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ int		change_player_order(int i, t_flag *fl, t_pl *ps, t_avac *avac)
 	pos = ft_atoi(av[i]);
 	pos_string = ft_itoa(pos);
 	if (ft_strcmp(pos_string, av[i]) || pos < 1 ||
-		fl->n[pos] != INIT_FLAG || pos > MAX_PLAYERS)
+		pos > MAX_PLAYERS || fl->n[pos] != INIT_FLAG)
 		vm_error("Error, invalid usage of -n flag");
+	fl->n[pos] = 1;
 	i++;
 	ft_strdel(&pos_string);
 	assign_player_order(ps, av[i], pos);
@@ -74,9 +75,9 @@ void	double_check_player_order(char **order, int player_num)
 	i = 1;
 	while (i < MAX_PLAYERS)
 	{
-		if (order[i])
+		if (!order[i])
 		{
-			if (i > player_num)
+			if (i <= player_num)
 				vm_error("Error, invalid -n flag implementation!");
 		}
 		i++;
