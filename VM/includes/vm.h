@@ -86,7 +86,7 @@ typedef struct			s_carriage
 	int					last_live;
 	int					regs[REG_NUMBER];
 	int					color_id;
-	int					carr_id;
+	int					id;
 	int					next_state;
 	struct s_carriage	*next;
 	int					args[3];
