@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_labels.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:21:27 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/16 16:13:53 by spentti          ###   ########.fr       */
+/*   Updated: 2021/03/18 05:55:14 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ char	*count_label_size(t_statement *state, int arg_i, int label_i, int check)
 
 char	*count_label_index(char *str, t_statement *tmp, int count, int index)
 {
-	int			check;
-	int			i;
+	int			i[2];
 	char		**arr;
 	t_statement	*state;
 
@@ -65,17 +64,17 @@ char	*count_label_index(char *str, t_statement *tmp, int count, int index)
 	arr = ft_strsplit(str, ':');
 	ft_strdel(&str);
 	str = arr[0][0] == '%' ? ft_strdup(arr[1]) : ft_strdup(arr[0]);
-	check = arr[0][0] == '%' ? 0 : 1;
+	i[1] = arr[0][0] == '%' ? 0 : 1;
 	while (state)
 	{
-		i = -1;
+		i[0] = -1;
 		if (state->label)
-			while (state->label[++i])
-				if (ft_strcmp(str, state->label[i]) == 0)
+			while (state->label[++i[0]])
+				if (ft_strcmp(str, state->label[i[0]]) == 0)
 				{
 					free_2d_array(arr);
 					ft_strdel(&str);
-					return (count_label_size(tmp, index, count, check));
+					return (count_label_size(tmp, index, count, i[1]));
 				}
 		count++;
 		state = state->next;
