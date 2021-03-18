@@ -6,11 +6,11 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 12:35:19 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/01 17:03:42 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:09:27 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 char			*preparse(char *str, va_list args, t_printf *data)
 {
@@ -31,7 +31,7 @@ char			*preparse(char *str, va_list args, t_printf *data)
 	str = parse(str + 1, data);
 	if (str != NULL)
 	{
-		output(data, args, 0);
+		output(data, args);
 		str++;
 	}
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 08:46:38 by tlouekar          #+#    #+#             */
-/*   Updated: 2021/01/19 11:04:56 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:22:06 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_wordlen(char *s, char c, int start);
 int					ft_wordcnt(char *s, char c);
 int					get_next_line(const int fd, char **line);
+int					ft_printf(const char *format, ...);
 
 #endif

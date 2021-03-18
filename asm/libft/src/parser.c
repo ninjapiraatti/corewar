@@ -6,13 +6,13 @@
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 09:43:42 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/07 14:14:25 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:07:52 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-int		inject_int(char *str, t_printf *data, int *flag)
+int		inject_int(char *str, int *flag)
 {
 	int		i;
 
@@ -56,7 +56,7 @@ int		flag_to_data(char *str, t_printf *data)
 	{
 		data->dot = 1;
 		str++;
-		return (inject_int(str, data, &(data->prc)) + 1);
+		return (inject_int(str, &(data->prc)) + 1);
 	}
 	else if (*str == '0')
 	{
@@ -66,7 +66,7 @@ int		flag_to_data(char *str, t_printf *data)
 		str++;
 	}
 	else if (ft_isdigit(*(str)) == 1)
-		return (inject_int(str, data, &(data->fieldwidth)));
+		return (inject_int(str, &(data->fieldwidth)));
 	return (1);
 }
 

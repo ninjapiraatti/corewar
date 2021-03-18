@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   con_c.c                                            :+:      :+:    :+:   */
+/*   con_u.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:36:41 by tlouekar          #+#    #+#             */
-/*   Updated: 2020/07/08 16:17:07 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:36:09 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void			con_c(t_printf *data, va_list args)
+void			con_u(t_printf *data, va_list args)
 {
-	char		c;
+	char		*str;
 
 	handle_stars(data, args);
-	data->len = 1;
+	handle_length_unsigned(data, args);
+	str = helper_itoa_base_u(data->val, 10, data);
+	data->len = ft_strlen(str);
 	if (data->minus == 0)
 		helper_print_padding(data);
-	if (!(c = va_arg(args, int)))
+	helper_prc_zeros(data);
+	if (!(data->dot == 1 && data->val == 0 && data->prc == 0))
 	{
-		if (c == 0)
-		{
-			ft_putchar('\0');
-			data->cc++;
-		}
+		ft_putstr(str);
+		data->cc += ft_strlen(str);
 	}
-	else
-	{
-		data->len = 1;
-		ft_putchar(c);
-		data->cc++;
-	}
+	free(str);
 }
