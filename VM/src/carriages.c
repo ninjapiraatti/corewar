@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   carriages.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:53:27 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 10:53:29 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:57:04 by tlouekar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void				ft_add_carriage(t_carriage **alst, t_carriage *new)
 			*alst = new;
 		else
 		{
-			new->carr_id = (*alst)->carr_id + 1;
+			new->id = (*alst)->id + 1;
 			new->next = *alst;
 			*alst = new;
 		}
@@ -47,7 +47,7 @@ t_carriage			*create_carriage(int player_id, int position)
 	new->args[0] = 0;
 	new->args[1] = 0;
 	new->args[2] = 0;
-	new->carr_id = 1;
+	new->id = 1;
 	new->inst = -1;
 	return (new);
 }
@@ -66,7 +66,7 @@ t_carriage			*kill_all_carriages(t_carriage *head, t_game *game)
 		cur = head->next;
 		if (game->flags->kill)
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				head->carr_id, game->cycles - head->last_live, game->ctd);
+				head->id, game->cycles - head->last_live, game->ctd);
 		free(head);
 		head = cur;
 	}
@@ -89,7 +89,7 @@ static t_carriage	*kill_first_carrs(t_carriage *head, t_game *game)
 		game->arena[head->pc].color_carr = 0;
 		if (game->flags->kill)
 			ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-				head->carr_id, game->cycles - head->last_live, game->ctd);
+				head->id, game->cycles - head->last_live, game->ctd);
 		free(head);
 		head = tmp;
 	}
@@ -117,7 +117,7 @@ t_carriage			*kill_carriages(t_carriage *head, t_game *game)
 			{
 				if (game->flags->kill)
 					ft_printf("Process %d hasn't lived for %d cycles \
-						(CTD %d)\n", tmp->carr_id, game->cycles -
+						(CTD %d)\n", tmp->id, game->cycles -
 							tmp->last_live, game->ctd);
 				game->arena[tmp->pc].color_carr = 0;
 				cur->next = tmp->next ? tmp->next : NULL;

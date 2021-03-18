@@ -86,7 +86,7 @@ static void	run_carriage(t_game *game, t_carriage *c)
 		else if (check_inst(arg_code, c, arena))
 		{
 			if (game->flags->moves)
-				ft_printf("P %4d | %s", c->carr_id, g_op_table[c->inst - 1].name);
+				ft_printf("P %4d | %s", c->id, g_op_table[c->inst - 1].name);
 			perform_statement(c, game, c->inst);
 		}
 		set_new_pc_and_color(game, c);
