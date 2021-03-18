@@ -4,7 +4,7 @@ static size_t	get_arg_size(int arg_type, int inst)
 {
 	if (arg_type == REG_CODE)
 		return (1);
-	if (arg_type == DIR_CODE && op_table[inst - 1].t_dir_size == 4)
+	if (arg_type == DIR_CODE && g_op_table[inst - 1].t_dir_size == 4)
 		return (4);
 	else if (arg_type == IND_CODE || arg_type == DIR_CODE)
 		return (2);
@@ -43,7 +43,7 @@ static int		check_args(char arg, int i, int inst)
 	count = 0;
 	while (++j < 3)
 	{
-		if (op_table[inst].arguments[i][j] == 0)
+		if (g_op_table[inst].arguments[i][j] == 0)
 			count++;
 	}
 	if (count < 3 && arg == 0)
@@ -51,7 +51,7 @@ static int		check_args(char arg, int i, int inst)
 	j = 0;
 	while (j < 3)
 	{
-		if (op_table[inst].arguments[i][j] == arg)
+		if (g_op_table[inst].arguments[i][j] == arg)
 			return (1);
 		j++;
 	}
@@ -72,7 +72,7 @@ static int		check_code(unsigned char atc, t_carriage *c, t_arena *a)
 	c->as[1] = get_arg_size(c->args[1], c->inst);
 	c->as[2] = get_arg_size(c->args[2], c->inst);
 	c->next_state = 2;
-	while (i < op_table[c->inst - 1].arg_amount)
+	while (i < g_op_table[c->inst - 1].arg_amount)
 	{
 		c->next_state += c->as[i];
 		if (!check_args(c->args[i], i, c->inst - 1))
@@ -88,10 +88,10 @@ int				check_inst(unsigned char atc, t_carriage *c, t_arena *a)
 {
 	if (c->inst > 0 && c->inst < 17)
 	{
-		if (op_table[c->inst - 1].arg_type_code == 1)
+		if (g_op_table[c->inst - 1].arg_type_code == 1)
 			return (check_code(atc, c, a));
 		else
-			c->next_state = 1 + op_table[c->inst - 1].t_dir_size;
+			c->next_state = 1 + g_op_table[c->inst - 1].t_dir_size;
 		return (1);
 	}
 	return (0);

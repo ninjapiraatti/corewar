@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vm_tools.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:56:02 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 10:56:04 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 11:21:12 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ void		init_structs(t_pl *players, t_flag *flags)
 ** Allocates the right amount of memory for the header_t* array
 */
 
-header_t	**prepare_header_info_array(int pl_num)
+t_header	**prepare_header_info_array(int pl_num)
 {
-	header_t	**h_info;
+	t_header	**h_info;
 	int			i;
 
-	if (!(h_info = (header_t**)malloc(sizeof(header_t*) *
+	if (!(h_info = (t_header**)malloc(sizeof(t_header*) *
 		pl_num + 1)))
 		vm_error(strerror(errno));
 	h_info[0] = NULL;
 	i = 1;
 	while (i <= pl_num)
 	{
-		if (!(h_info[i] = (header_t*)malloc(sizeof(header_t))))
+		if (!(h_info[i] = (t_header*)malloc(sizeof(t_header))))
 			vm_error(strerror(errno));
 		i++;
 	}

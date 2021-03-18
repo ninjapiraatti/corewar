@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:47:33 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/18 05:51:39 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:12:33 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	write_instructions(t_statement *statement, int fd)
 		{
 			buffer = statement->code + 1;
 			write(fd, &buffer, 1);
-			if (op_table[statement->code].arg_type_code)
+			if (g_op_table[statement->code].arg_type_code)
 				write(fd, &statement->arg_type_code, 1);
 			write_arguments(statement, fd);
 		}

@@ -6,7 +6,7 @@
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:22:37 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:22:38 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:12:24 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,19 @@ int		validate_arg(char *file, int op, int args)
 	i = 0;
 	if (file[i] == '\0')
 		error_management("file ended");
-	if (op_table[op].arguments[args][0] == REG_CODE)
+	if (g_op_table[op].arguments[args][0] == REG_CODE)
 		i = is_t_reg(&file[i]);
-	if (i == 0 && op_table[op].arguments[args][1] == DIR_CODE)
+	if (i == 0 && g_op_table[op].arguments[args][1] == DIR_CODE)
 		i = is_t_dir(&file[i]);
-	if (i == 0 && op_table[op].arguments[args][2] == IND_CODE)
+	if (i == 0 && g_op_table[op].arguments[args][2] == IND_CODE)
 		i = is_t_ind(&file[i]);
 	if (i == 0)
 		error_management("didnt find correct argument");
 	i += skip_spaces(&file[i]);
-	if (op_table[op].arg_amount > 1 && args < op_table[op].arg_amount - 1 \
+	if (g_op_table[op].arg_amount > 1 && args < g_op_table[op].arg_amount - 1 \
 	&& file[i] != SEPARATOR_CHAR)
 		error_management("no separator char");
-	else if (args == op_table[op].arg_amount - 1 && file[i] == SEPARATOR_CHAR)
+	else if (args == g_op_table[op].arg_amount - 1 && file[i] == SEPARATOR_CHAR)
 		error_management("separator char after last parameter");
 	if (file[i] == SEPARATOR_CHAR)
 		i++;
@@ -54,7 +54,7 @@ void	validate_arguments(char *file, int op)
 
 	i = 0;
 	args = 0;
-	while (args < op_table[op].arg_amount)
+	while (args < g_op_table[op].arg_amount)
 	{
 		i += skip_spaces(&file[i]);
 		i += validate_arg(&file[i], op, args);
@@ -71,7 +71,7 @@ void	validate_arguments(char *file, int op)
 }
 
 /*
-** Finds matching instruction from op_table.
+** Finds matching instruction from g_op_table.
 */
 
 int		validate_instruction(char *file)
@@ -89,7 +89,7 @@ int		validate_instruction(char *file)
 		i = OP_CODE_COUNT - 1;
 		while (i >= 0)
 		{
-			op_name = op_table[i].op_name;
+			op_name = g_op_table[i].op_name;
 			if (ft_strncmp(op_name, file, ft_strlen(op_name)) == 0)
 			{
 				code = i;
