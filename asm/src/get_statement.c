@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_statement2.c                                   :+:      :+:    :+:   */
+/*   get_statement.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:21:49 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:33:12 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:12:06 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int				get_instruction_code(char *instruction)
 
 	i = -1;
 	while (++i < OP_CODE_COUNT)
-		if (ft_strcmp(op_table[i].op_name, instruction) == 0)
+		if (ft_strcmp(g_op_table[i].op_name, instruction) == 0)
 			code = i;
 	return (code);
 }

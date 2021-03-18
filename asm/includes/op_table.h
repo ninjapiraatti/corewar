@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_table.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:20:06 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/16 19:10:53 by spentti          ###   ########.fr       */
+/*   Updated: 2021/03/18 11:11:36 by pkuussaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct		s_op_table
 
 }					t_op_table;
 
-static const		t_op_table op_table[OP_CODE_COUNT] =
+static const		t_op_table	g_op_table[OP_CODE_COUNT] =
 {
 	{
 		"live",

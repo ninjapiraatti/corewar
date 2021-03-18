@@ -15,7 +15,7 @@ typedef struct		s_op_table
 
 }					t_op_table;
 
-static const	t_op_table op_table[OP_CODE_COUNT] =
+static const	t_op_table	g_op_table[OP_CODE_COUNT] =
 {
 	{
 		"live",
