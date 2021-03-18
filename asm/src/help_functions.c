@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:22:02 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/18 10:41:44 by spentti          ###   ########.fr       */
+/*   Updated: 2021/03/18 11:30:04 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	error_management(char *str)
 ** returns row count of 2d array.
 */
 
-int		get_2d_array_size(char **arr)
+int		get_2d_size(char **arr)
 {
 	int i;
 
@@ -44,32 +44,33 @@ int		get_2d_array_size(char **arr)
 ** as parameter to the 2d array.
 */
 
-char	**resize_2d_array(char **arr, char *str)
+char	**resize_2d_array(char **ar, char *str)
 {
-	char	**new_arr;
+	char	**new;
 	int		i;
 
-	if (!arr)
+	if (!ar)
 	{
-		new_arr = (char**)ft_memalloc(sizeof(char*) * 2);
-		new_arr[0] = str;
-		new_arr[1] = NULL;
+		if (!(new = (char**)ft_memalloc(sizeof(char*) * 2)))
+			error_management(strerror(errno));
+		new[0] = str;
+		new[1] = NULL;
 	}
 	else
 	{
-		new_arr = (char**)ft_memalloc(sizeof(char*) * (get_2d_array_size(arr)
-			+ 2));
+		if (!(new = (char**)ft_memalloc(sizeof(char*) * (get_2d_size(ar) + 2))))
+			error_management(strerror(errno));
 		i = 0;
-		while (i < get_2d_array_size(arr))
+		while (i < get_2d_size(ar))
 		{
-			new_arr[i] = ft_strdup(arr[i]);
+			new[i] = ft_strdup(ar[i]);
 			i++;
 		}
-		new_arr[i] = str;
-		new_arr[i + 1] = NULL;
-		free(arr);
+		new[i] = str;
+		new[i + 1] = NULL;
+		free(ar);
 	}
-	return (new_arr);
+	return (new);
 }
 
 /*
@@ -81,7 +82,7 @@ char	*free_strjoin(char *s1, char *s2)
 	char *str;
 
 	if (!(str = (char*)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
-		return (NULL);
+		error_management(strerror(errno));
 	ft_strcpy(str, s1);
 	ft_strcat(str, s2);
 	free(s1);
@@ -100,16 +101,15 @@ char	*free_strtrim(char *s)
 	len = ft_strlen(s);
 	if (!s)
 		return (NULL);
-	while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n' ||
-	s[i] == '\r' || s[i] == '\v')
+	while (ft_isspace(s[i]))
 		i++;
 	start = i;
-	while (s[len - 1] == ' ' || s[len - 1] == '\t' || s[len - 1] == '\n'
-	|| s[len - 1] == '\r' || s[len - 1] == '\v')
+	while (ft_isspace(s[len - 1]))
 		len--;
 	if (len < start)
 	{
-		trimmed = (char *)malloc(sizeof(char) * 1);
+		if (!(trimmed = (char *)malloc(sizeof(char) * 1)))
+			error_management(strerror(errno));
 		trimmed[0] = '\0';
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pkuussaa <pkuussaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:21:34 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/12 12:29:49 by pkuussaa         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:25:47 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ void	get_statement_arguments(t_statement *statement, char *line, int i)
 		i++;
 	}
 	statement->args = args;
-	statement->arg_count = get_2d_array_size(args);
+	statement->arg_count = get_2d_size(args);
 }

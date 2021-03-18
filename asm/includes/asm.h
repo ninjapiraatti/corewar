@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   asm.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tlouekar <tlouekar@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:15:35 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/18 10:20:17 by tlouekar         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:26:10 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 # include "op.h"
 # include "op_table.h"
 # include "../libft/includes/libft.h"
@@ -89,7 +91,7 @@ void					convert_labels(t_statement *tmp, int i, int count);
 */
 
 void					error_management(char *str);
-int						get_2d_array_size(char **arr);
+int						get_2d_size(char **arr);
 char					**resize_2d_array(char **arr, char *str);
 char					*free_strjoin(char *s1, char *s2);
 char					*free_strtrim(char *s);

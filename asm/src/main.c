@@ -6,7 +6,7 @@
 /*   By: spentti <spentti@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:22:11 by pkuussaa          #+#    #+#             */
-/*   Updated: 2021/03/18 10:41:51 by spentti          ###   ########.fr       */
+/*   Updated: 2021/03/18 11:31:08 by spentti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_asm	*init_asm(void)
 	t_asm	*assm;
 
 	if (!(assm = (t_asm*)malloc(sizeof(t_asm))))
-		error_management("Malloc error");
+		error_management(strerror(errno));
 	assm->statements = NULL;
 	assm->name = NULL;
 	assm->comment = NULL;
@@ -82,7 +82,7 @@ char	**read_file(char *file, int i, t_asm *assm)
 		input = tmp;
 	}
 	if (i == -1)
-		error_management("add strerror(errno) here");
+		error_management(strerror(errno));
 	if (input == NULL)
 		error_management("empty input file");
 	check_last_row(input);
