@@ -6,7 +6,7 @@
 /*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:53:01 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 11:30:34 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 12:03:10 by ksalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** Returns the current index i.
 */
 
-int	parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
+int			parse_flags(int i, t_flag *fl, t_pl *ps, t_avac *avac)
 {
 	int		pos;
 	char	**av;

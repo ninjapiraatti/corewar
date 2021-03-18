@@ -6,14 +6,17 @@
 /*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:53:49 by ksalmi            #+#    #+#             */
-/*   Updated: 2021/03/18 10:53:51 by ksalmi           ###   ########.fr       */
+/*   Updated: 2021/03/18 12:02:50 by ksalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-/*in subject, it is stated that every time a valid live is
-performed, it should be printed. example corewar does not do it.*/
+/*
+** Performs live statement saving the cycle into the carriage which performed
+** the live. If the live corresponds to a player number, it is saved to
+** 'game->id_last_live' and printed if the live flag is active.
+*/
 
 void	manage_live(t_carriage *carr, t_game *game)
 {
