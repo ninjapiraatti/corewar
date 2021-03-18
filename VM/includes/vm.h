@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vm.h                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ksalmi <ksalmi@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/18 12:07:23 by ksalmi            #+#    #+#             */
+/*   Updated: 2021/03/18 12:12:40 by ksalmi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef VM_H
 # define VM_H
 # include "op_table.h"
@@ -142,7 +154,8 @@ void					parse_flags_player_order(t_pl *players,
 ** player_order.c
 */
 
-int						change_player_order(int i, t_flag *fl, t_pl *ps, t_avac *avac);
+int						change_player_order(int i, t_flag *fl, t_pl *ps,
+							t_avac *avac);
 void					assign_player_order(t_pl *ps, char *champion, int pos);
 void					double_check_player_order(char **order, int player_num);
 
@@ -167,7 +180,7 @@ void					place_players_in_mem(t_game *game, t_pl *pl,
 **  print_dump.c
 */
 
-void    				dump_memory(t_arena *arena);
+void					dump_memory(t_arena *arena);
 void					print_sti_info(int reg, int arg2, int arg3, int pos);
 
 /*
@@ -207,19 +220,21 @@ int						modpc(unsigned int address);
 ** check_args.c
 */
 
-int     				check_inst(unsigned char arg_code, t_carriage *c, t_arena *a);
+int						check_inst(unsigned char arg_code,
+							t_carriage *c, t_arena *a);
 
 /*
 ** perform_statement.c
 */
 
-void					perform_statement(t_carriage *carr, t_game *game, int inst);
+void					perform_statement(t_carriage *carr, t_game *game,
+							int inst);
 
 /*
 ** manage_live.c
 */
 
-void    				manage_live(t_carriage *carr, t_game *game);
+void					manage_live(t_carriage *carr, t_game *game);
 
 /*
 ** manage_ld_ldi_lld_lldi.c
@@ -234,8 +249,8 @@ void					manage_lldi(t_carriage *carr, t_game *game);
 ** manage_st_sti.c
 */
 
-void    				manage_st(t_carriage *carr, t_game *game);
-void    				manage_sti(t_carriage *c, t_game *game);
+void					manage_st(t_carriage *carr, t_game *game);
+void					manage_sti(t_carriage *c, t_game *game);
 
 /*
 ** manage_and_or_xor
@@ -244,27 +259,28 @@ void    				manage_sti(t_carriage *c, t_game *game);
 void					manage_and(t_carriage *carr, t_game *game);
 void					manage_or(t_carriage *carr, t_game *game);
 void					manage_xor(t_carriage *carr, t_game *game);
-void    				manage_aff(t_carriage *carr, t_arena *arena, t_flag *flags);
+void					manage_aff(t_carriage *carr, t_arena *arena,
+							t_flag *flags);
 
 /*
 ** manage_add_sub.c
 */
 
-void    				manage_sub(t_carriage *carr, t_game *game);
-void    				manage_add(t_carriage *carr, t_game *game);
+void					manage_sub(t_carriage *carr, t_game *game);
+void					manage_add(t_carriage *carr, t_game *game);
 
 /*
 ** manage_fork_lfork.c
 */
 
-void    				manage_fork(t_game *game, t_carriage *carr);
-void    				manage_lfork(t_game *game, t_carriage *carr);
+void					manage_fork(t_game *game, t_carriage *carr);
+void					manage_lfork(t_game *game, t_carriage *carr);
 
 /*
 ** manage_zjmp.c
 */
 
-void    				manage_zjmp(t_game *game, t_carriage *carr);
+void					manage_zjmp(t_game *game, t_carriage *carr);
 
 /*
 ** visualizer_ncurses1.c
@@ -272,7 +288,8 @@ void    				manage_zjmp(t_game *game, t_carriage *carr);
 int						start_visualizer(void);
 int						ncurses_print_arena(t_arena *arena);
 void					perform_visualization(t_game *game);
-void					ncurses_declare_winner(int winner_number, char *winner_name);
+void					ncurses_declare_winner(int winner_number,
+							char *winner_name);
 
 /*
 ** visualizer_ncurses2.c
@@ -282,4 +299,4 @@ t_arena					print_hex_color(t_arena arena);
 void					ncurses_print_players(t_game *game, int y, int x);
 void					ncurses_print_game_info(t_game *game, int x);
 
-# endif
+#endif
